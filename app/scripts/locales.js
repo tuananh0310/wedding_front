@@ -104,7 +104,10 @@ if (lang) {
 
 Vue.use(VueI18n);
 
-Vue.config.lang = lang;
-Vue.config.fallbackLang = 'es';
+const i18n = new VueI18n({
+  locale: lang || 'es',
+  fallbackLocale: 'es',
+  messages: locales
+});
 
-Object.keys(locales).forEach(lang => Vue.locale(lang, locales[lang]));
+window.APP_I18N = i18n;

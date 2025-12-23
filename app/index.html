@@ -104,6 +104,12 @@
                data-placement="left" data-container="body">
               <span class="dot"></span></a>
           </li>
+          <li>
+            <a href="#gallery" v-on:click="scroll" title="Gallery"
+               data-toggle="tooltip"
+               data-placement="left" data-container="body">
+              <span class="dot"></span></a>
+          </li>
         </ul>
       </nav>
 
@@ -326,6 +332,14 @@
             </div>
           </div>
         </section>
+
+        <section id="gallery" class="slide">
+          <div class="memories">
+            <div class="memory" v-for="img in gallery" :key="img">
+              <img :src="img" :alt="img">
+            </div>
+          </div>
+        </section>
       </div>
 
       <div class="characters">
@@ -341,10 +355,13 @@
     <!-- build:js scripts/vendor.js -->
     <!-- bower:js -->
     <script src="/bower_components/jquery/dist/jquery.js"></script>
+    <script src="/bower_components/modernizr/modernizr.js"></script>
     <!-- endbower -->
-    <script src="/bower_components/vue/dist/vue.min.js"></script>
-    <script src="/bower_components/vue-i18n/dist/vue-i18n.min.js"></script>
     <!-- endbuild -->
+
+    <!-- Vue (CDN, Vue 2) -->
+    <script src="https://unpkg.com/vue@2.6.14/dist/vue.min.js"></script>
+    <script src="https://unpkg.com/vue-i18n@8.28.2/dist/vue-i18n.min.js"></script>
 
     <!-- build:js scripts/plugins.js -->
     <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/affix.js"></script>
@@ -364,6 +381,7 @@
     <!-- build:js scripts/main.js -->
     <script src="scripts/sparkle.js"></script>
     <script src="scripts/locales.js"></script>
+    <script src="scripts/images-list.js"></script>
     <script src="scripts/main.js"></script>
     <!-- endbuild -->
   </body>
