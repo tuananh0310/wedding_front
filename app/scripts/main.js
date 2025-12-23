@@ -53,6 +53,13 @@ let app = new Vue({
     }
   },
   mounted: function()  {
+    // Update page title with names and slogan
+    if (this.$t) {
+      const names = this.$t('start.names');
+      const slogan = this.$t('start.slogan');
+      document.title = `${names}. ${slogan}`;
+    }
+
     $('[data-toggle="tooltip"]').tooltip();
     $('body').scrollspy({ target: '.navbar', offset: $(window).height()/2 });
     $('.navbar').on('activate.bs.scrollspy', () => {

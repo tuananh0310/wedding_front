@@ -4,7 +4,7 @@ let locales = {
   es: {
     start: {
       title: 'Inicio',
-      names: 'Miguel y Miriam',
+      names: 'Tuấn Anh y Thu Phương',
       slogan: 'Historia de un viaje'
     },
     beginning: {
@@ -51,7 +51,7 @@ let locales = {
   en: {
     start: {
       title: 'Start',
-      names: 'Miguel & Miriam',
+      names: 'Tuấn Anh & Thu Phương',
       slogan: 'Story of a journey'
     },
     beginning: {
@@ -94,6 +94,53 @@ let locales = {
       title: 'Let\'s celebrate it!',
       content: 'Now we are starting a new stage of our adventure. Do you want to join us?<br><br>See you on 26th September to celebrate!',
     },
+  },
+  vi: {
+    start: {
+      title: 'Bắt đầu',
+      names: 'Tuấn Anh và Thu Phương',
+      slogan: 'Câu chuyện của một hành trình'
+    },
+    beginning: {
+      title: 'Khởi đầu',
+      content: 'Câu chuyện của chúng tôi bắt đầu từ {years} năm trước. Không ai có thể tưởng tượng được cuộc phiêu lưu tuyệt vời đang chờ đợi phía trước.',
+    },
+    firstMoments: {
+      title: 'Những khoảnh khắc đầu tiên',
+      content: 'Những cây số cuối cùng của chiếc xe cũ đã đưa chúng tôi đến những điểm đến đầu tiên, khám phá những nơi mới và trải qua nhiều khoảnh khắc đầu tiên bên nhau.',
+    },
+    madrid: {
+      title: 'Madrid',
+      content: 'Sau vài năm, chúng tôi quyết định chuyển đến sống cùng nhau ở Madrid. Từ đó bắt đầu cuộc phiêu lưu vòng quanh thế giới của chúng tôi.',
+    },
+    newYork: {
+      title: 'New York',
+      content: 'Chúng tôi phải vượt đại dương để dừng chân đầu tiên tại thành phố không bao giờ ngủ: New York.',
+    },
+    paris: {
+      title: 'Paris',
+      content: 'Sau khi trở về Malaga, chúng tôi có thể nhớ lại tuổi thơ ở Paris, nơi cũng có một CÓ! trả lời câu hỏi lớn.',
+    },
+    london: {
+      title: 'London',
+      content: 'Kể từ khi sống ở London vài tháng, chúng tôi coi đó là ngôi nhà thứ hai. Chúng tôi không thể ngừng quay lại lần này và lần nữa... và lần nữa!',
+    },
+    italy: {
+      title: 'Ý',
+      content: 'Chúng tôi đã du lịch Ý bằng ô tô, tận hưởng những góc phố tuyệt vời và thức ăn ngon. <br> Mamma mia!',
+    },
+    edinburgh: {
+      title: 'Edinburgh',
+      content: 'Chúng tôi nói lời tạm biệt với một trong những năm tốt nhất bằng cách ăn mừng Hogmanay ở Edinburgh.',
+    },
+    japan: {
+      title: 'Nhật Bản',
+      content: 'Tương lai sẽ đưa chúng tôi đến những nền văn hóa mới nơi chúng tôi sẽ thực hiện những giấc mơ geek của mình.',
+    },
+    celebrate: {
+      title: 'Hãy cùng ăn mừng!',
+      content: 'Bây giờ chúng tôi đang bắt đầu một giai đoạn mới trong cuộc phiêu lưu. Bạn có muốn tham gia cùng chúng tôi không?<br><br>Hẹn gặp bạn vào ngày 26 tháng 9 để cùng ăn mừng!',
+    },
   }
 };
 
@@ -105,8 +152,8 @@ if (lang) {
 Vue.use(VueI18n);
 
 const i18n = new VueI18n({
-  locale: lang || 'es',
-  fallbackLocale: 'es',
+  locale: lang || 'vi',
+  fallbackLocale: 'vi',
   messages: locales
 });
 

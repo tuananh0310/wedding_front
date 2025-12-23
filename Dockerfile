@@ -6,11 +6,14 @@ WORKDIR /app
 COPY package.json bower.json ./
 RUN npm install -g bower \
  && npm install \
- && bower install --allow-root --config.interactive=false
+ && bower install --allow-root --config.interactive=false \
+ && npm cache clean --force
 
 # Copy the rest and build
 COPY . .
-RUN npm run build
+RUN npm run build \
+ && rm -rf node_modules bower_components .tmp \
+ && npm cache clean --force
 
 # ---- runtime ----
 FROM nginx:1.25-alpine AS runtime
