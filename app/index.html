@@ -40,6 +40,34 @@
         </div>
       </div>
 
+      <div class="lang-switcher">
+        <button type="button"
+                :class="{ active: currentLocale === 'vi' }"
+                v-on:click="changeLocale('vi')">
+          VI
+        </button>
+        <button type="button"
+                :class="{ active: currentLocale === 'en' }"
+                v-on:click="changeLocale('en')">
+          EN
+        </button>
+        <button type="button"
+                :class="{ active: currentLocale === 'es' }"
+                v-on:click="changeLocale('es')">
+          ES
+        </button>
+      </div>
+
+      <button
+        type="button"
+        class="music-toggle"
+        v-on:click="toggleMusic">
+        <span class="music-icon">♪</span>
+        <span class="music-label">
+          {{ isMusicPlaying ? $t('music.pause') : $t('music.play') }}
+        </span>
+      </button>
+
       <nav class="navbar">
         <ul class="nav">
           <li>
@@ -105,6 +133,18 @@
               <span class="dot"></span></a>
           </li>
           <li>
+            <a href="#schedule" v-on:click="scroll" :title="$t('schedule.title')"
+               data-toggle="tooltip"
+               data-placement="left" data-container="body">
+              <span class="dot"></span></a>
+          </li>
+          <li>
+            <a href="#rsvp" v-on:click="scroll" :title="$t('rsvp.title')"
+               data-toggle="tooltip"
+               data-placement="left" data-container="body">
+              <span class="dot"></span></a>
+          </li>
+          <li>
             <a href="#gallery" v-on:click="scroll" title="Gallery"
                data-toggle="tooltip"
                data-placement="left" data-container="body">
@@ -124,6 +164,36 @@
             <h2 class="subtitle">
               {{ $t('start.slogan') }}
             </h2>
+
+            <div class="countdown" v-if="countdown && countdown.totalMs > 0">
+              <div class="countdown-title">
+                {{ $t('countdown.title') }}
+              </div>
+              <div class="countdown-items">
+                <div class="countdown-item">
+                  <span class="countdown-number">{{ countdown.days }}</span>
+                  <span class="countdown-label">{{ $t('countdown.days') }}</span>
+                </div>
+                <div class="countdown-item">
+                  <span class="countdown-number">{{ countdown.hours }}</span>
+                  <span class="countdown-label">{{ $t('countdown.hours') }}</span>
+                </div>
+                <div class="countdown-item">
+                  <span class="countdown-number">{{ countdown.minutes }}</span>
+                  <span class="countdown-label">{{ $t('countdown.minutes') }}</span>
+                </div>
+                <div class="countdown-item">
+                  <span class="countdown-number">{{ countdown.seconds }}</span>
+                  <span class="countdown-label">{{ $t('countdown.seconds') }}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="countdown countdown-passed" v-else>
+              <div class="countdown-title">
+                {{ $t('countdown.passed') }}
+              </div>
+            </div>
           </div>
         </section>
 
@@ -330,6 +400,91 @@
             <div class="highlight">
               <div class="highlight-text" v-html="$t('celebrate.content')"></div>
             </div>
+          </div>
+        </section>
+
+        <section id="schedule" class="slide">
+          <div class="content">
+            <h2 class="subtitle">
+              {{ $t('schedule.title') }}
+            </h2>
+            <div class="schedule-list">
+              <div class="schedule-item">
+                <div class="schedule-time">
+                  {{ $t('schedule.item1.time') }}
+                </div>
+                <div class="schedule-text">
+                  {{ $t('schedule.item1.text') }}
+                </div>
+              </div>
+              <div class="schedule-item">
+                <div class="schedule-time">
+                  {{ $t('schedule.item2.time') }}
+                </div>
+                <div class="schedule-text">
+                  {{ $t('schedule.item2.text') }}
+                </div>
+              </div>
+              <div class="schedule-item">
+                <div class="schedule-time">
+                  {{ $t('schedule.item3.time') }}
+                </div>
+                <div class="schedule-text">
+                  {{ $t('schedule.item3.text') }}
+                </div>
+              </div>
+              <div class="schedule-item">
+                <div class="schedule-time">
+                  {{ $t('schedule.item4.time') }}
+                </div>
+                <div class="schedule-text">
+                  {{ $t('schedule.item4.text') }}
+                </div>
+              </div>
+            </div>
+
+            <button type="button"
+                    class="btn-rsvp btn-map"
+                    v-on:click="openMap">
+              {{ $t('schedule.openMap') }}
+            </button>
+          </div>
+        </section>
+
+        <section id="rsvp" class="slide">
+          <div class="content">
+            <h2 class="subtitle">
+              {{ $t('rsvp.title') }}
+            </h2>
+            <p v-html="$t('rsvp.content')"></p>
+
+            <form class="rsvp-form" v-on:submit.prevent="submitRSVP" novalidate>
+              <div class="form-group">
+                <label for="rsvp-name">{{ $t('rsvp.nameLabel') }}</label>
+                <input id="rsvp-name" type="text" v-model="rsvpName" required>
+              </div>
+
+              <div class="form-group">
+                <label for="rsvp-attending">{{ $t('rsvp.attendingLabel') }}</label>
+                <select id="rsvp-attending" v-model="rsvpAttending">
+                  <option value="yes">{{ $t('rsvp.attendingYes') }}</option>
+                  <option value="no">{{ $t('rsvp.attendingNo') }}</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="rsvp-message">{{ $t('rsvp.messageLabel') }}</label>
+                <textarea id="rsvp-message" rows="3" v-model="rsvpMessage"></textarea>
+              </div>
+
+              <button type="submit" class="btn-rsvp">
+                {{ $t('rsvp.button') }}
+              </button>
+
+              <p class="rsvp-thanks" v-if="rsvpSubmitted">
+                {{ $t('rsvp.thankYou') }}
+              </p>
+            </form>
           </div>
         </section>
 

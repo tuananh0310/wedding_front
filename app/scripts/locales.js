@@ -47,6 +47,50 @@ let locales = {
       title: '¡Celebrémoslo!',
       content: 'Ahora toca empezar una nueva etapa de nuestra aventura. ¿Quieres acompañarnos?<br><br>¡Te esperamos el 26 de septiembre para celebrarlo!',
     },
+    schedule: {
+      title: 'Horario del gran día',
+      item1: {
+        time: '09:30',
+        text: 'Bienvenida y recepción de los invitados.'
+      },
+      item2: {
+        time: '10:00',
+        text: 'Ceremonia.'
+      },
+      item3: {
+        time: '11:00',
+        text: 'Fotos y brindis.'
+      },
+      item4: {
+        time: '12:00',
+        text: 'Banquete y fiesta.'
+      },
+      openMap: 'Ver cómo llegar'
+    },
+    countdown: {
+      title: 'Cuenta atrás para el gran día',
+      days: 'días',
+      hours: 'horas',
+      minutes: 'min',
+      seconds: 'seg',
+      passed: '¡Ya hemos celebrado este gran día tan especial!'
+    },
+    rsvp: {
+      title: 'Confirma tu asistencia',
+      content: 'Cuéntanos si podrás acompañarnos en nuestro gran día. Tu respuesta nos ayudará a prepararlo todo con mucho cariño.',
+      nameLabel: 'Nombre',
+      attendingLabel: '¿Vas a venir?',
+      attendingYes: 'Sí, allí estaré',
+      attendingNo: 'Lo siento, no podré ir',
+      messageLabel: 'Mensaje (opcional)',
+      button: 'Enviar mensaje',
+      thankYou: '¡Gracias por tu mensaje! Nos hace mucha ilusión compartir este día contigo.',
+      nameRequired: 'Por favor, escribe tu nombre.'
+    },
+    music: {
+      play: 'Reproducir música',
+      pause: 'Pausar música'
+    }
   },
   en: {
     start: {
@@ -94,6 +138,50 @@ let locales = {
       title: 'Let\'s celebrate it!',
       content: 'Now we are starting a new stage of our adventure. Do you want to join us?<br><br>See you on 26th September to celebrate!',
     },
+    schedule: {
+      title: 'Wedding day schedule',
+      item1: {
+        time: '09:30',
+        text: 'Guests arrival and welcome.'
+      },
+      item2: {
+        time: '10:00',
+        text: 'Ceremony.'
+      },
+      item3: {
+        time: '11:00',
+        text: 'Photos and toast.'
+      },
+      item4: {
+        time: '12:00',
+        text: 'Reception and party.'
+      },
+      openMap: 'Open map & directions'
+    },
+    countdown: {
+      title: 'Countdown to the big day',
+      days: 'days',
+      hours: 'hours',
+      minutes: 'min',
+      seconds: 'sec',
+      passed: 'We have already celebrated this beautiful day!'
+    },
+    rsvp: {
+      title: 'RSVP',
+      content: 'Let us know if you will be able to join us on our big day. Your reply will help us prepare everything with love.',
+      nameLabel: 'Your name',
+      attendingLabel: 'Will you attend?',
+      attendingYes: 'Yes, I\'ll be there',
+      attendingNo: 'Sorry, I can\'t make it',
+      messageLabel: 'Message (optional)',
+      button: 'Send message',
+      thankYou: 'Thank you for your message! We are excited to share this day with you.',
+      nameRequired: 'Please enter your name.'
+    },
+    music: {
+      play: 'Play music',
+      pause: 'Pause music'
+    }
   },
   vi: {
     start: {
@@ -141,6 +229,50 @@ let locales = {
       title: 'Hãy cùng ăn mừng!',
       content: 'Bây giờ chúng tôi đang bắt đầu một giai đoạn mới trong cuộc phiêu lưu. Bạn có muốn tham gia cùng chúng tôi không?<br><br>Hẹn gặp bạn vào ngày 26 tháng 9 để cùng ăn mừng!',
     },
+    schedule: {
+      title: 'Lịch trình ngày cưới',
+      item1: {
+        time: '09:30',
+        text: 'Đón khách và chụp hình check-in.'
+      },
+      item2: {
+        time: '10:00',
+        text: 'Làm lễ thành hôn.'
+      },
+      item3: {
+        time: '11:00',
+        text: 'Chụp hình kỷ niệm và nâng ly chúc mừng.'
+      },
+      item4: {
+        time: '12:00',
+        text: 'Dùng tiệc và cùng nhau “quẩy”.'
+      },
+      openMap: 'Xem bản đồ & đường đi'
+    },
+    countdown: {
+      title: 'Đếm ngược đến ngày cưới',
+      days: 'ngày',
+      hours: 'giờ',
+      minutes: 'phút',
+      seconds: 'giây',
+      passed: 'Chúng mình đã cùng nhau đi qua ngày đặc biệt này rồi!'
+    },
+    rsvp: {
+      title: 'Xác nhận tham dự (RSVP)',
+      content: 'Hãy cho chúng mình biết bạn có thể đến chung vui hay không nhé. Mỗi lời hồi âm sẽ giúp bọn mình chuẩn bị chu đáo hơn cho ngày cưới.',
+      nameLabel: 'Tên của bạn',
+      attendingLabel: 'Bạn có đến tham dự không?',
+      attendingYes: 'Mình sẽ đến',
+      attendingNo: 'Rất tiếc mình không đến được',
+      messageLabel: 'Lời nhắn (không bắt buộc)',
+      button: 'Gửi lời nhắn',
+      thankYou: 'Cảm ơn bạn đã gửi lời nhắn! Bọn mình rất háo hức được chia sẻ ngày này cùng bạn.',
+      nameRequired: 'Vui lòng nhập tên của bạn.'
+    },
+    music: {
+      play: 'Bật nhạc chill',
+      pause: 'Tạm dừng nhạc'
+    }
   }
 };
 

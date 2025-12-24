@@ -5,7 +5,25 @@ let app = new Vue({
   i18n: (window.APP_I18N || undefined),
   data: {
     years: (new Date()).getFullYear() - 2005,
-    gallery: (window.APP_IMAGES || [])
+    gallery: (window.APP_IMAGES || []),
+    currentLocale: (window.APP_I18N && window.APP_I18N.locale) || 'vi',
+    // Thay đổi ngày này thành ngày cưới thực tế của bạn
+    // Hiện tại: 29/01/2026 lúc 10:00 (theo giờ trình duyệt)
+    weddingDate: new Date('2026-01-29T10:00:00'),
+    countdown: {
+      totalMs: 0,
+      days: 0,
+      hours: 0,
+      minutes: 0,
+      seconds: 0
+    },
+    rsvpName: '',
+    rsvpAttending: 'yes',
+    rsvpMessage: '',
+    rsvpSubmitted: false,
+    // Nhạc nền chill
+    isMusicPlaying: false,
+    musicAudio: null
   },
   methods: {
     ensureActiveSlide: function () {
@@ -50,6 +68,102 @@ let app = new Vue({
     },
     onSlideIn: function ($slide) {
       $slide.addClass('active');
+    },
+    updateCountdown: function () {
+      if (!this.weddingDate) {
+        return;
+      }
+
+      const now = new Date();
+      let diff = this.weddingDate.getTime() - now.getTime();
+      if (diff < 0) {
+        diff = 0;
+      }
+
+      const totalSeconds = Math.floor(diff / 1000);
+      const days = Math.floor(totalSeconds / (60 * 60 * 24));
+      const hours = Math.floor((totalSeconds % (60 * 60 * 24)) / (60 * 60));
+      const minutes = Math.floor((totalSeconds % (60 * 60)) / 60);
+      const seconds = totalSeconds % 60;
+
+      this.countdown = {
+        totalMs: diff,
+        days: days,
+        hours: hours,
+        minutes: minutes,
+        seconds: seconds
+      };
+    },
+    submitRSVP: function () {
+      if (!this.rsvpName) {
+        // Nhắc nhập tên đơn giản, không gây khó chịu
+        alert(this.$t ? this.$t('rsvp.nameRequired') : 'Vui lòng nhập tên');
+        return;
+      }
+
+      // Chuẩn bị nội dung email gửi về địa chỉ của bạn
+      const to = 'anhlxt2@fpt.com';
+      const subject = this.$t ? this.$t('rsvp.title') : 'RSVP Wedding';
+
+      const attendingText = (function () {
+        if (this.$t) {
+          return this.rsvpAttending === 'yes'
+            ? this.$t('rsvp.attendingYes')
+            : this.$t('rsvp.attendingNo');
+        }
+        return this.rsvpAttending === 'yes' ? 'Yes' : 'No';
+      }.call(this));
+
+      const bodyLines = [
+        `Tên: ${this.rsvpName}`,
+        `Tham dự: ${attendingText}`,
+        `Lời nhắn: ${this.rsvpMessage || '(trống)'}`
+      ];
+
+      const mailto = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyLines.join('\n'))}`;
+
+      // Mở ứng dụng email của khách để họ gửi mail
+      window.location.href = mailto;
+
+      this.rsvpSubmitted = true;
+    },
+    changeLocale: function (locale) {
+      if (!this.$i18n) return;
+      this.$i18n.locale = locale;
+      this.currentLocale = locale;
+
+      // Cập nhật lại title trang cho phù hợp ngôn ngữ mới
+      const names = this.$t('start.names');
+      const slogan = this.$t('start.slogan');
+      document.title = `${names}. ${slogan}`;
+    },
+    openMap: function () {
+      // Thay link này thành link Google Maps đến địa điểm cưới của bạn
+      const url = 'https://maps.google.com?q=Your+Wedding+Location';
+      window.open(url, '_blank');
+    },
+    toggleMusic: function () {
+      // Khởi tạo audio lần đầu
+      if (!this.musicAudio) {
+        // File nhạc chill của bạn (sau khi build sẽ nằm trong thư mục dist/music)
+        // Dùng đường dẫn tương đối để chạy tốt cả local và khi deploy (ví dụ GitHub Pages)
+        this.musicAudio = new Audio('music/Heart-Of-The-Ocean(chosic.com).mp3');
+        this.musicAudio.loop = true;
+        this.musicAudio.volume = 0.4;
+      }
+
+      if (this.isMusicPlaying) {
+        this.musicAudio.pause();
+        this.isMusicPlaying = false;
+      } else {
+        // Trình duyệt chỉ cho play sau khi có thao tác người dùng – ở đây là nút bấm
+        this.musicAudio.play().then(() => {
+          this.isMusicPlaying = true;
+        }).catch(() => {
+          // Nếu bị chặn, không làm gì thêm (người dùng có thể thử lại)
+          this.isMusicPlaying = false;
+        });
+      }
     }
   },
   mounted: function()  {
@@ -128,5 +242,16 @@ let app = new Vue({
 
     // Ensure active state after initial layout
     setTimeout(() => this.ensureActiveSlide(), 50);
+
+    // Bật đếm ngược
+    this.updateCountdown();
+    this._countdownInterval = setInterval(() => {
+      this.updateCountdown();
+    }, 1000);
+  },
+  beforeDestroy: function () {
+    if (this._countdownInterval) {
+      clearInterval(this._countdownInterval);
+    }
   }
 });
