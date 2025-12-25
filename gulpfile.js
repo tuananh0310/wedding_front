@@ -12,7 +12,12 @@ const $ = gulpLoadPlugins();
 
 function imagesList(cb) {
   const files = glob.sync('app/images/**/*.{png,jpg,jpeg,gif,webp,svg}');
-  const relative = files.map(f => f.replace(/^app\//, ''));
+  const relative = files.map(f => f.replace(/^app\//, ''))
+    .filter(f => {
+      // Loại trừ các file không muốn thêm vào APP_IMAGES
+      const excludedFiles = ['images/footer.png', 'images/cloud.png', 'images/miguel-miriam.png', 'images/confectionary.png'];
+      return !excludedFiles.includes(f);
+    });
   const contents = `window.APP_IMAGES = ${JSON.stringify(relative, null, 2)};`;
 
   fs.mkdirSync('.tmp/scripts', {recursive: true});
@@ -81,6 +86,13 @@ const images = () => gulp.src('app/images/**/*')
   })))
   .pipe(gulp.dest('dist/images'));
 
+const music = () => {
+  // Copy music files if they exist
+  return gulp.src('app/music/**/*', {allowEmpty: true})
+    .pipe(gulp.dest('.tmp/music'))
+    .pipe(gulp.dest('dist/music'));
+};
+
 const wiredepTask = () => {
   gulp.src('app/styles/*.scss')
     .pipe(wiredep({
@@ -123,6 +135,7 @@ function serve(done) {
   gulp.watch('app/scripts/**/*.js', gulp.series(lint, scripts));
   gulp.watch('app/images/**/*', gulp.series(imagesList));
   gulp.watch('app/fonts/**/*', fonts);
+  gulp.watch('app/music/**/*', music);
   gulp.watch('app/*.html').on('change', browserSync.reload);
   gulp.watch('app/images/**/*').on('change', browserSync.reload);
   gulp.watch('.tmp/fonts/**/*').on('change', browserSync.reload);
@@ -135,7 +148,7 @@ const measure = () => gulp.src('dist/**/*').pipe($.size({title: 'build', gzip: t
 
 const build = gulp.series(
   clean,
-  gulp.series(lint, gulp.parallel(html, images, fonts, extras)),
+  gulp.series(lint, gulp.parallel(html, images, fonts, extras, music)),
   measure
 );
 
@@ -152,11 +165,13 @@ function serveDist(done) {
 
 const deploy = gulp.series(build, () => gulp.src('dist/**/*').pipe($.ghPages()));
 
+gulp.task('imagesList', imagesList);
 gulp.task('styles', styles);
 gulp.task('scripts', scripts);
 gulp.task('lint', lint);
 gulp.task('wiredep', wiredepTask);
-gulp.task('serve', gulp.series(imagesList, gulp.parallel(styles, scripts, fonts, wiredepTask), serve));
+gulp.task('music', music);
+gulp.task('serve', gulp.series(imagesList, gulp.parallel(styles, scripts, fonts, music, wiredepTask), serve));
 gulp.task('serve:dist', gulp.series(build, serveDist));
 gulp.task('build', build);
 gulp.task('default', build);
