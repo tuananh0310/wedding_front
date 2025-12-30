@@ -1,5 +1,8 @@
 FROM node:18-alpine AS build
 
+# Install git và các dependencies cần thiết cho bower
+RUN apk add --no-cache git python3 make g++
+
 WORKDIR /app
 
 # Install toolchain and deps first (better layer caching)
