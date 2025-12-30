@@ -1,7 +1,7 @@
 FROM node:18-alpine AS build
 
-# Install git và các dependencies cần thiết cho bower
-RUN apk add --no-cache git python3 make g++
+# Install git, build tools và các binary cần thiết cho imagemin
+RUN apk add --no-cache git python3 make g++ optipng gifsicle libpng-dev libjpeg-turbo-dev
 
 WORKDIR /app
 

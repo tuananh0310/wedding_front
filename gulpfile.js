@@ -86,20 +86,15 @@ const images = () => gulp.src('app/images/**/*')
       progressive: true,
       arithmetic: false
     },
-    // Tối ưu PNG - tăng mức tối ưu
+    // Tối ưu PNG - chỉ sử dụng nếu optipng có sẵn
     optipng: {
       optimizationLevel: 7, // Tăng từ 5 lên 7 (tối đa)
       strip: true // Xóa metadata không cần thiết
     },
-    // Tối ưu GIF
+    // Tối ưu GIF - chỉ sử dụng nếu gifsicle có sẵn
     gifsicle: {
       optimizationLevel: 3,
       colors: 256 // Giới hạn số màu
-    },
-    // Tối ưu WebP nếu có
-    webp: {
-      quality: 75,
-      method: 6
     },
     // don't remove IDs from SVGs, they are often used
     // as hooks for embedding and styling
@@ -110,6 +105,8 @@ const images = () => gulp.src('app/images/**/*')
       {removeEmptyAttrs: true}, // Xóa attributes rỗng
       {removeHiddenElems: true} // Xóa elements ẩn
     ]
+  }, {
+    verbose: true // Hiển thị thông tin khi nén
   })))
   .pipe(gulp.dest('dist/images'));
 
