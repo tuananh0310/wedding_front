@@ -19,10 +19,15 @@ body {
   transform: translateZ(0);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  // Tối ưu scroll performance trên mobile
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
 
   @media screen and (max-width: $screen-xs-max) {
     font-size: 24px;
     line-height: 28px;
+    // Tối ưu scroll mượt hơn trên mobile
+    scroll-behavior: smooth;
   }
 
   > div {
@@ -958,11 +963,19 @@ footer {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
     font-family: 'Gloria Hallelujah', cursive;
+    // Ngăn auto-zoom trên iOS khi focus
+    font-size: 16px;
+
+    @media screen and (min-width: $screen-sm-min) {
+      font-size: 18px;
+    }
 
     &:focus {
       outline: none;
       border-color: #ff6f91;
       box-shadow: 0 2px 12px rgba(255, 111, 145, 0.2);
+      // Ngăn auto-scroll khi focus trên mobile
+      scroll-margin-top: 20px;
     }
   }
 
@@ -1057,10 +1070,15 @@ footer {
 
   .slides .slide {
     padding: 25px 15px;
+    // Tối ưu scroll performance trên mobile
+    will-change: auto;
+    transform: none;
   }
 
   .slides .slide .content {
     padding: 15px;
+    // Ngăn auto-scroll khi focus vào form
+    scroll-margin-top: 80px;
   }
 
   .btn-rsvp {

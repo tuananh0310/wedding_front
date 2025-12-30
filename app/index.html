@@ -267,12 +267,12 @@
             <form class="rsvp-form" v-on:submit.prevent="submitRSVP" novalidate>
               <div class="form-group">
                 <label for="rsvp-name">{{ $t('rsvp.nameLabel') }}</label>
-                <input id="rsvp-name" type="text" v-model="rsvpName" required>
+                <input id="rsvp-name" type="text" v-model="rsvpName" required autocomplete="name">
               </div>
 
               <div class="form-group">
                 <label for="rsvp-attending">{{ $t('rsvp.attendingLabel') }}</label>
-                <select id="rsvp-attending" v-model="rsvpAttending">
+                <select id="rsvp-attending" v-model="rsvpAttending" autocomplete="off">
                   <option value="yes">{{ $t('rsvp.attendingYes') }}</option>
                   <option value="no">{{ $t('rsvp.attendingNo') }}</option>
                 </select>
@@ -280,7 +280,7 @@
 
               <div class="form-group">
                 <label for="rsvp-message">{{ $t('rsvp.messageLabel') }}</label>
-                <textarea id="rsvp-message" rows="3" v-model="rsvpMessage"></textarea>
+                <textarea id="rsvp-message" rows="3" v-model="rsvpMessage" autocomplete="off"></textarea>
               </div>
 
               <button type="submit" class="btn-rsvp">

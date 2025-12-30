@@ -58,11 +58,25 @@ let app = new Vue({
 
       let hash = $(event.currentTarget).attr('href');
       let $target = $(hash);
-      $('html, body').animate({
-        scrollTop: $target.offset().top
-      }, 1000, () => {
-        this.activateSlideById(hash);
-      });
+
+      // Trên mobile, dùng native scroll thay vì animate để mượt hơn
+      const isMobile = window.innerWidth <= 768;
+
+      if (isMobile) {
+        // Native scroll cho mobile - mượt hơn
+        $target[0].scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // Delay nhỏ để đảm bảo scroll xong mới activate
+        setTimeout(() => {
+          this.activateSlideById(hash);
+        }, 300);
+      } else {
+        // Animate cho desktop
+        $('html, body').animate({
+          scrollTop: $target.offset().top
+        }, 1000, () => {
+          this.activateSlideById(hash);
+        });
+      }
     },
     onSlideOut: function () {
       $('.slide.active').removeClass('active');
@@ -434,11 +448,16 @@ let app = new Vue({
     }
 
     $('[data-toggle="tooltip"]').tooltip();
-    $('body').scrollspy({ target: '.navbar', offset: $(window).height()/2 });
-    $('.navbar').on('activate.bs.scrollspy', () => {
-      this.onSlideOut();
-      this.onSlideIn($($('.navbar .nav .active a').attr('href')));
-    });
+
+    // Tắt scrollspy trên mobile để tránh tự động jump
+    const isMobile = window.innerWidth <= 768;
+    if (!isMobile) {
+      $('body').scrollspy({ target: '.navbar', offset: $(window).height()/2 });
+      $('.navbar').on('activate.bs.scrollspy', () => {
+        this.onSlideOut();
+        this.onSlideIn($($('.navbar .nav .active a').attr('href')));
+      });
+    }
 
     let sparkle = new Sparkle();
     sparkle.init('.highlight');
@@ -449,6 +468,7 @@ let app = new Vue({
     this.ensureActiveSlide();
 
     // Activate slides as they come into view (so images/text reveal on scroll)
+    // Trên mobile, không thay đổi hash để tránh tự động jump
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -458,7 +478,15 @@ let app = new Vue({
           if (id) {
             $('.navbar .nav li').removeClass('active');
             $(`.navbar .nav a[href="#${id}"]`).parent().addClass('active');
-            window.location.hash = `#${id}`;
+            // Chỉ thay đổi hash trên desktop, không thay đổi trên mobile để tránh jump
+            if (!isMobile) {
+              // Sử dụng history.replaceState thay vì thay đổi hash trực tiếp để tránh scroll
+              if (window.history && window.history.replaceState) {
+                window.history.replaceState(null, null, `#${id}`);
+              } else {
+                window.location.hash = `#${id}`;
+              }
+            }
           }
         }
       });
@@ -470,12 +498,21 @@ let app = new Vue({
     $('.slide').each((_, el) => observer.observe(el));
 
     // Hash navigation (direct link or back/forward)
+    // Trên mobile, không scroll tự động khi hash thay đổi để tránh jump
     window.addEventListener('hashchange', () => {
-      this.activateSlideById(window.location.hash || '#start');
-      this.ensureActiveSlide();
+      const hash = window.location.hash || '#start';
+      if (isMobile) {
+        // Chỉ activate slide, không scroll tự động
+        this.activateSlideById(hash);
+      } else {
+        this.activateSlideById(hash);
+        this.ensureActiveSlide();
+      }
     });
 
     // Fallback: on scroll, activate the nearest slide to the viewport middle
+    // Tối ưu cho mobile: throttle scroll event để tránh lag
+    let scrollTimeout;
     const activateClosest = () => {
       const scrollPos = $(window).scrollTop();
       const mid = scrollPos + ($(window).height() * 0.5);
@@ -495,8 +532,17 @@ let app = new Vue({
       }
     };
 
+    // Throttle scroll event trên mobile để tối ưu performance
+    const scrollThrottle = isMobile ? 150 : 0;
     $(window).on('scroll', () => {
-      window.requestAnimationFrame(activateClosest);
+      if (scrollThrottle > 0) {
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+          window.requestAnimationFrame(activateClosest);
+        }, scrollThrottle);
+      } else {
+        window.requestAnimationFrame(activateClosest);
+      }
     });
 
     // Ensure active state after initial layout
