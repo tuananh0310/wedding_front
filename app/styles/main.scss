@@ -15,6 +15,10 @@ body {
   color: #555;
   width: 100vw;
   overflow-x: hidden;
+  // Tối ưu GPU rendering
+  transform: translateZ(0);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 
   @media screen and (max-width: $screen-xs-max) {
     font-size: 24px;
@@ -23,6 +27,8 @@ body {
 
   > div {
     position: relative;
+    // Tạo composite layer để tận dụng GPU
+    transform: translateZ(0);
   }
 }
 
@@ -252,6 +258,9 @@ body {
     flex-direction: column;
     display: flex;     align-items: center;     justify-content: center;
     overflow: hidden;
+    // Tối ưu scroll performance
+    will-change: transform;
+    transform: translateZ(0); // Force GPU acceleration
 
     .content {
       position: relative;
@@ -337,6 +346,30 @@ body {
         margin-left: -1000px;
         position: relative;
         transform: scale(0.75);
+        overflow: hidden;
+        // Tối ưu scroll và animation performance
+        will-change: transform, opacity;
+        transform: translateZ(0); // Force GPU acceleration
+
+        img {
+          width: 100%;
+          height: auto;
+          max-width: 400px;
+          max-height: 400px;
+          object-fit: cover;
+          display: block;
+          border-radius: 10px;
+
+          @media screen and (max-width: $screen-xs-max) {
+            max-width: 150px;
+            max-height: 150px;
+          }
+
+          @media screen and (min-width: $screen-sm-min) and (max-width: $screen-md-max) {
+            max-width: 250px;
+            max-height: 250px;
+          }
+        }
 
         @media screen and (max-width: $screen-xs-max) {
           opacity: 1;
@@ -396,6 +429,111 @@ body {
         .memory {
           opacity: 1;
           margin-left: 0;
+        }
+      }
+    }
+
+    // Gallery section - hiển thị ảnh khi scroll xuống
+    &#gallery {
+      .memories {
+        gap: 20px;
+        padding: 20px 0;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: flex-start;
+
+        .memory {
+          flex: 0 0 auto;
+          margin: 10px;
+          opacity: 0;
+          transform: translateY(30px) scale(0.9);
+          transition: opacity 0.6s ease, transform 0.6s ease, margin-left 0.6s ease;
+          margin-left: 0;
+          // Tối ưu scroll performance
+          will-change: transform, opacity;
+          transform: translateZ(0); // Force GPU acceleration
+
+          img {
+            width: 100%;
+            height: auto;
+            max-width: 350px;
+            max-height: 350px;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+            display: block;
+            // Tối ưu scroll và image rendering
+            will-change: transform, opacity;
+            transform: translateZ(0); // Force GPU acceleration
+            image-rendering: -webkit-optimize-contrast; // Tối ưu render ảnh
+
+            // Lazy loading styles
+            &.lazy-image {
+              opacity: 0;
+              background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+              background-size: 200% 100%;
+              animation: loading 1.5s infinite;
+              // Tối ưu GPU cho placeholder
+              will-change: opacity, transform;
+              transform: translateZ(0);
+            }
+
+            &.loading {
+              // Đang load - tối ưu GPU
+              will-change: opacity;
+            }
+
+            &.loaded {
+              opacity: 1;
+              animation: none;
+              // Tắt will-change sau khi load xong để giải phóng memory
+              will-change: auto;
+            }
+
+            &:hover {
+              transform: scale(1.05);
+              box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            }
+
+            @media screen and (max-width: $screen-xs-max) {
+              max-width: 120px;
+              max-height: 120px;
+            }
+
+            @media screen and (min-width: $screen-sm-min) and (max-width: $screen-md-max) {
+              max-width: 200px;
+              max-height: 200px;
+            }
+
+            @media screen and (min-width: $screen-lg-min) {
+              max-width: 400px;
+              max-height: 400px;
+            }
+          }
+
+          @media screen and (max-width: $screen-xs-max) {
+            margin: 5px;
+          }
+        }
+      }
+
+      // Khi gallery section active (khi scroll xuống), hiển thị ảnh với animation
+      &.active {
+        .memories {
+          .memory {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            margin-left: 0;
+
+            // Stagger animation cho từng ảnh
+            @for $i from 1 through 30 {
+              &:nth-child(#{$i}) {
+                transition-delay: #{$i * 0.1}s;
+              }
+            }
+          }
         }
       }
     }

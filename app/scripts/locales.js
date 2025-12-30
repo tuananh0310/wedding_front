@@ -276,15 +276,16 @@ let locales = {
   }
 };
 
-let lang = navigator.languages ? navigator.languages[0] : (navigator.language || navigator.userLanguage);
-if (lang) {
-  lang = lang.split('-')[0];
-}
+// Chỉ hiển thị tiếng Việt - không tự động phát hiện ngôn ngữ trình duyệt
+// let lang = navigator.languages ? navigator.languages[0] : (navigator.language || navigator.userLanguage);
+// if (lang) {
+//   lang = lang.split('-')[0];
+// }
 
 Vue.use(VueI18n);
 
 const i18n = new VueI18n({
-  locale: lang || 'vi',
+  locale: 'vi', // Luôn sử dụng tiếng Việt
   fallbackLocale: 'vi',
   messages: locales
 });

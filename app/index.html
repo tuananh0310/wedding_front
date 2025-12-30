@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Tuấn Anh và Thu Phương. Câu chuyện của một hành trình</title>
 
+    <!-- Resource hints để tối ưu load ảnh -->
+    <link rel="preconnect" href="/images">
+    <link rel="dns-prefetch" href="/images">
+
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <!-- Place favicon.ico in the root directory -->
 
@@ -40,6 +44,8 @@
         </div>
       </div>
 
+      <!-- Lang switcher đã được ẩn - chỉ hiển thị tiếng Việt -->
+      <!--
       <div class="lang-switcher">
         <button type="button"
                 :class="{ active: currentLocale === 'vi' }"
@@ -57,6 +63,7 @@
           ES
         </button>
       </div>
+      -->
 
       <button
         type="button"
@@ -199,198 +206,126 @@
 
         <section id="beginning" class="slide">
           <div class="memories">
-            <div class="memory">
-              <img src="images/beginning-calendar.png">
-            </div>
-            <div class="memory">
-              <img src="images/beginning-cupide.png">
+            <div class="memory" v-for="(img, index) in gallery.slice(0, 2)" :key="index">
+              <img :data-src="img" :alt="img" class="lazy-image" loading="lazy">
             </div>
           </div>
 
-          <div class="content" v-html="$t('beginning.content', {years: years})"></div>
-
           <div class="memories">
-            <div class="memory">
-              <img src="images/beginning-heart.png">
-            </div>
-            <div class="memory">
-              <img src="images/beginning-couple.png">
+            <div class="memory" v-for="(img, index) in gallery.slice(2, 4)" :key="index + 2">
+              <img :data-src="img" :alt="img" class="lazy-image" loading="lazy">
             </div>
           </div>
         </section>
 
         <section id="first-moments" class="slide">
           <div class="memories">
-            <div class="memory">
-              <img src="images/first-moments-beach.png">
-            </div>
-            <div class="memory">
-              <img src="images/first-moments-car.png">
+            <div class="memory" v-for="(img, index) in gallery.slice(4, 6)" :key="index + 4">
+              <img :data-src="img" :alt="img" class="lazy-image" loading="lazy">
             </div>
           </div>
 
-          <div class="content" v-html="$t('firstMoments.content')"></div>
-
           <div class="memories">
-            <div class="memory">
-              <img src="images/first-moments-gamers.png">
-            </div>
-            <div class="memory">
-              <img src="images/first-moments-movie.png">
+            <div class="memory" v-for="(img, index) in gallery.slice(6, 8)" :key="index + 6">
+              <img :data-src="img" :alt="img" class="lazy-image" loading="lazy">
             </div>
           </div>
         </section>
 
         <section id="madrid" class="slide">
           <div class="memories">
-            <div class="memory">
-              <img src="images/madrid-buildings.png">
-            </div>
-            <div class="memory">
-              <img src="images/madrid-cookies.png">
+            <div class="memory" v-for="(img, index) in gallery.slice(8, 10)" :key="index + 8">
+              <img :data-src="img" :alt="img" class="lazy-image" loading="lazy">
             </div>
           </div>
 
-          <div class="content" v-html="$t('madrid.content')"></div>
-
           <div class="memories">
-            <div class="memory">
-              <img src="images/madrid-living.png">
-            </div>
-            <div class="memory">
-              <img src="images/madrid-navacerrada.png">
+            <div class="memory" v-for="(img, index) in gallery.slice(10, 12)" :key="index + 10">
+              <img :data-src="img" :alt="img" class="lazy-image" loading="lazy">
             </div>
           </div>
         </section>
 
         <section id="new-york" class="slide">
           <div class="memories">
-            <div class="memory">
-              <img src="images/nyc-liberty.png">
-            </div>
-            <div class="memory">
-              <img src="images/nyc-food.png">
+            <div class="memory" v-for="(img, index) in gallery.slice(12, 14)" :key="index + 12">
+              <img :data-src="img" :alt="img" class="lazy-image" loading="lazy">
             </div>
           </div>
 
-          <div class="content" v-html="$t('newYork.content')"></div>
-
           <div class="memories">
-            <div class="memory">
-              <img src="images/nyc-taxi.png">
-            </div>
-            <div class="memory">
-              <img src="images/nyc-skyline.png">
+            <div class="memory" v-for="(img, index) in gallery.slice(14, 16)" :key="index + 14">
+              <img :data-src="img" :alt="img" class="lazy-image" loading="lazy">
             </div>
           </div>
         </section>
 
         <section id="paris" class="slide">
           <div class="memories">
-            <div class="memory">
-              <img src="images/paris-disney.png">
-            </div>
-            <div class="memory">
-              <img src="images/paris-macarons.png">
+            <div class="memory" v-for="(img, index) in gallery.slice(16, 18)" :key="index + 16">
+              <img :data-src="img" :alt="img" class="lazy-image" loading="lazy">
             </div>
           </div>
 
-          <div class="content" v-html="$t('paris.content')"></div>
-
           <div class="memories">
-            <div class="memory">
-              <img src="images/paris-ring.png">
-            </div>
-            <div class="memory">
-              <img src="images/paris-eiffel.png">
+            <div class="memory" v-for="(img, index) in gallery.slice(18, 20)" :key="index + 18">
+              <img :data-src="img" :alt="img" class="lazy-image" loading="lazy">
             </div>
           </div>
         </section>
 
         <section id="london" class="slide">
           <div class="memories">
-            <div class="memory">
-              <img src="images/london-bigben.png">
-            </div>
-            <div class="memory">
-              <img src="images/london-tea.png">
+            <div class="memory" v-for="(img, index) in gallery.slice(20, 22)" :key="index + 20">
+              <img :data-src="img" :alt="img" class="lazy-image" loading="lazy">
             </div>
           </div>
 
-          <div class="content" v-html="$t('london.content')"></div>
-
           <div class="memories">
-            <div class="memory">
-              <img src="images/london-bus.png">
-            </div>
-            <div class="memory">
-              <img src="images/london-bridge.png">
+            <div class="memory" v-for="(img, index) in gallery.slice(22, 24)" :key="index + 22">
+              <img :data-src="img" :alt="img" class="lazy-image" loading="lazy">
             </div>
           </div>
         </section>
 
         <section id="italy" class="slide">
           <div class="memories">
-            <div class="memory">
-              <img src="images/italy-pisa.png">
-            </div>
-            <div class="memory">
-              <img src="images/italy-pizza.png">
+            <div class="memory" v-for="(img, index) in gallery.slice(24, 26)" :key="index + 24">
+              <img :data-src="img" :alt="img" class="lazy-image" loading="lazy">
             </div>
           </div>
 
-          <div class="content" v-html="$t('italy.content')"></div>
-
           <div class="memories">
-            <div class="memory">
-              <img src="images/italy-rome.png">
-            </div>
-            <div class="memory">
-              <img src="images/italy-venice.png">
+            <div class="memory" v-for="(img, index) in gallery.slice(0, 2)" :key="index + 26">
+              <img :data-src="img" :alt="img" class="lazy-image" loading="lazy">
             </div>
           </div>
         </section>
 
         <section id="edinburgh" class="slide">
           <div class="memories">
-            <div class="memory">
-              <img src="images/edinburgh-calton-hill.png">
-            </div>
-            <div class="memory">
-              <img src="images/edinburgh-christmas.png">
+            <div class="memory" v-for="(img, index) in gallery.slice(2, 4)" :key="index + 28">
+              <img :data-src="img" :alt="img" class="lazy-image" loading="lazy">
             </div>
           </div>
 
-          <div class="content" v-html="$t('edinburgh.content')"></div>
-
           <div class="memories">
-            <div class="memory">
-              <img src="images/edinburgh-city.png">
-            </div>
-            <div class="memory">
-              <img src="images/edinburgh-fireworks.png">
+            <div class="memory" v-for="(img, index) in gallery.slice(4, 6)" :key="index + 30">
+              <img :data-src="img" :alt="img" class="lazy-image" loading="lazy">
             </div>
           </div>
         </section>
 
         <section id="japan" class="slide">
           <div class="memories">
-            <div class="memory">
-              <img src="images/japan-miyajima.png">
-            </div>
-            <div class="memory">
-              <img src="images/japan-food.png">
+            <div class="memory" v-for="(img, index) in gallery.slice(6, 8)" :key="index + 32">
+              <img :data-src="img" :alt="img" class="lazy-image" loading="lazy">
             </div>
           </div>
 
-          <div class="content" v-html="$t('japan.content')"></div>
-
           <div class="memories">
-            <div class="memory">
-              <img src="images/japan-skyline.png">
-            </div>
-            <div class="memory">
-              <img src="images/japan-tokyo.png">
+            <div class="memory" v-for="(img, index) in gallery.slice(8, 10)" :key="index + 34">
+              <img :data-src="img" :alt="img" class="lazy-image" loading="lazy">
             </div>
           </div>
         </section>
@@ -491,7 +426,7 @@
         <section id="gallery" class="slide">
           <div class="memories">
             <div class="memory" v-for="img in gallery" :key="img">
-              <img :src="img" :alt="img">
+              <img :data-src="img" :alt="img" class="lazy-image" loading="lazy">
             </div>
           </div>
         </section>

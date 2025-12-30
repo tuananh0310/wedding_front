@@ -6,7 +6,7 @@ let app = new Vue({
   data: {
     years: (new Date()).getFullYear() - 2005,
     gallery: (window.APP_IMAGES || []),
-    currentLocale: (window.APP_I18N && window.APP_I18N.locale) || 'vi',
+    currentLocale: 'vi', // Luôn sử dụng tiếng Việt
     // Thay đổi ngày này thành ngày cưới thực tế của bạn
     // Hiện tại: 29/01/2026 lúc 10:00 (theo giờ trình duyệt)
     weddingDate: new Date('2026-01-29T10:00:00'),
@@ -206,6 +206,223 @@ let app = new Vue({
           this.isMusicPlaying = false;
         });
       }
+    },
+    preloadImages: function() {
+      // Tối ưu: Load tất cả ảnh song song để sử dụng tối đa CPU/GPU/RAM
+      const totalImages = this.gallery.length;
+      
+      // Batch 1: Preload 8 ảnh đầu với priority cao (song song)
+      const batch1 = this.gallery.slice(0, 8);
+      const preloadPromises1 = batch1.map((imgSrc) => {
+        return new Promise((resolve) => {
+          // Preload link
+          const link = document.createElement('link');
+          link.rel = 'preload';
+          link.as = 'image';
+          link.href = imgSrc;
+          link.fetchPriority = 'high';
+          document.head.appendChild(link);
+          
+          // Load image object song song
+          const img = new Image();
+          img.onload = () => resolve(img);
+          img.onerror = () => resolve(null);
+          img.src = imgSrc;
+        });
+      });
+      
+      // Batch 2: Preload 8 ảnh tiếp theo (song song, sau batch 1)
+      const batch2 = this.gallery.slice(8, 16);
+      Promise.all(preloadPromises1).then(() => {
+        const preloadPromises2 = batch2.map((imgSrc) => {
+          return new Promise((resolve) => {
+            const img = new Image();
+            img.onload = () => resolve(img);
+            img.onerror = () => resolve(null);
+            img.src = imgSrc;
+          });
+        });
+        
+        // Batch 3: Preload ảnh còn lại (song song, sau batch 2)
+        const batch3 = this.gallery.slice(16);
+        Promise.all(preloadPromises2).then(() => {
+          if (batch3.length > 0) {
+            batch3.forEach((imgSrc) => {
+              const img = new Image();
+              img.src = imgSrc;
+            });
+          }
+        });
+      });
+      
+      // Prefetch tất cả ảnh còn lại với priority thấp (background)
+      if (totalImages > 16) {
+        const imagesToPrefetch = this.gallery.slice(16);
+        // Sử dụng requestIdleCallback để prefetch khi CPU rảnh
+        const prefetchBatch = (startIndex, batchSize = 5) => {
+          const endIndex = Math.min(startIndex + batchSize, imagesToPrefetch.length);
+          const batch = imagesToPrefetch.slice(startIndex, endIndex);
+          
+          batch.forEach((imgSrc) => {
+            const link = document.createElement('link');
+            link.rel = 'prefetch';
+            link.as = 'image';
+            link.href = imgSrc;
+            document.head.appendChild(link);
+          });
+          
+          if (endIndex < imagesToPrefetch.length) {
+            if ('requestIdleCallback' in window) {
+              requestIdleCallback(() => {
+                prefetchBatch(endIndex, batchSize);
+              }, { timeout: 1000 });
+            } else {
+              setTimeout(() => prefetchBatch(endIndex, batchSize), 200);
+            }
+          }
+        };
+        
+        if ('requestIdleCallback' in window) {
+          requestIdleCallback(() => {
+            prefetchBatch(0, 5);
+          }, { timeout: 2000 });
+        } else {
+          setTimeout(() => prefetchBatch(0, 5), 1000);
+        }
+      }
+    },
+    initLazyLoading: function() {
+      // Sử dụng Intersection Observer để lazy load ảnh với tối ưu tối đa GPU/CPU
+      if ('IntersectionObserver' in window) {
+        // Tối ưu: chỉ tạo một observer và reuse
+        if (!this._imageObserver) {
+          // Queue để batch load ảnh (tận dụng CPU/GPU)
+          this._imageLoadQueue = [];
+          this._isProcessingQueue = false;
+          
+          const processImageQueue = () => {
+            if (this._isProcessingQueue || this._imageLoadQueue.length === 0) return;
+            
+            this._isProcessingQueue = true;
+            const batch = this._imageLoadQueue.splice(0, 5); // Load 5 ảnh song song
+            
+            const loadPromises = batch.map(({ img, dataSrc }) => {
+              return new Promise((resolve) => {
+                const imageLoader = new Image();
+                imageLoader.onload = () => {
+                  // Sử dụng requestAnimationFrame để tận dụng GPU
+                  requestAnimationFrame(() => {
+                    img.src = dataSrc;
+                    img.classList.remove('lazy-image');
+                    img.classList.add('loaded');
+                    img.fetchPriority = 'auto';
+                    resolve();
+                  });
+                };
+                imageLoader.onerror = () => {
+                  img.classList.add('error');
+                  resolve();
+                };
+                imageLoader.src = dataSrc;
+              });
+            });
+            
+            Promise.all(loadPromises).then(() => {
+              this._isProcessingQueue = false;
+              if (this._imageLoadQueue.length > 0) {
+                // Tiếp tục xử lý queue
+                requestAnimationFrame(processImageQueue);
+              }
+            });
+          };
+          
+          this._imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                const img = entry.target;
+                const dataSrc = img.getAttribute('data-src');
+                if (dataSrc && !img.classList.contains('loading')) {
+                  img.classList.add('loading');
+                  // Thêm vào queue để batch process
+                  this._imageLoadQueue.push({ img, dataSrc });
+                  observer.unobserve(img);
+                  
+                  // Trigger queue processing
+                  requestAnimationFrame(processImageQueue);
+                }
+              }
+            });
+          }, {
+            rootMargin: '300px', // Tăng lên để load sớm hơn, tận dụng RAM
+            threshold: 0.01
+          });
+        }
+
+        // Quan sát tất cả ảnh lazy với debounce
+        const observeImages = () => {
+          this.$nextTick(() => {
+            document.querySelectorAll('.lazy-image:not(.observed)').forEach(img => {
+              img.classList.add('observed');
+              this._imageObserver.observe(img);
+            });
+          });
+        };
+
+        // Quan sát ngay
+        observeImages();
+
+        // Quan sát lại khi Vue cập nhật DOM với debounce
+        let watchTimeout;
+        this.$watch('gallery', () => {
+          clearTimeout(watchTimeout);
+          watchTimeout = setTimeout(observeImages, 100);
+        });
+
+        // Prefetch ảnh khi scroll - load ảnh sắp vào viewport
+        let scrollTimeout;
+        let lastScrollTop = 0;
+        $(window).on('scroll', () => {
+          clearTimeout(scrollTimeout);
+          scrollTimeout = setTimeout(() => {
+            observeImages();
+
+            // Prefetch ảnh sắp vào viewport khi scroll
+            const scrollTop = $(window).scrollTop();
+            const windowHeight = $(window).height();
+            const scrollDirection = scrollTop > lastScrollTop ? 'down' : 'up';
+            lastScrollTop = scrollTop;
+
+            // Tìm các ảnh sắp vào viewport (cách viewport 300px)
+            document.querySelectorAll('.lazy-image:not(.prefetched)').forEach(img => {
+              const rect = img.getBoundingClientRect();
+              const isNearViewport = rect.top < windowHeight + 300 && rect.bottom > -300;
+
+              if (isNearViewport) {
+                const dataSrc = img.getAttribute('data-src');
+                if (dataSrc) {
+                  // Prefetch ảnh
+                  const prefetchLink = document.createElement('link');
+                  prefetchLink.rel = 'prefetch';
+                  prefetchLink.as = 'image';
+                  prefetchLink.href = dataSrc;
+                  document.head.appendChild(prefetchLink);
+                  img.classList.add('prefetched');
+                }
+              }
+            });
+          }, 16); // ~60fps
+        });
+      } else {
+        // Fallback cho trình duyệt không hỗ trợ Intersection Observer
+        document.querySelectorAll('.lazy-image').forEach(img => {
+          const dataSrc = img.getAttribute('data-src');
+          if (dataSrc) {
+            img.src = dataSrc;
+            img.classList.remove('lazy-image');
+            img.classList.add('loaded');
+          }
+        });
+      }
     }
   },
   mounted: function()  {
@@ -297,6 +514,12 @@ let app = new Vue({
     setTimeout(() => {
       this.playMusic();
     }, 500);
+
+    // Preload một số ảnh đầu tiên để cache
+    this.preloadImages();
+
+    // Khởi tạo lazy loading cho ảnh
+    this.initLazyLoading();
   },
   beforeDestroy: function () {
     if (this._countdownInterval) {

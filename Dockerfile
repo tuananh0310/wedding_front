@@ -23,7 +23,9 @@ COPY --from=build /app/app/images /usr/share/nginx/html/images
 COPY --from=build /app/app/apple-touch-icon.png /usr/share/nginx/html/
 COPY --from=build /app/app/favicon.ico /usr/share/nginx/html/
 
-# Default nginx config is enough for static files
+# Copy nginx config for optimal caching
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
 

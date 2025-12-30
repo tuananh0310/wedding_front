@@ -80,6 +80,20 @@ const images = () => gulp.src('app/images/**/*')
   .pipe($.cache($.imagemin({
     progressive: true,
     interlaced: true,
+    optimizationLevel: 5, // Tăng mức tối ưu (0-7)
+    // Tối ưu JPEG
+    mozjpeg: {
+      quality: 85, // Chất lượng tốt nhưng vẫn nhẹ
+      progressive: true
+    },
+    // Tối ưu PNG
+    optipng: {
+      optimizationLevel: 5
+    },
+    // Tối ưu GIF
+    gifsicle: {
+      optimizationLevel: 3
+    },
     // don't remove IDs from SVGs, they are often used
     // as hooks for embedding and styling
     svgoPlugins: [{cleanupIDs: false}]
