@@ -80,23 +80,36 @@ const images = () => gulp.src('app/images/**/*')
   .pipe($.cache($.imagemin({
     progressive: true,
     interlaced: true,
-    optimizationLevel: 5, // Tăng mức tối ưu (0-7)
-    // Tối ưu JPEG
+    // Tối ưu JPEG - giảm chất lượng để giảm dung lượng đáng kể
     mozjpeg: {
-      quality: 85, // Chất lượng tốt nhưng vẫn nhẹ
-      progressive: true
+      quality: 75, // Giảm từ 85 xuống 75 để tiết kiệm dung lượng (vẫn đủ tốt cho web)
+      progressive: true,
+      arithmetic: false
     },
-    // Tối ưu PNG
+    // Tối ưu PNG - tăng mức tối ưu
     optipng: {
-      optimizationLevel: 5
+      optimizationLevel: 7, // Tăng từ 5 lên 7 (tối đa)
+      strip: true // Xóa metadata không cần thiết
     },
     // Tối ưu GIF
     gifsicle: {
-      optimizationLevel: 3
+      optimizationLevel: 3,
+      colors: 256 // Giới hạn số màu
+    },
+    // Tối ưu WebP nếu có
+    webp: {
+      quality: 75,
+      method: 6
     },
     // don't remove IDs from SVGs, they are often used
     // as hooks for embedding and styling
-    svgoPlugins: [{cleanupIDs: false}]
+    svgoPlugins: [
+      {cleanupIDs: false},
+      {removeViewBox: false}, // Giữ viewBox cho responsive
+      {removeUselessDefs: true}, // Xóa defs không dùng
+      {removeEmptyAttrs: true}, // Xóa attributes rỗng
+      {removeHiddenElems: true} // Xóa elements ẩn
+    ]
   })))
   .pipe(gulp.dest('dist/images'));
 

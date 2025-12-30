@@ -6,4 +6,21 @@ dist
 npm-debug.log
 yarn.lock
 package-lock.json
+.git
+.gitignore
+.vscode
+.idea
+*.md
+README.md
+DEPLOY.md
+deploy.sh
+cleanup-docker.sh
+docker-compose.yml
+Dockerfile
+.dockerignore
+.env
+.env.local
+*.log
+.DS_Store
+Thumbs.db
 

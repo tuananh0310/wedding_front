@@ -1,27 +1,28 @@
-FROM node:18-bullseye AS build
+FROM node:18-alpine AS build
 
 WORKDIR /app
 
 # Install toolchain and deps first (better layer caching)
 COPY package.json bower.json ./
 RUN npm install -g bower \
- && npm install \
+ && npm install --production=false \
  && bower install --allow-root --config.interactive=false \
- && npm cache clean --force
+ && npm cache clean --force \
+ && rm -rf /tmp/* /var/tmp/*
 
 # Copy the rest and build
 COPY . .
 RUN npm run build \
  && rm -rf node_modules bower_components .tmp \
- && npm cache clean --force
+ && rm -rf /root/.npm /root/.cache \
+ && npm cache clean --force \
+ && rm -rf /tmp/* /var/tmp/*
 
 # ---- runtime ----
 FROM nginx:1.25-alpine AS runtime
 
+# Copy từ dist (đã được build và nén) thay vì app (ảnh gốc chưa nén)
 COPY --from=build /app/dist /usr/share/nginx/html
-COPY --from=build /app/app/images /usr/share/nginx/html/images
-COPY --from=build /app/app/apple-touch-icon.png /usr/share/nginx/html/
-COPY --from=build /app/app/favicon.ico /usr/share/nginx/html/
 
 # Copy nginx config for optimal caching
 COPY nginx.conf /etc/nginx/conf.d/default.conf
