@@ -186,8 +186,13 @@ let locales = {
   vi: {
     start: {
       title: 'Bắt đầu',
-      names: 'Tuấn Anh và Thu Phương',
-      slogan: 'Câu chuyện của một hành trình'
+      names: 'Tuấn Anh & Thu Phương',
+      slogan: '',
+      greeting: 'Xin chào!',
+      weddingDate: 'Ngày 29 tháng 1 năm 2026',
+      invitation: 'Chúng tôi mời bạn đến chung vui trong lễ cưới của chúng tôi.',
+      groomName: 'Tuấn Anh',
+      brideName: 'Thu Phương'
     },
     beginning: {
       title: 'Khởi đầu',
@@ -227,25 +232,25 @@ let locales = {
     },
     celebrate: {
       title: 'Hãy cùng ăn mừng!',
-      content: 'Bây giờ chúng tôi đang bắt đầu một giai đoạn mới trong cuộc phiêu lưu. Bạn có muốn tham gia cùng chúng tôi không?<br><br>Hẹn gặp bạn vào ngày 26 tháng 9 để cùng ăn mừng!',
+      content: 'Những khoảnh khắc đẹp đẽ được lưu giữ qua từng bức ảnh.<br>',
     },
     schedule: {
       title: 'Lịch trình ngày cưới',
       item1: {
-        time: '09:30',
-        text: 'Đón khách và chụp hình check-in.'
+        time: '28-01-2026',
+        text: 'Lễ đính hôn'
       },
       item2: {
-        time: '10:00',
-        text: 'Làm lễ thành hôn.'
+        time: '29-01-2026',
+        text: 'Lễ cưới lúc 11:00'
       },
       item3: {
-        time: '11:00',
-        text: 'Chụp hình kỷ niệm và nâng ly chúc mừng.'
+        time: '',
+        text: ''
       },
       item4: {
-        time: '12:00',
-        text: 'Dùng tiệc và cùng nhau “quẩy”.'
+        time: '',
+        text: ''
       },
       openMap: 'Xem bản đồ & đường đi'
     },

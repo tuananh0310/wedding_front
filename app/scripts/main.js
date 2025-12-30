@@ -148,7 +148,7 @@ let app = new Vue({
       if (!this.musicAudio && !this.musicLoadFailed) {
         // File nhạc chill của bạn (sau khi build sẽ nằm trong thư mục dist/music)
         // Dùng đường dẫn tương đối để chạy tốt cả local và khi deploy (ví dụ GitHub Pages)
-        const musicPath = 'music/Em Đồng Ý (I Do).mp3';
+        const musicPath = 'music/Heart-Of-The-Ocean(chosic.com).mp3';
         this.musicAudio = new Audio(musicPath);
         this.musicAudio.loop = true;
         this.musicAudio.volume = 0.4;
@@ -210,7 +210,7 @@ let app = new Vue({
     preloadImages: function() {
       // Tối ưu: Load tất cả ảnh song song để sử dụng tối đa CPU/GPU/RAM
       const totalImages = this.gallery.length;
-      
+
       // Batch 1: Preload 8 ảnh đầu với priority cao (song song)
       const batch1 = this.gallery.slice(0, 8);
       const preloadPromises1 = batch1.map((imgSrc) => {
@@ -222,7 +222,7 @@ let app = new Vue({
           link.href = imgSrc;
           link.fetchPriority = 'high';
           document.head.appendChild(link);
-          
+
           // Load image object song song
           const img = new Image();
           img.onload = () => resolve(img);
@@ -230,7 +230,7 @@ let app = new Vue({
           img.src = imgSrc;
         });
       });
-      
+
       // Batch 2: Preload 8 ảnh tiếp theo (song song, sau batch 1)
       const batch2 = this.gallery.slice(8, 16);
       Promise.all(preloadPromises1).then(() => {
@@ -242,7 +242,7 @@ let app = new Vue({
             img.src = imgSrc;
           });
         });
-        
+
         // Batch 3: Preload ảnh còn lại (song song, sau batch 2)
         const batch3 = this.gallery.slice(16);
         Promise.all(preloadPromises2).then(() => {
@@ -254,7 +254,7 @@ let app = new Vue({
           }
         });
       });
-      
+
       // Prefetch tất cả ảnh còn lại với priority thấp (background)
       if (totalImages > 16) {
         const imagesToPrefetch = this.gallery.slice(16);
@@ -262,7 +262,7 @@ let app = new Vue({
         const prefetchBatch = (startIndex, batchSize = 5) => {
           const endIndex = Math.min(startIndex + batchSize, imagesToPrefetch.length);
           const batch = imagesToPrefetch.slice(startIndex, endIndex);
-          
+
           batch.forEach((imgSrc) => {
             const link = document.createElement('link');
             link.rel = 'prefetch';
@@ -270,7 +270,7 @@ let app = new Vue({
             link.href = imgSrc;
             document.head.appendChild(link);
           });
-          
+
           if (endIndex < imagesToPrefetch.length) {
             if ('requestIdleCallback' in window) {
               requestIdleCallback(() => {
@@ -281,7 +281,7 @@ let app = new Vue({
             }
           }
         };
-        
+
         if ('requestIdleCallback' in window) {
           requestIdleCallback(() => {
             prefetchBatch(0, 5);
@@ -299,13 +299,13 @@ let app = new Vue({
           // Queue để batch load ảnh (tận dụng CPU/GPU)
           this._imageLoadQueue = [];
           this._isProcessingQueue = false;
-          
+
           const processImageQueue = () => {
             if (this._isProcessingQueue || this._imageLoadQueue.length === 0) return;
-            
+
             this._isProcessingQueue = true;
             const batch = this._imageLoadQueue.splice(0, 5); // Load 5 ảnh song song
-            
+
             const loadPromises = batch.map(({ img, dataSrc }) => {
               return new Promise((resolve) => {
                 const imageLoader = new Image();
@@ -326,7 +326,7 @@ let app = new Vue({
                 imageLoader.src = dataSrc;
               });
             });
-            
+
             Promise.all(loadPromises).then(() => {
               this._isProcessingQueue = false;
               if (this._imageLoadQueue.length > 0) {
@@ -335,7 +335,7 @@ let app = new Vue({
               }
             });
           };
-          
+
           this._imageObserver = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
               if (entry.isIntersecting) {
@@ -346,7 +346,7 @@ let app = new Vue({
                   // Thêm vào queue để batch process
                   this._imageLoadQueue.push({ img, dataSrc });
                   observer.unobserve(img);
-                  
+
                   // Trigger queue processing
                   requestAnimationFrame(processImageQueue);
                 }

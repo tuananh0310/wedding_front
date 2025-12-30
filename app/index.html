@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Tuấn Anh và Thu Phương. Câu chuyện của một hành trình</title>
+    <title>Tuấn Anh và Thu Phương - 29/01/2026</title>
 
     <!-- Resource hints để tối ưu load ảnh -->
     <link rel="preconnect" href="/images">
@@ -81,81 +81,81 @@
             <a href="#start" v-on:click="scroll" :title="$t('start.title')" data-toggle="tooltip"
                data-placement="left"
                data-container="body">
-              <span class="dot"></span></a>
+              </a>
           </li>
           <li>
             <a href="#beginning" v-on:click="scroll" :title="$t('beginning.title')"
                data-toggle="tooltip"
                data-placement="left" data-container="body">
-              <span class="dot"></span></a>
+              </a>
           </li>
           <li>
             <a href="#first-moments" v-on:click="scroll" :title="$t('firstMoments.title')"
                data-toggle="tooltip"
                data-placement="left" data-container="body">
-              <span class="dot"></span></a>
+              </a>
           </li>
           <li>
             <a href="#madrid" v-on:click="scroll" :title="$t('madrid.title')" data-toggle="tooltip"
                data-placement="left" data-container="body">
-              <span class="dot"></span></a>
+              </a>
           </li>
           <li>
             <a href="#new-york" v-on:click="scroll" :title="$t('newYork.title')"
                data-toggle="tooltip"
                data-placement="left" data-container="body">
-              <span class="dot"></span></a>
+              </a>
           </li>
           <li>
             <a href="#paris" v-on:click="scroll" :title="$t('paris.title')" data-toggle="tooltip"
                data-placement="left" data-container="body">
-              <span class="dot"></span></a>
+              </a>
           </li>
           <li>
             <a href="#london" v-on:click="scroll" :title="$t('london.title')"
                data-toggle="tooltip"
                data-placement="left" data-container="body">
-              <span class="dot"></span></a>
+              </a>
           </li>
           <li>
             <a href="#italy" v-on:click="scroll" :title="$t('italy.title')" data-toggle="tooltip"
                data-placement="left" data-container="body">
-              <span class="dot"></span></a>
+              </a>
           </li>
           <li>
             <a href="#edinburgh" v-on:click="scroll" :title="$t('edinburgh.title')"
                data-toggle="tooltip"
                data-placement="left" data-container="body">
-              <span class="dot"></span></a>
+              </a>
           </li>
           <li>
             <a href="#japan" v-on:click="scroll" :title="$t('japan.title')" data-toggle="tooltip"
                data-placement="left" data-container="body">
-              <span class="dot"></span></a>
+              </a>
           </li>
           <li>
             <a href="#celebrate" v-on:click="scroll" :title="$t('celebrate.title')"
                data-toggle="tooltip"
                data-placement="left" data-container="body">
-              <span class="dot"></span></a>
+              </a>
           </li>
           <li>
             <a href="#schedule" v-on:click="scroll" :title="$t('schedule.title')"
                data-toggle="tooltip"
                data-placement="left" data-container="body">
-              <span class="dot"></span></a>
+              </a>
           </li>
           <li>
             <a href="#rsvp" v-on:click="scroll" :title="$t('rsvp.title')"
                data-toggle="tooltip"
                data-placement="left" data-container="body">
-              <span class="dot"></span></a>
+              </a>
           </li>
           <li>
             <a href="#gallery" v-on:click="scroll" title="Gallery"
                data-toggle="tooltip"
                data-placement="left" data-container="body">
-              <span class="dot"></span></a>
+              </a>
           </li>
         </ul>
       </nav>
@@ -201,142 +201,29 @@
                 {{ $t('countdown.passed') }}
               </div>
             </div>
-          </div>
-        </section>
 
-        <section id="beginning" class="slide">
-          <div class="memories">
-            <div class="memory" v-for="(img, index) in gallery.slice(0, 2)" :key="index">
-              <img :data-src="img" :alt="img" class="lazy-image" loading="lazy">
-            </div>
-          </div>
+            <!-- Greeting Card -->
+            <div class="greeting-card">
+              <h2 class="greeting-title">{{ $t('start.greeting') }}</h2>
+              <p class="wedding-date">{{ $t('start.weddingDate') }}</p>
+              <p class="invitation-text">{{ $t('start.invitation') }}</p>
 
-          <div class="memories">
-            <div class="memory" v-for="(img, index) in gallery.slice(2, 4)" :key="index + 2">
-              <img :data-src="img" :alt="img" class="lazy-image" loading="lazy">
-            </div>
-          </div>
-        </section>
-
-        <section id="first-moments" class="slide">
-          <div class="memories">
-            <div class="memory" v-for="(img, index) in gallery.slice(4, 6)" :key="index + 4">
-              <img :data-src="img" :alt="img" class="lazy-image" loading="lazy">
-            </div>
-          </div>
-
-          <div class="memories">
-            <div class="memory" v-for="(img, index) in gallery.slice(6, 8)" :key="index + 6">
-              <img :data-src="img" :alt="img" class="lazy-image" loading="lazy">
+              <div class="couple-photos">
+                <div class="photo-wrapper groom-photo">
+                  <img src="images/_SUN4677-min.jpg" alt="{{ $t('start.groomName') }}" class="couple-photo">
+                  <span class="couple-name groom-name">{{ $t('start.groomName') }}</span>
+                </div>
+                <div class="heart-icon">❤️</div>
+                <div class="photo-wrapper bride-photo">
+                  <img src="images/_SUN5034-min.jpg" alt="{{ $t('start.brideName') }}" class="couple-photo">
+                  <span class="couple-name bride-name">{{ $t('start.brideName') }}</span>
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
-        <section id="madrid" class="slide">
-          <div class="memories">
-            <div class="memory" v-for="(img, index) in gallery.slice(8, 10)" :key="index + 8">
-              <img :data-src="img" :alt="img" class="lazy-image" loading="lazy">
-            </div>
-          </div>
 
-          <div class="memories">
-            <div class="memory" v-for="(img, index) in gallery.slice(10, 12)" :key="index + 10">
-              <img :data-src="img" :alt="img" class="lazy-image" loading="lazy">
-            </div>
-          </div>
-        </section>
-
-        <section id="new-york" class="slide">
-          <div class="memories">
-            <div class="memory" v-for="(img, index) in gallery.slice(12, 14)" :key="index + 12">
-              <img :data-src="img" :alt="img" class="lazy-image" loading="lazy">
-            </div>
-          </div>
-
-          <div class="memories">
-            <div class="memory" v-for="(img, index) in gallery.slice(14, 16)" :key="index + 14">
-              <img :data-src="img" :alt="img" class="lazy-image" loading="lazy">
-            </div>
-          </div>
-        </section>
-
-        <section id="paris" class="slide">
-          <div class="memories">
-            <div class="memory" v-for="(img, index) in gallery.slice(16, 18)" :key="index + 16">
-              <img :data-src="img" :alt="img" class="lazy-image" loading="lazy">
-            </div>
-          </div>
-
-          <div class="memories">
-            <div class="memory" v-for="(img, index) in gallery.slice(18, 20)" :key="index + 18">
-              <img :data-src="img" :alt="img" class="lazy-image" loading="lazy">
-            </div>
-          </div>
-        </section>
-
-        <section id="london" class="slide">
-          <div class="memories">
-            <div class="memory" v-for="(img, index) in gallery.slice(20, 22)" :key="index + 20">
-              <img :data-src="img" :alt="img" class="lazy-image" loading="lazy">
-            </div>
-          </div>
-
-          <div class="memories">
-            <div class="memory" v-for="(img, index) in gallery.slice(22, 24)" :key="index + 22">
-              <img :data-src="img" :alt="img" class="lazy-image" loading="lazy">
-            </div>
-          </div>
-        </section>
-
-        <section id="italy" class="slide">
-          <div class="memories">
-            <div class="memory" v-for="(img, index) in gallery.slice(24, 26)" :key="index + 24">
-              <img :data-src="img" :alt="img" class="lazy-image" loading="lazy">
-            </div>
-          </div>
-
-          <div class="memories">
-            <div class="memory" v-for="(img, index) in gallery.slice(0, 2)" :key="index + 26">
-              <img :data-src="img" :alt="img" class="lazy-image" loading="lazy">
-            </div>
-          </div>
-        </section>
-
-        <section id="edinburgh" class="slide">
-          <div class="memories">
-            <div class="memory" v-for="(img, index) in gallery.slice(2, 4)" :key="index + 28">
-              <img :data-src="img" :alt="img" class="lazy-image" loading="lazy">
-            </div>
-          </div>
-
-          <div class="memories">
-            <div class="memory" v-for="(img, index) in gallery.slice(4, 6)" :key="index + 30">
-              <img :data-src="img" :alt="img" class="lazy-image" loading="lazy">
-            </div>
-          </div>
-        </section>
-
-        <section id="japan" class="slide">
-          <div class="memories">
-            <div class="memory" v-for="(img, index) in gallery.slice(6, 8)" :key="index + 32">
-              <img :data-src="img" :alt="img" class="lazy-image" loading="lazy">
-            </div>
-          </div>
-
-          <div class="memories">
-            <div class="memory" v-for="(img, index) in gallery.slice(8, 10)" :key="index + 34">
-              <img :data-src="img" :alt="img" class="lazy-image" loading="lazy">
-            </div>
-          </div>
-        </section>
-
-        <section id="celebrate" class="slide">
-          <div class="content">
-            <div class="highlight">
-              <div class="highlight-text" v-html="$t('celebrate.content')"></div>
-            </div>
-          </div>
-        </section>
 
         <section id="schedule" class="slide">
           <div class="content">
@@ -358,22 +245,6 @@
                 </div>
                 <div class="schedule-text">
                   {{ $t('schedule.item2.text') }}
-                </div>
-              </div>
-              <div class="schedule-item">
-                <div class="schedule-time">
-                  {{ $t('schedule.item3.time') }}
-                </div>
-                <div class="schedule-text">
-                  {{ $t('schedule.item3.text') }}
-                </div>
-              </div>
-              <div class="schedule-item">
-                <div class="schedule-time">
-                  {{ $t('schedule.item4.time') }}
-                </div>
-                <div class="schedule-text">
-                  {{ $t('schedule.item4.text') }}
                 </div>
               </div>
             </div>
@@ -420,6 +291,14 @@
                 {{ $t('rsvp.thankYou') }}
               </p>
             </form>
+          </div>
+        </section>
+
+        <section id="celebrate" class="slide">
+          <div class="content">
+            <div class="highlight">
+              <div class="highlight-text" v-html="$t('celebrate.content')"></div>
+            </div>
           </div>
         </section>
 

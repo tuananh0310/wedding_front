@@ -11,7 +11,7 @@ body {
   background-color: #7ec0ee;
   font-family: 'Gloria Hallelujah';
   font-size: 30px;
-  line-height: 48px;
+  line-height: 36px;
   color: #555;
   width: 100vw;
   overflow-x: hidden;
@@ -22,7 +22,7 @@ body {
 
   @media screen and (max-width: $screen-xs-max) {
     font-size: 24px;
-    line-height: 32px;
+    line-height: 28px;
   }
 
   > div {
@@ -252,15 +252,22 @@ body {
 
   .slide {
     position: relative;
-    min-height: calc(100vh - 40px);
     width: 100%;
-    padding: 20px;
+    padding: 40px 20px;
+    min-height: 100vh;
     flex-direction: column;
-    display: flex;     align-items: center;     justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     overflow: hidden;
     // Tối ưu scroll performance
     will-change: transform;
     transform: translateZ(0); // Force GPU acceleration
+
+    @media screen and (max-width: $screen-xs-max) {
+      padding: 30px 15px;
+      min-height: auto;
+    }
 
     .content {
       position: relative;
@@ -268,19 +275,27 @@ body {
       z-index: 2;
       flex: 1;
       flex-direction: column;
-      display: flex;     align-items: center;     justify-content: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      max-width: 900px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 20px;
 
       .title {
         color: white;
         text-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
         text-align: center;
         font-size: 75px;
-        line-height: 150px;
+        line-height: 1.2;
         margin-bottom: 20px;
+        margin-top: 0;
 
         @media screen and (max-width: $screen-xs-max) {
-          font-size: 50px;
-          line-height: 80px;
+          font-size: 42px;
+          line-height: 1.3;
+          margin-bottom: 15px;
         }
 
         @media screen and (min-width: $screen-md-min) {
@@ -291,16 +306,17 @@ body {
       }
 
       .subtitle {
-        margin: 0;
+        margin: 0 0 30px 0;
         color: #666;
         text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
         font-size: 40px;
-        line-height: 80px;
+        line-height: 1.3;
         text-align: center;
 
         @media screen and (max-width: $screen-xs-max) {
-          font-size: 30px;
-          line-height: 50px;
+          font-size: 28px;
+          line-height: 1.4;
+          margin-bottom: 20px;
         }
 
         @media screen and (min-width: $screen-md-min) {
@@ -316,10 +332,20 @@ body {
         text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
         position: relative;
         z-index: 6;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
 
         .highlight-text {
           position: relative;
           z-index: 6;
+          font-size: 24px;
+          line-height: 1.6;
+
+          @media screen and (max-width: $screen-xs-max) {
+            font-size: 18px;
+            line-height: 1.5;
+          }
         }
       }
 
@@ -435,6 +461,9 @@ body {
 
     // Gallery section - hiển thị ảnh khi scroll xuống
     &#gallery {
+      position: relative;
+      z-index: 5; // Hiển thị trên footer
+
       .memories {
         gap: 20px;
         padding: 20px 0;
@@ -442,6 +471,8 @@ body {
         flex-wrap: wrap;
         justify-content: center;
         align-items: flex-start;
+        position: relative;
+        z-index: 5;
 
         .memory {
           flex: 0 0 auto;
@@ -450,6 +481,8 @@ body {
           transform: translateY(30px) scale(0.9);
           transition: opacity 0.6s ease, transform 0.6s ease, margin-left 0.6s ease;
           margin-left: 0;
+          position: relative;
+          z-index: 5; // Hiển thị trên footer
           // Tối ưu scroll performance
           will-change: transform, opacity;
           transform: translateZ(0); // Force GPU acceleration
@@ -464,6 +497,8 @@ body {
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
             display: block;
+            position: relative;
+            z-index: 5; // Hiển thị trên footer
             // Tối ưu scroll và image rendering
             will-change: transform, opacity;
             transform: translateZ(0); // Force GPU acceleration
@@ -544,13 +579,19 @@ body {
   position: fixed;
   top: 0;
   right: 0;
-  width: calc(40vw - 75px);
+  width: calc(30vw - 75px);
   flex-direction: column;
-  display: flex;     align-items: center;     justify-content: center;
-  height: calc(100vh - 40px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
   padding: 20px 55px 20px 20px;
   animation: characters-start 10s 1 ease-out;
-  z-index: 1;
+  z-index: 3;
+  pointer-events: none; // Không chặn các tương tác với elements khác
+  // Đảm bảo luôn hiển thị khi scroll
+  will-change: transform;
+  transform: translateZ(0); // Force GPU acceleration
 
   @keyframes characters-start {
     0% {
@@ -574,6 +615,10 @@ body {
     max-height: 90%;
     max-width: 100%;
     animation: wobbly 5s infinite linear;
+    pointer-events: none; // Không chặn tương tác
+    // Đảm bảo ảnh luôn render tốt
+    will-change: transform;
+    transform: translateZ(0);
   }
 }
 
@@ -582,6 +627,7 @@ footer {
   width: 100vw;
   bottom: 0;
   left: 0;
+  z-index: 1; // Thấp hơn gallery để ảnh hiển thị trên footer
 
   img {
     width: 100%;
@@ -626,7 +672,7 @@ footer {
 // Music toggle button
 .music-toggle {
   position: fixed;
-  bottom: 15px;
+  top: 15px;
   left: 10px;
   z-index: 10;
   border-radius: 999px;
@@ -651,22 +697,30 @@ footer {
   }
 
   @media screen and (max-width: $screen-xs-max) {
-    bottom: 10px;
+    top: 10px;
     left: 10px;
     font-size: 12px;
     padding: 5px 10px;
   }
 }
 
-// Countdown styles
+// Countdown styles - Thiết kế mới với UI đẹp như ảnh
 .countdown {
-  margin-top: 20px;
+  margin-top: 30px;
+  margin-bottom: 20px;
   color: white;
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
 
   .countdown-title {
-    font-size: 26px;
-    margin-bottom: 10px;
+    font-size: 28px;
+    margin-bottom: 20px;
+    font-weight: normal;
+    letter-spacing: 1px;
+
+    @media screen and (max-width: $screen-xs-max) {
+      font-size: 22px;
+      margin-bottom: 15px;
+    }
   }
 
   .countdown-items {
@@ -674,33 +728,82 @@ footer {
     justify-content: center;
     align-items: stretch;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 16px;
+
+    @media screen and (max-width: $screen-xs-max) {
+      gap: 10px;
+    }
   }
 
   .countdown-item {
-    background-color: rgba(0, 0, 0, 0.15);
-    border-radius: 10px;
-    padding: 10px 14px;
-    min-width: 72px;
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    padding: 16px 20px;
+    min-width: 80px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    }
   }
 
   .countdown-number {
     display: block;
-    font-size: 28px;
+    font-size: 36px;
+    font-weight: bold;
+    color: #ff6f91;
+    line-height: 1.2;
+    margin-bottom: 4px;
+    font-family: 'Gloria Hallelujah', cursive;
   }
 
   .countdown-label {
     display: block;
-    font-size: 14px;
+    font-size: 12px;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 500;
+    text-shadow: none;
   }
 
   @media screen and (max-width: $screen-xs-max) {
-    .countdown-title {
-      font-size: 22px;
+    margin-top: 20px;
+    margin-bottom: 15px;
+
+    .countdown-item {
+      padding: 12px 16px;
+      min-width: 70px;
+      border-radius: 10px;
     }
 
     .countdown-number {
-      font-size: 22px;
+      font-size: 28px;
+    }
+
+    .countdown-label {
+      font-size: 11px;
+    }
+  }
+
+  @media screen and (min-width: $screen-md-min) {
+    .countdown-item {
+      min-width: 90px;
+      padding: 18px 24px;
+    }
+
+    .countdown-number {
+      font-size: 42px;
+    }
+
+    .countdown-label {
+      font-size: 13px;
     }
   }
 }
@@ -709,15 +812,132 @@ footer {
   color: white;
 }
 
+// Greeting Card - Thiết kế như ảnh
+.greeting-card {
+  margin-top: 40px;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 40px 50px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  max-width: 650px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+
+  .greeting-title {
+    font-size: 48px;
+    color: #ff6f91;
+    font-family: 'Gloria Hallelujah', cursive;
+    font-weight: normal;
+    margin: 0 0 15px 0;
+    text-shadow: none;
+    letter-spacing: 2px;
+  }
+
+  .wedding-date {
+    font-size: 18px;
+    color: #333;
+    margin: 0 0 15px 0;
+    font-weight: 500;
+    text-shadow: none;
+  }
+
+  .invitation-text {
+    font-size: 16px;
+    color: #333;
+    margin: 0 0 25px 0;
+    line-height: 1.6;
+    text-shadow: none;
+  }
+
+  .couple-photos {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+
+  .photo-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .couple-photo {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center 20%;
+    border: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    display: block;
+    margin: 0 auto;
+  }
+
+  .heart-icon {
+    font-size: 32px;
+    color: #ff6f91;
+    line-height: 1;
+    align-self: center;
+  }
+
+  .couple-name {
+    font-size: 20px;
+    color: #ff6f91;
+    font-weight: 500;
+    text-shadow: none;
+    font-family: 'Gloria Hallelujah', cursive;
+  }
+
+  @media screen and (max-width: $screen-xs-max) {
+    padding: 20px 25px;
+    margin-top: 20px;
+
+    .greeting-title {
+      font-size: 36px;
+    }
+
+    .wedding-date {
+      font-size: 16px;
+    }
+
+    .invitation-text {
+      font-size: 14px;
+    }
+
+    .couple-photo {
+      width: 120px;
+      height: 120px;
+    }
+
+    .heart-icon {
+      font-size: 24px;
+    }
+
+    .couple-name {
+      font-size: 18px;
+    }
+
+    .couple-photos {
+      gap: 15px;
+    }
+  }
+}
+
 // RSVP form & mobile-friendly form controls
 .rsvp-form {
   width: 100%;
-  max-width: 480px;
-  margin: 20px auto 0;
+  max-width: 520px;
+  margin: 30px auto 0;
   text-align: left;
 
   .form-group {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
   }
 
   label {
@@ -730,17 +950,25 @@ footer {
   textarea,
   select {
     width: 100%;
-    border-radius: 8px;
-    border: none;
-    padding: 10px 12px;
+    border-radius: 10px;
+    border: 2px solid transparent;
+    padding: 12px 16px;
     font-size: 18px;
-    line-height: 1.4;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    line-height: 1.5;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    font-family: 'Gloria Hallelujah', cursive;
+
+    &:focus {
+      outline: none;
+      border-color: #ff6f91;
+      box-shadow: 0 2px 12px rgba(255, 111, 145, 0.2);
+    }
   }
 
   textarea {
     resize: vertical;
-    min-height: 90px;
+    min-height: 100px;
   }
 }
 
@@ -770,39 +998,57 @@ footer {
 
 // Schedule styles
 .schedule-list {
-  margin-top: 20px;
+  margin-top: 30px;
   width: 100%;
-  max-width: 520px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .schedule-item {
   display: flex;
   align-items: flex-start;
-  gap: 12px;
-  padding: 10px 14px;
-  margin-bottom: 10px;
-  border-radius: 12px;
-  background-color: rgba(255, 255, 255, 0.8);
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
-}
+  gap: 16px;
+  padding: 18px 20px;
+  margin-bottom: 16px;
+  border-radius: 14px;
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 
-.schedule-time {
-  font-weight: bold;
-  min-width: 70px;
-}
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
+  }
 
-.schedule-text {
-  font-size: 18px;
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  .schedule-time {
+    font-weight: bold;
+    min-width: 80px;
+    font-size: 20px;
+    color: #ff6f91;
+    flex-shrink: 0;
+  }
+
+  .schedule-text {
+    font-size: 18px;
+    line-height: 1.5;
+    color: #333;
+    flex: 1;
+  }
 }
 
 .btn-map {
-  margin-top: 20px;
+  margin-top: 30px;
 }
 
 // Extra mobile polish
 @media screen and (max-width: $screen-xs-max) {
   body {
-    padding: 0 10px;
+    padding: 0;
   }
 
   .slides {
@@ -810,11 +1056,32 @@ footer {
   }
 
   .slides .slide {
-    padding: 10px;
+    padding: 25px 15px;
+  }
+
+  .slides .slide .content {
+    padding: 15px;
   }
 
   .btn-rsvp {
     width: 100%;
     text-align: center;
+    padding: 12px 24px;
+    font-size: 16px;
+  }
+
+  .schedule-item {
+    padding: 14px 16px;
+    margin-bottom: 12px;
+    gap: 12px;
+  }
+
+  .schedule-time {
+    min-width: 70px;
+    font-size: 18px;
+  }
+
+  .schedule-text {
+    font-size: 16px;
   }
 }
