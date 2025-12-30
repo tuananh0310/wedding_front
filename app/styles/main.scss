@@ -155,7 +155,6 @@ body {
         }
 
         75% {
-          margin-top: 20px;
           opacity: 0.75;
         }
 
@@ -294,13 +293,10 @@ body {
         text-align: center;
         font-size: 75px;
         line-height: 1.2;
-        margin-bottom: 20px;
-        margin-top: 0;
 
         @media screen and (max-width: $screen-xs-max) {
-          font-size: 42px;
+          font-size: 32px;
           line-height: 1.3;
-          margin-bottom: 15px;
         }
 
         @media screen and (min-width: $screen-md-min) {
@@ -314,7 +310,7 @@ body {
         margin: 0 0 30px 0;
         color: #666;
         text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
-        font-size: 40px;
+        font-size: 0px;
         line-height: 1.3;
         text-align: center;
 
@@ -711,20 +707,16 @@ footer {
 
 // Countdown styles - Thiết kế mới với UI đẹp như ảnh
 .countdown {
-  margin-top: 30px;
-  margin-bottom: 20px;
   color: white;
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
 
   .countdown-title {
     font-size: 28px;
-    margin-bottom: 20px;
     font-weight: normal;
     letter-spacing: 1px;
 
     @media screen and (max-width: $screen-xs-max) {
       font-size: 22px;
-      margin-bottom: 15px;
     }
   }
 
@@ -779,7 +771,6 @@ footer {
   }
 
   @media screen and (max-width: $screen-xs-max) {
-    margin-top: 20px;
     margin-bottom: 15px;
 
     .countdown-item {

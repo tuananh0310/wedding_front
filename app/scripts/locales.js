@@ -186,11 +186,11 @@ let locales = {
   vi: {
     start: {
       title: 'Bắt đầu',
-      names: 'Tuấn Anh & Thu Phương',
+      names: 'Tuấn Anh  Thu Phương',
       slogan: '',
       greeting: 'Xin chào!',
       weddingDate: 'Ngày 29 tháng 1 năm 2026',
-      invitation: 'Chúng tôi mời bạn đến chung vui trong lễ cưới của chúng tôi.',
+      invitation: 'Chúng mình rất hạnh phúc được mời bạn đến dự ngày vui trọng đại này cùng hai đứa.',
       groomName: 'Tuấn Anh',
       brideName: 'Thu Phương'
     },

@@ -116,31 +116,40 @@ let app = new Vue({
         return;
       }
 
-      // Chuẩn bị nội dung email gửi về địa chỉ của bạn
-      const to = 'anhlxt2@fpt.com';
-      const subject = this.$t ? this.$t('rsvp.title') : 'RSVP Wedding';
+      // Chuẩn bị dữ liệu để gửi đến API
+      const rsvpData = {
+        name: this.rsvpName,
+        will_attend: this.rsvpAttending === 'yes',
+        message: this.rsvpMessage || ''
+      };
 
-      const attendingText = (function () {
-        if (this.$t) {
-          return this.rsvpAttending === 'yes'
-            ? this.$t('rsvp.attendingYes')
-            : this.$t('rsvp.attendingNo');
+      // Gửi POST request đến API
+      fetch('https://learning4.uk/api/wedding-rsvps', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(rsvpData)
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
         }
-        return this.rsvpAttending === 'yes' ? 'Yes' : 'No';
-      }.call(this));
-
-      const bodyLines = [
-        `Tên: ${this.rsvpName}`,
-        `Tham dự: ${attendingText}`,
-        `Lời nhắn: ${this.rsvpMessage || '(trống)'}`
-      ];
-
-      const mailto = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyLines.join('\n'))}`;
-
-      // Mở ứng dụng email của khách để họ gửi mail
-      window.location.href = mailto;
-
-      this.rsvpSubmitted = true;
+        return response.json();
+      })
+      .then(data => {
+        // Thành công
+        this.rsvpSubmitted = true;
+        // Reset form sau khi submit thành công
+        this.rsvpName = '';
+        this.rsvpAttending = 'yes';
+        this.rsvpMessage = '';
+      })
+      .catch(error => {
+        // Xử lý lỗi
+        console.error('Error submitting RSVP:', error);
+        alert(this.$t ? this.$t('rsvp.error') || 'Có lỗi xảy ra. Vui lòng thử lại sau.' : 'Có lỗi xảy ra. Vui lòng thử lại sau.');
+      });
     },
     changeLocale: function (locale) {
       if (!this.$i18n) return;
@@ -154,7 +163,7 @@ let app = new Vue({
     },
     openMap: function () {
       // Thay link này thành link Google Maps đến địa điểm cưới của bạn
-      const url = 'https://maps.google.com?q=Your+Wedding+Location';
+      const url = 'https://maps.google.com?q=NHÀ VĂN HOÁ XÓM 8, WCQH+5VR, Unnamed, Road, Yên Thành, Nghệ An, Việt Nam';
       window.open(url, '_blank');
     },
     initMusic: function () {
@@ -162,12 +171,33 @@ let app = new Vue({
       if (!this.musicAudio && !this.musicLoadFailed) {
         // File nhạc chill của bạn (sau khi build sẽ nằm trong thư mục dist/music)
         // Dùng đường dẫn tương đối để chạy tốt cả local và khi deploy (ví dụ GitHub Pages)
-        const musicPath = 'music/Heart-Of-The-Ocean(chosic.com).mp3';
+        const musicPath = 'music/Em Đồng Ý (I Do).mp3';
         this.musicAudio = new Audio(musicPath);
         this.musicAudio.loop = true;
         this.musicAudio.volume = 0.4;
+        this.musicAudio.preload = 'auto';
 
-        // Xử lý lỗi khi file nhạc không tồn tại (im lặng, không log)
+        // Xử lý khi audio đã sẵn sàng
+        this.musicAudio.addEventListener('canplaythrough', () => {
+          // Audio đã sẵn sàng để phát
+        });
+
+        // Xử lý khi audio bắt đầu phát
+        this.musicAudio.addEventListener('play', () => {
+          this.isMusicPlaying = true;
+        });
+
+        // Xử lý khi audio bị tạm dừng
+        this.musicAudio.addEventListener('pause', () => {
+          this.isMusicPlaying = false;
+        });
+
+        // Xử lý khi audio kết thúc (nếu không loop)
+        this.musicAudio.addEventListener('ended', () => {
+          this.isMusicPlaying = false;
+        });
+
+        // Xử lý lỗi khi file nhạc không tồn tại
         this.musicAudio.addEventListener('error', (e) => {
           // Đánh dấu là đã thử load và thất bại
           this.musicLoadFailed = true;
@@ -175,6 +205,9 @@ let app = new Vue({
           this.isMusicPlaying = false;
           // Không hiển thị warning để tránh làm phiền người dùng
         });
+
+        // Load audio ngay lập tức
+        this.musicAudio.load();
       }
     },
     playMusic: function () {
@@ -186,16 +219,32 @@ let app = new Vue({
         return;
       }
 
-      // Phát nhạc
-      this.musicAudio.play().then(() => {
-        this.isMusicPlaying = true;
-      }).catch((error) => {
-        // Nếu bị chặn hoặc lỗi, đánh dấu là failed và không làm gì thêm
-        // (Trình duyệt có thể chặn autoplay nếu chưa có user interaction)
-        this.musicLoadFailed = true;
-        this.musicAudio = null;
-        this.isMusicPlaying = false;
-      });
+      // Kiểm tra nếu audio đã sẵn sàng
+      if (this.musicAudio.readyState >= 2) {
+        // Audio đã sẵn sàng, phát ngay
+        this.musicAudio.play().then(() => {
+          this.isMusicPlaying = true;
+        }).catch((error) => {
+          // Nếu bị chặn autoplay, không đánh dấu là failed
+          // Chỉ log lỗi để debug (có thể bị chặn do autoplay policy)
+          console.log('Autoplay blocked:', error);
+        });
+      } else {
+        // Chờ audio load xong rồi mới phát
+        const playWhenReady = () => {
+          if (this.musicAudio.readyState >= 2) {
+            this.musicAudio.play().then(() => {
+              this.isMusicPlaying = true;
+            }).catch((error) => {
+              console.log('Autoplay blocked:', error);
+            });
+          } else {
+            // Chờ thêm một chút
+            setTimeout(playWhenReady, 100);
+          }
+        };
+        playWhenReady();
+      }
     },
     toggleMusic: function () {
       // Khởi tạo audio nếu chưa có
@@ -207,18 +256,40 @@ let app = new Vue({
       }
 
       if (this.isMusicPlaying) {
+        // Tạm dừng nhạc
         this.musicAudio.pause();
         this.isMusicPlaying = false;
       } else {
-        // Trình duyệt chỉ cho play sau khi có thao tác người dùng – ở đây là nút bấm
-        this.musicAudio.play().then(() => {
-          this.isMusicPlaying = true;
-        }).catch((error) => {
-          // Nếu bị chặn hoặc lỗi, đánh dấu là failed và không làm gì thêm
-          this.musicLoadFailed = true;
-          this.musicAudio = null;
-          this.isMusicPlaying = false;
-        });
+        // Phát nhạc - trình duyệt chỉ cho play sau khi có thao tác người dùng
+        // Đảm bảo audio đã sẵn sàng trước khi phát
+        if (this.musicAudio.readyState >= 2) {
+          this.musicAudio.play().then(() => {
+            this.isMusicPlaying = true;
+          }).catch((error) => {
+            // Nếu vẫn bị lỗi, có thể do vấn đề khác
+            console.error('Error playing music:', error);
+            this.musicLoadFailed = true;
+            this.musicAudio = null;
+            this.isMusicPlaying = false;
+          });
+        } else {
+          // Chờ audio load xong
+          const playWhenReady = () => {
+            if (this.musicAudio && this.musicAudio.readyState >= 2) {
+              this.musicAudio.play().then(() => {
+                this.isMusicPlaying = true;
+              }).catch((error) => {
+                console.error('Error playing music:', error);
+                this.musicLoadFailed = true;
+                this.musicAudio = null;
+                this.isMusicPlaying = false;
+              });
+            } else if (this.musicAudio) {
+              setTimeout(playWhenReady, 100);
+            }
+          };
+          playWhenReady();
+        }
       }
     },
     preloadImages: function() {
@@ -554,12 +625,15 @@ let app = new Vue({
       this.updateCountdown();
     }, 1000);
 
+    // Khởi tạo nhạc ngay khi trang load (preload)
+    this.initMusic();
+
     // Tự động phát nhạc khi trang được load
     // Lưu ý: Trình duyệt có thể chặn autoplay nếu chưa có user interaction
-    // Nhưng sẽ thử phát sau một khoảng thời gian ngắn
+    // Nhưng sẽ thử phát sau một khoảng thời gian ngắn để audio có thời gian load
     setTimeout(() => {
       this.playMusic();
-    }, 500);
+    }, 1000);
 
     // Preload một số ảnh đầu tiên để cache
     this.preloadImages();
@@ -570,6 +644,12 @@ let app = new Vue({
   beforeDestroy: function () {
     if (this._countdownInterval) {
       clearInterval(this._countdownInterval);
+    }
+    // Cleanup audio khi component bị destroy
+    if (this.musicAudio) {
+      this.musicAudio.pause();
+      this.musicAudio.src = '';
+      this.musicAudio = null;
     }
   }
 });
