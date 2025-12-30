@@ -1,0 +1,23 @@
+window.APP_IMAGES = [
+  'images/_SUN6977-min-min.jpg',
+  'images/_SUN6799-min-min.jpg',
+  'images/_SUN6626-min-min.jpg',
+  'images/_SUN6531-min-min.jpg',
+  'images/_SUN6519-min-min.jpg',
+  'images/_SUN6469-min-min.jpg',
+  'images/_SUN6425-min-min.jpg',
+  'images/_SUN6412-min-min.jpg',
+  'images/_SUN6409-min-min.jpg',
+  'images/_SUN6373-min-min.jpg',
+  'images/_SUN6349-min-min.jpg',
+  'images/_SUN5603-min-min.jpg',
+  'images/_SUN5450-min-min.jpg',
+  'images/_SUN5390-min-min.jpg',
+  'images/_SUN5293-min-min.jpg',
+  'images/_SUN5253-min-min.jpg',
+  'images/_SUN5140-min-min.jpg',
+  'images/_SUN5034-min-min.jpg',
+  'images/_SUN4827-min-min.jpg',
+  'images/_SUN4741-min-min.jpg',
+  'images/_SUN4677-min-min.jpg'
+];
