@@ -77,37 +77,18 @@ const extras = () => gulp.src([
   .pipe(gulp.dest('dist'));
 
 const images = () => gulp.src('app/images/**/*')
-  .pipe($.cache($.imagemin({
-    progressive: true,
-    interlaced: true,
-    // Tối ưu JPEG - giảm chất lượng để giảm dung lượng đáng kể
+  .pipe($.imagemin({
+    // Chỉ sử dụng mozjpeg - plugin chính cho JPG, không cần binary bên ngoài
     mozjpeg: {
       quality: 75, // Giảm từ 85 xuống 75 để tiết kiệm dung lượng (vẫn đủ tốt cho web)
-      progressive: true,
-      arithmetic: false
+      progressive: true
     },
-    // Tối ưu PNG - chỉ sử dụng nếu optipng có sẵn
-    optipng: {
-      optimizationLevel: 7, // Tăng từ 5 lên 7 (tối đa)
-      strip: true // Xóa metadata không cần thiết
-    },
-    // Tối ưu GIF - chỉ sử dụng nếu gifsicle có sẵn
-    gifsicle: {
-      optimizationLevel: 3,
-      colors: 256 // Giới hạn số màu
-    },
-    // don't remove IDs from SVGs, they are often used
-    // as hooks for embedding and styling
-    svgoPlugins: [
-      {cleanupIDs: false},
-      {removeViewBox: false}, // Giữ viewBox cho responsive
-      {removeUselessDefs: true}, // Xóa defs không dùng
-      {removeEmptyAttrs: true}, // Xóa attributes rỗng
-      {removeHiddenElems: true} // Xóa elements ẩn
-    ]
+    // Bỏ qua các plugin cần binary để tránh lỗi
+    // PNG và GIF sẽ được copy mà không nén (vẫn nhỏ hơn nhiều so với JPG gốc)
+    // SVG sẽ được giữ nguyên
   }, {
-    verbose: true // Hiển thị thông tin khi nén
-  })))
+    verbose: true
+  }))
   .pipe(gulp.dest('dist/images'));
 
 const music = () => {
