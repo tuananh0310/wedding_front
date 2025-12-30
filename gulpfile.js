@@ -78,14 +78,31 @@ const extras = () => gulp.src([
 
 const images = () => gulp.src('app/images/**/*')
   .pipe($.imagemin({
-    // Chỉ sử dụng mozjpeg - plugin chính cho JPG, không cần binary bên ngoài
+    // Tối ưu JPEG - giảm chất lượng để giảm dung lượng đáng kể
     mozjpeg: {
       quality: 75, // Giảm từ 85 xuống 75 để tiết kiệm dung lượng (vẫn đủ tốt cho web)
       progressive: true
     },
-    // Bỏ qua các plugin cần binary để tránh lỗi
-    // PNG và GIF sẽ được copy mà không nén (vẫn nhỏ hơn nhiều so với JPG gốc)
-    // SVG sẽ được giữ nguyên
+    // Tối ưu PNG
+    optipng: {
+      optimizationLevel: 7,
+      strip: true
+    },
+    // Tối ưu GIF
+    gifsicle: {
+      optimizationLevel: 3,
+      colors: 256
+    },
+    // Tối ưu SVG
+    svgo: {
+      plugins: [
+        {cleanupIDs: false},
+        {removeViewBox: false},
+        {removeUselessDefs: true},
+        {removeEmptyAttrs: true},
+        {removeHiddenElems: true}
+      ]
+    }
   }, {
     verbose: true
   }))

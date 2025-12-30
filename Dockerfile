@@ -1,7 +1,14 @@
-FROM node:18-alpine AS build
+FROM node:18-bullseye AS build
 
-# Install git, build tools và các binary cần thiết cho imagemin
-RUN apk add --no-cache git python3 make g++ optipng gifsicle libpng-dev libjpeg-turbo-dev
+# Install git và các dependencies cần thiết (bao gồm optipng và gifsicle cho imagemin)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    git \
+    python3 \
+    make \
+    g++ \
+    optipng \
+    gifsicle \
+    && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
@@ -22,7 +29,7 @@ RUN npm run build \
  && rm -rf /tmp/* /var/tmp/*
 
 # ---- runtime ----
-FROM nginx:1.25-alpine AS runtime
+FROM nginx:1.25 AS runtime
 
 # Copy từ dist (đã được build và nén) thay vì app (ảnh gốc chưa nén)
 COPY --from=build /app/dist /usr/share/nginx/html
