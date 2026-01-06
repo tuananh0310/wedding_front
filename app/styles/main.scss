@@ -7,12 +7,21 @@ $icon-font-path: '../fonts/';
 @import url(https://fonts.googleapis.com/css?family=Gloria+Hallelujah);
 @import "animations";
 
+// Color Palette - Đồng bộ màu sắc
+$primary-bg: #7ec0ee; // Background chính
+$text-dark: #2c2c2c; // Text trên nền sáng (đậm, dễ đọc)
+$text-light: #ffffff; // Text trên nền tối
+$text-secondary: #444444; // Text phụ
+$card-bg: rgba(255, 255, 255, 0.95); // Background card
+$accent-pink: #ff6f91; // Màu accent chính
+$accent-pink-light: #ffb3c6; // Màu accent nhạt
+
 body {
-  background-color: #7ec0ee;
+  background-color: $primary-bg;
   font-family: 'Gloria Hallelujah';
   font-size: 30px;
   line-height: 36px;
-  color: #555;
+  color: $text-dark;
   width: 100vw;
   overflow-x: hidden;
   // Tối ưu GPU rendering
@@ -290,7 +299,7 @@ body {
       padding: 20px;
 
       .title {
-        color: white;
+        color: $text-light;
         text-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
         text-align: center;
         font-size: 75px;
@@ -310,7 +319,7 @@ body {
 
       .subtitle {
         margin: 0 0 30px 0;
-        color: #666;
+        color: $text-dark;
         text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
         font-size: 0px;
         line-height: 1.3;
@@ -331,7 +340,7 @@ body {
       }
 
       .highlight {
-        color: white;
+        color: $text-light;
         text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
         position: relative;
         z-index: 6;
@@ -531,12 +540,12 @@ body {
 
       .gallery-btn {
         background-color: rgba(255, 255, 255, 0.9);
-        border: 2px solid #ffb3c6;
+        border: 2px solid $accent-pink-light;
         border-radius: 50%;
         width: 50px;
         height: 50px;
         font-size: 32px;
-        color: #ffb3c6;
+        color: $accent-pink-light;
         cursor: pointer;
         display: flex;
         align-items: center;
@@ -546,8 +555,8 @@ body {
         user-select: none;
 
         &:hover:not(:disabled) {
-          background-color: #ffb3c6;
-          color: white;
+          background-color: $accent-pink-light;
+          color: $text-light;
           transform: scale(1.1);
         }
 
@@ -565,7 +574,7 @@ body {
       }
 
       .gallery-counter {
-        color: white;
+        color: $text-light;
         font-size: 18px;
         font-weight: bold;
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
@@ -592,7 +601,7 @@ body {
         }
 
         &.active {
-          background-color: #ffb3c6;
+          background-color: $accent-pink-light;
           width: 30px;
           border-radius: 5px;
         }
@@ -694,8 +703,8 @@ footer {
   border-radius: 999px;
   border: none;
   padding: 6px 14px;
-  background-color: rgba(255, 255, 255, 0.85);
-  color: #555;
+  background-color: $card-bg;
+  color: $text-dark;
   font-size: 14px;
   display: flex;
   align-items: center;
@@ -748,7 +757,7 @@ footer {
   }
 
   .countdown-item {
-    background-color: rgba(255, 255, 255, 0.95);
+    background-color: $card-bg;
     border-radius: 12px;
     padding: 16px 20px;
     min-width: 80px;
@@ -769,7 +778,7 @@ footer {
     display: block;
     font-size: 36px;
     font-weight: bold;
-    color: #ff6f91;
+    color: $accent-pink;
     line-height: 1.2;
     margin-bottom: 4px;
     font-family: 'Gloria Hallelujah', cursive;
@@ -778,7 +787,7 @@ footer {
   .countdown-label {
     display: block;
     font-size: 12px;
-    color: #666;
+    color: $text-secondary;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     font-weight: 500;
@@ -827,7 +836,7 @@ footer {
 .greeting-card {
   margin-top: 40px;
   text-align: center;
-  background-color: rgba(255, 255, 255, 0.95);
+  background-color: $card-bg;
   border-radius: 20px;
   padding: 40px 50px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
@@ -838,7 +847,7 @@ footer {
 
   .greeting-title {
     font-size: 48px;
-    color: #ff6f91;
+    color: $accent-pink;
     font-family: 'Gloria Hallelujah', cursive;
     font-weight: normal;
     margin: 0 0 15px 0;
@@ -848,7 +857,7 @@ footer {
 
   .wedding-date {
     font-size: 18px;
-    color: #333;
+    color: $text-dark;
     margin: 0 0 15px 0;
     font-weight: 500;
     text-shadow: none;
@@ -856,7 +865,7 @@ footer {
 
   .invitation-text {
     font-size: 16px;
-    color: #333;
+    color: $text-dark;
     margin: 0 0 25px 0;
     line-height: 1.6;
     text-shadow: none;
@@ -892,14 +901,14 @@ footer {
 
   .heart-icon {
     font-size: 32px;
-    color: #ff6f91;
+    color: $accent-pink;
     line-height: 1;
     align-self: center;
   }
 
   .couple-name {
     font-size: 20px;
-    color: #ff6f91;
+    color: $accent-pink;
     font-weight: 500;
     text-shadow: none;
     font-family: 'Gloria Hallelujah', cursive;
@@ -978,7 +987,7 @@ footer {
 
     &:focus {
       outline: none;
-      border-color: #ff6f91;
+      border-color: $accent-pink;
       box-shadow: 0 2px 12px rgba(255, 111, 145, 0.2);
       // Ngăn auto-scroll khi focus trên mobile
       scroll-margin-top: 20px;
@@ -991,13 +1000,22 @@ footer {
   }
 }
 
-.btn-rsvp {
+.rsvp-submit-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
   margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.btn-rsvp {
+  margin-top: 0;
   padding: 10px 22px;
   border-radius: 999px;
   border: none;
-  background-color: #ff6f91;
-  color: white;
+  background-color: $accent-pink;
+  color: $text-light;
   font-size: 18px;
   cursor: pointer;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
@@ -1006,6 +1024,28 @@ footer {
   &:hover {
     background-color: #ff4f7a;
     transform: translateY(-1px);
+  }
+}
+
+.message-count-inline {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, $accent-pink 0%, $accent-pink-light 100%);
+  color: $text-light;
+  padding: 8px 16px;
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgba(255, 111, 145, 0.3);
+  font-size: 14px;
+  font-weight: bold;
+  white-space: nowrap;
+
+  .count-icon {
+    font-size: 16px;
+  }
+
+  .count-text {
+    white-space: nowrap;
   }
 }
 
@@ -1107,14 +1147,14 @@ footer {
     font-weight: bold;
     min-width: 80px;
     font-size: 20px;
-    color: #ff6f91;
+    color: $accent-pink;
     flex-shrink: 0;
   }
 
   .schedule-text {
     font-size: 18px;
     line-height: 1.5;
-    color: #333;
+    color: $text-dark;
     flex: 1;
   }
 }
@@ -1125,7 +1165,7 @@ footer {
 
 // Gift Box Section
 .gift-box-title {
-  color: #ffb3c6;
+  color: $accent-pink-light;
   font-size: 36px !important;
   margin-bottom: 10px;
   font-weight: normal;
@@ -1147,7 +1187,7 @@ footer {
   .decoration-line {
     flex: 1;
     height: 1px;
-    background-color: #ffb3c6;
+    background-color: $accent-pink-light;
   }
 
   .decoration-diamonds {
@@ -1160,7 +1200,7 @@ footer {
   .decoration-diamond {
     width: 8px;
     height: 8px;
-    background-color: #ffb3c6;
+    background-color: $accent-pink-light;
     transform: rotate(45deg);
     display: inline-block;
   }
@@ -1168,7 +1208,7 @@ footer {
 
 .gift-box-intro {
   text-align: center;
-  color: #333;
+  color: $text-dark;
   font-size: 16px;
   line-height: 1.6;
   margin-bottom: 40px;
@@ -1187,7 +1227,7 @@ footer {
 }
 
 .gift-box-item {
-  background-color: #ffb3c6;
+  background-color: $accent-pink-light;
   border: 2px solid white;
   border-style: double;
   padding: 30px;
@@ -1439,7 +1479,7 @@ footer {
   width: 50px;
   height: 50px;
   font-size: 36px;
-  color: #333;
+  color: $text-dark;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -1449,7 +1489,7 @@ footer {
   line-height: 1;
 
   &:hover {
-    background-color: #ffb3c6;
+    background-color: $accent-pink-light;
     color: white;
     transform: scale(1.1);
   }
@@ -1465,7 +1505,7 @@ footer {
   width: 60px;
   height: 60px;
   font-size: 40px;
-  color: #ffb3c6;
+  color: $accent-pink-light;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -1475,7 +1515,7 @@ footer {
   user-select: none;
 
   &:hover {
-    background-color: #ffb3c6;
+    background-color: $accent-pink-light;
     color: white;
     transform: translateY(-50%) scale(1.1);
   }
@@ -1596,17 +1636,17 @@ footer {
       margin-right: 60px;
       padding: 0 20px;
       font-size: 16px;
-      color: #333;
+      color: $text-dark;
       white-space: nowrap;
 
       .ticker-name {
         font-weight: bold;
-        color: #ff6f91;
+        color: $accent-pink;
         margin-right: 8px;
       }
 
       .ticker-message {
-        color: #555;
+        color: $text-dark;
       }
     }
   }

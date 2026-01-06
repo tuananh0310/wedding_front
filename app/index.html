@@ -52,11 +52,6 @@
         </div>
       </div>
 
-      <!-- Message Count Badge -->
-      <div class="message-count-badge" v-show="messageCount > 0">
-        <span class="count-icon">💝</span>
-        <span class="count-text">{{ messageCount }} lời chúc</span>
-      </div>
       <div class="clouds">
         <div class="clouds-row" v-for="n in 20">
           <img src="images/cloud.png" class="cloud cloud-large cloud-middle-top cloud-animation-1"/>
@@ -297,9 +292,15 @@
                 <textarea id="rsvp-message" rows="3" v-model="rsvpMessage" autocomplete="off"></textarea>
               </div>
 
-              <button type="submit" class="btn-rsvp">
-                Gửi lời nhắn
-              </button>
+              <div class="rsvp-submit-wrapper">
+                <button type="submit" class="btn-rsvp">
+                  Gửi lời nhắn
+                </button>
+                <div class="message-count-inline" v-if="messageCount > 0">
+                  <span class="count-icon">💝</span>
+                  <span class="count-text">Đã có {{ messageCount }} lời chúc từ bạn bè!</span>
+                </div>
+              </div>
             </form>
 
             <!-- Toast Message -->
