@@ -167,6 +167,8 @@ let app = new Vue({
         this.rsvpName = '';
         this.rsvpAttending = 'yes';
         this.rsvpMessage = '';
+        // Cập nhật lại số lượng lời chúc realtime
+        this.fetchWeddingMessages();
       })
       .catch(error => {
         // Xử lý lỗi - hiển thị toast
