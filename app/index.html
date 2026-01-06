@@ -333,7 +333,7 @@
               <div class="gift-box-item groom-box">
                 <h3 class="gift-box-item-title">Mừng cưới đến chú rể</h3>
                 <div class="qr-display-area">
-                  <img :src="groomQRCode" alt="QR Code" class="qr-image">
+                  <img :data-src="groomQRCode" alt="QR Code" class="qr-image lazy-image" loading="lazy">
                 </div>
                 <div class="bank-info">
                   <div class="bank-item">
@@ -353,7 +353,7 @@
               <div class="gift-box-item bride-box">
                 <h3 class="gift-box-item-title">Mừng cưới đến cô dâu</h3>
                 <div class="qr-display-area">
-                  <img :src="brideQRCode" alt="QR Code" class="qr-image">
+                  <img :data-src="brideQRCode" alt="QR Code" class="qr-image lazy-image" loading="lazy">
                 </div>
                 <div class="bank-info">
                   <div class="bank-item">

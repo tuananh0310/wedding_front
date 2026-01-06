@@ -16,7 +16,9 @@ function imagesList(cb) {
     .filter(f => {
       // Loại trừ các file không muốn thêm vào APP_IMAGES
       const excludedFiles = ['images/footer.png', 'images/cloud.png', 'images/miguel-miriam.png', 'images/confectionary.png'];
-      return !excludedFiles.includes(f);
+      // Loại trừ tất cả các file trong thư mục qr
+      const isQRFolder = f.startsWith('images/qr/');
+      return !excludedFiles.includes(f) && !isQRFolder;
     });
   const contents = `window.APP_IMAGES = ${JSON.stringify(relative, null, 2)};`;
 
