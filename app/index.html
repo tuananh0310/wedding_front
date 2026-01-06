@@ -28,6 +28,35 @@
   <body>
 
     <div class="js-app">
+      <!-- Wedding Messages Ticker - Top -->
+      <div class="message-ticker message-ticker-top" v-show="weddingMessages && weddingMessages.length > 0">
+        <div class="ticker-content">
+          <template v-for="(msg, index) in weddingMessages">
+            <div class="ticker-item" :key="'top-' + index">
+              <span class="ticker-name">{{ msg.name }}:</span>
+              <span class="ticker-message">{{ msg.message }}</span>
+            </div>
+          </template>
+        </div>
+      </div>
+
+      <!-- Wedding Messages Ticker - Bottom -->
+      <div class="message-ticker message-ticker-bottom" v-show="weddingMessages && weddingMessages.length > 0">
+        <div class="ticker-content ticker-content-reverse">
+          <template v-for="(msg, index) in weddingMessages">
+            <div class="ticker-item" :key="'bottom-' + index">
+              <span class="ticker-name">{{ msg.name }}:</span>
+              <span class="ticker-message">{{ msg.message }}</span>
+            </div>
+          </template>
+        </div>
+      </div>
+
+      <!-- Message Count Badge -->
+      <div class="message-count-badge" v-show="messageCount > 0">
+        <span class="count-icon">💝</span>
+        <span class="count-text">{{ messageCount }} lời chúc</span>
+      </div>
       <div class="clouds">
         <div class="clouds-row" v-for="n in 20">
           <img src="images/cloud.png" class="cloud cloud-large cloud-middle-top cloud-animation-1"/>
@@ -43,26 +72,6 @@
         </div>
       </div>
 
-      <!-- Lang switcher đã được ẩn - chỉ hiển thị tiếng Việt -->
-      <!--
-      <div class="lang-switcher">
-        <button type="button"
-                :class="{ active: currentLocale === 'vi' }"
-                v-on:click="changeLocale('vi')">
-          VI
-        </button>
-        <button type="button"
-                :class="{ active: currentLocale === 'en' }"
-                v-on:click="changeLocale('en')">
-          EN
-        </button>
-        <button type="button"
-                :class="{ active: currentLocale === 'es' }"
-                v-on:click="changeLocale('es')">
-          ES
-        </button>
-      </div>
-      -->
 
       <button
         type="button"
@@ -70,82 +79,88 @@
         v-on:click="toggleMusic">
         <span class="music-icon">♪</span>
         <span class="music-label">
-          {{ isMusicPlaying ? $t('music.pause') : $t('music.play') }}
+          {{ isMusicPlaying ? 'Tạm dừng nhạc' : 'Bật nhạc chill' }}
         </span>
       </button>
 
       <nav class="navbar">
         <ul class="nav">
           <li>
-            <a href="#start" v-on:click="scroll" :title="$t('start.title')" data-toggle="tooltip"
+            <a href="#start" v-on:click="scroll" title="Bắt đầu" data-toggle="tooltip"
                data-placement="left"
                data-container="body">
               </a>
           </li>
           <li>
-            <a href="#beginning" v-on:click="scroll" :title="$t('beginning.title')"
+            <a href="#beginning" v-on:click="scroll" title="Khởi đầu"
                data-toggle="tooltip"
                data-placement="left" data-container="body">
               </a>
           </li>
           <li>
-            <a href="#first-moments" v-on:click="scroll" :title="$t('firstMoments.title')"
+            <a href="#first-moments" v-on:click="scroll" title="Những khoảnh khắc đầu tiên"
                data-toggle="tooltip"
                data-placement="left" data-container="body">
               </a>
           </li>
           <li>
-            <a href="#madrid" v-on:click="scroll" :title="$t('madrid.title')" data-toggle="tooltip"
+            <a href="#madrid" v-on:click="scroll" title="Madrid" data-toggle="tooltip"
                data-placement="left" data-container="body">
               </a>
           </li>
           <li>
-            <a href="#new-york" v-on:click="scroll" :title="$t('newYork.title')"
+            <a href="#new-york" v-on:click="scroll" title="New York"
                data-toggle="tooltip"
                data-placement="left" data-container="body">
               </a>
           </li>
           <li>
-            <a href="#paris" v-on:click="scroll" :title="$t('paris.title')" data-toggle="tooltip"
+            <a href="#paris" v-on:click="scroll" title="Paris" data-toggle="tooltip"
                data-placement="left" data-container="body">
               </a>
           </li>
           <li>
-            <a href="#london" v-on:click="scroll" :title="$t('london.title')"
+            <a href="#london" v-on:click="scroll" title="London"
                data-toggle="tooltip"
                data-placement="left" data-container="body">
               </a>
           </li>
           <li>
-            <a href="#italy" v-on:click="scroll" :title="$t('italy.title')" data-toggle="tooltip"
+            <a href="#italy" v-on:click="scroll" title="Ý" data-toggle="tooltip"
                data-placement="left" data-container="body">
               </a>
           </li>
           <li>
-            <a href="#edinburgh" v-on:click="scroll" :title="$t('edinburgh.title')"
+            <a href="#edinburgh" v-on:click="scroll" title="Edinburgh"
                data-toggle="tooltip"
                data-placement="left" data-container="body">
               </a>
           </li>
           <li>
-            <a href="#japan" v-on:click="scroll" :title="$t('japan.title')" data-toggle="tooltip"
+            <a href="#japan" v-on:click="scroll" title="Nhật Bản" data-toggle="tooltip"
                data-placement="left" data-container="body">
               </a>
           </li>
           <li>
-            <a href="#celebrate" v-on:click="scroll" :title="$t('celebrate.title')"
+            <a href="#celebrate" v-on:click="scroll" title="Hãy cùng ăn mừng!"
                data-toggle="tooltip"
                data-placement="left" data-container="body">
               </a>
           </li>
           <li>
-            <a href="#schedule" v-on:click="scroll" :title="$t('schedule.title')"
+            <a href="#schedule" v-on:click="scroll" title="Lịch trình ngày cưới"
                data-toggle="tooltip"
                data-placement="left" data-container="body">
               </a>
           </li>
           <li>
-            <a href="#rsvp" v-on:click="scroll" :title="$t('rsvp.title')"
+            <a href="#rsvp" v-on:click="scroll" title="Xác nhận tham dự (RSVP)"
+               data-toggle="tooltip"
+               data-placement="left" data-container="body">
+              </a>
+          </li>
+          <li>
+            <a href="#gift-box" v-on:click="scroll" title="Hộp mừng cưới"
                data-toggle="tooltip"
                data-placement="left" data-container="body">
               </a>
@@ -164,58 +179,58 @@
         <section id="start" class="slide">
           <div class="content">
             <h1 class="title">
-              {{ $t('start.names') }}
+              Tuấn Anh  Thu Phương
             </h1>
 
             <h2 class="subtitle">
-              {{ $t('start.slogan') }}
+
             </h2>
 
             <div class="countdown" v-if="countdown && countdown.totalMs > 0">
               <div class="countdown-title">
-                {{ $t('countdown.title') }}
+                Đếm ngược đến ngày cưới
               </div>
               <div class="countdown-items">
                 <div class="countdown-item">
                   <span class="countdown-number">{{ countdown.days }}</span>
-                  <span class="countdown-label">{{ $t('countdown.days') }}</span>
+                  <span class="countdown-label">ngày</span>
                 </div>
                 <div class="countdown-item">
                   <span class="countdown-number">{{ countdown.hours }}</span>
-                  <span class="countdown-label">{{ $t('countdown.hours') }}</span>
+                  <span class="countdown-label">giờ</span>
                 </div>
                 <div class="countdown-item">
                   <span class="countdown-number">{{ countdown.minutes }}</span>
-                  <span class="countdown-label">{{ $t('countdown.minutes') }}</span>
+                  <span class="countdown-label">phút</span>
                 </div>
                 <div class="countdown-item">
                   <span class="countdown-number">{{ countdown.seconds }}</span>
-                  <span class="countdown-label">{{ $t('countdown.seconds') }}</span>
+                  <span class="countdown-label">giây</span>
                 </div>
               </div>
             </div>
 
             <div class="countdown countdown-passed" v-else>
               <div class="countdown-title">
-                {{ $t('countdown.passed') }}
+                Chúng mình đã cùng nhau đi qua ngày đặc biệt này rồi!
               </div>
             </div>
 
             <!-- Greeting Card -->
             <div class="greeting-card">
-              <h2 class="greeting-title">{{ $t('start.greeting') }}</h2>
-              <p class="wedding-date">{{ $t('start.weddingDate') }}</p>
-              <p class="invitation-text">{{ $t('start.invitation') }}</p>
+              <h2 class="greeting-title">Xin chào!</h2>
+              <p class="wedding-date">Ngày 29 tháng 1 năm 2026</p>
+              <p class="invitation-text">Chúng mình rất hạnh phúc được mời bạn đến dự ngày vui trọng đại này cùng hai đứa.</p>
 
               <div class="couple-photos">
                 <div class="photo-wrapper groom-photo">
-                  <img src="images/_SUN4677-min.jpg" alt="{{ $t('start.groomName') }}" class="couple-photo">
-                  <span class="couple-name groom-name">{{ $t('start.groomName') }}</span>
+                  <img src="images/_SUN4677-min.jpg" alt="Tuấn Anh" class="couple-photo">
+                  <span class="couple-name groom-name">Tuấn Anh</span>
                 </div>
                 <div class="heart-icon">❤️</div>
                 <div class="photo-wrapper bride-photo">
-                  <img src="images/_SUN5034-min.jpg" alt="{{ $t('start.brideName') }}" class="couple-photo">
-                  <span class="couple-name bride-name">{{ $t('start.brideName') }}</span>
+                  <img src="images/_SUN5034-min.jpg" alt="Thu Phương" class="couple-photo">
+                  <span class="couple-name bride-name">Thu Phương</span>
                 </div>
               </div>
             </div>
@@ -227,23 +242,23 @@
         <section id="schedule" class="slide">
           <div class="content">
             <h2 class="subtitle">
-              {{ $t('schedule.title') }}
+              Lịch trình ngày cưới
             </h2>
             <div class="schedule-list">
               <div class="schedule-item">
                 <div class="schedule-time">
-                  {{ $t('schedule.item1.time') }}
+                  28-01-2026
                 </div>
                 <div class="schedule-text">
-                  {{ $t('schedule.item1.text') }}
+                  Lễ đính hôn
                 </div>
               </div>
               <div class="schedule-item">
                 <div class="schedule-time">
-                  {{ $t('schedule.item2.time') }}
+                  29-01-2026
                 </div>
                 <div class="schedule-text">
-                  {{ $t('schedule.item2.text') }}
+                  Lễ cưới lúc 11:00
                 </div>
               </div>
             </div>
@@ -251,7 +266,7 @@
             <button type="button"
                     class="btn-rsvp btn-map"
                     v-on:click="openMap">
-              {{ $t('schedule.openMap') }}
+              Xem bản đồ & đường đi
             </button>
           </div>
         </section>
@@ -259,59 +274,144 @@
         <section id="rsvp" class="slide">
           <div class="content">
             <h2 class="subtitle">
-              {{ $t('rsvp.title') }}
+              Xác nhận tham dự (RSVP)
             </h2>
-            <p v-html="$t('rsvp.content')"></p>
+            <p>Hãy cho chúng mình biết bạn có thể đến chung vui hay không nhé. Mỗi lời hồi âm sẽ giúp bọn mình chuẩn bị chu đáo hơn cho ngày cưới.</p>
 
             <form class="rsvp-form" v-on:submit.prevent="submitRSVP" novalidate>
               <div class="form-group">
-                <label for="rsvp-name">{{ $t('rsvp.nameLabel') }}</label>
+                <label for="rsvp-name">Tên của bạn</label>
                 <input id="rsvp-name" type="text" v-model="rsvpName" required autocomplete="name">
               </div>
 
               <div class="form-group">
-                <label for="rsvp-attending">{{ $t('rsvp.attendingLabel') }}</label>
+                <label for="rsvp-attending">Bạn có đến tham dự không?</label>
                 <select id="rsvp-attending" v-model="rsvpAttending" autocomplete="off">
-                  <option value="yes">{{ $t('rsvp.attendingYes') }}</option>
-                  <option value="no">{{ $t('rsvp.attendingNo') }}</option>
+                  <option value="yes">Mình sẽ đến</option>
+                  <option value="no">Rất tiếc mình không đến được</option>
                 </select>
               </div>
 
               <div class="form-group">
-                <label for="rsvp-message">{{ $t('rsvp.messageLabel') }}</label>
+                <label for="rsvp-message">Lời nhắn (không bắt buộc)</label>
                 <textarea id="rsvp-message" rows="3" v-model="rsvpMessage" autocomplete="off"></textarea>
               </div>
 
               <button type="submit" class="btn-rsvp">
-                {{ $t('rsvp.button') }}
+                Gửi lời nhắn
               </button>
-
-              <p class="rsvp-thanks" v-if="rsvpSubmitted">
-                {{ $t('rsvp.thankYou') }}
-              </p>
             </form>
+
+            <!-- Toast Message -->
+            <div class="toast-message" v-if="toastMessage.show" :class="{ 'toast-success': toastMessage.type === 'success', 'toast-error': toastMessage.type === 'error' }">
+              <div class="toast-content">
+                <span class="toast-icon">{{ toastMessage.type === 'success' ? '✓' : '✕' }}</span>
+                <span class="toast-text">{{ toastMessage.text }}</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="gift-box" class="slide">
+          <div class="content">
+            <h2 class="subtitle gift-box-title">
+              Hộp mừng cưới
+            </h2>
+            <div class="gift-box-decoration">
+              <div class="decoration-line"></div>
+              <div class="decoration-diamonds">
+                <span class="decoration-diamond"></span>
+                <span class="decoration-diamond"></span>
+                <span class="decoration-diamond"></span>
+              </div>
+              <div class="decoration-line"></div>
+            </div>
+            <p class="gift-box-intro">
+              Nếu có thể, bạn hãy tới tham dự Đám cưới, chung vui và Mừng cưới trực tiếp cho chúng mình nha ^^. Cảm ơn bạn rất nhiều!
+            </p>
+            <div class="gift-boxes">
+              <div class="gift-box-item groom-box">
+                <h3 class="gift-box-item-title">Mừng cưới đến chú rể</h3>
+                <div class="qr-display-area">
+                  <img :src="groomQRCode" alt="QR Code" class="qr-image">
+                </div>
+                <div class="bank-info">
+                  <div class="bank-item">
+                    <span class="bank-label">Ngân hàng:</span>
+                    <span class="bank-value">TP Bank</span>
+                  </div>
+                  <div class="bank-item">
+                    <span class="bank-label">Tên:</span>
+                    <span class="bank-value">Tuấn Anh</span>
+                  </div>
+                  <div class="bank-item">
+                    <span class="bank-label">STK:</span>
+                    <span class="bank-value">10000557418</span>
+                  </div>
+                </div>
+              </div>
+              <div class="gift-box-item bride-box">
+                <h3 class="gift-box-item-title">Mừng cưới đến cô dâu</h3>
+                <div class="qr-display-area">
+                  <img :src="brideQRCode" alt="QR Code" class="qr-image">
+                </div>
+                <div class="bank-info">
+                  <div class="bank-item">
+                    <span class="bank-label">Ngân hàng:</span>
+                    <span class="bank-value">Vietinbank</span>
+                  </div>
+                  <div class="bank-item">
+                    <span class="bank-label">Tên:</span>
+                    <span class="bank-value">Thu Phương</span>
+                  </div>
+                  <div class="bank-item">
+                    <span class="bank-label">STK:</span>
+                    <span class="bank-value">104870697606</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
         <section id="celebrate" class="slide">
           <div class="content">
             <div class="highlight">
-              <div class="highlight-text" v-html="$t('celebrate.content')"></div>
+              <div class="highlight-text">Những khoảnh khắc đẹp đẽ được lưu giữ qua từng bức ảnh.<br></div>
             </div>
           </div>
         </section>
 
         <section id="gallery" class="slide">
           <div class="memories">
-            <div class="memory" v-for="img in gallery" :key="img">
-              <img :data-src="img" :alt="img" class="lazy-image" loading="lazy">
+            <div class="memory" v-for="(img, index) in gallery" :key="img">
+              <img :data-src="img" :alt="img" class="lazy-image" loading="lazy" @click="openLightbox(index, $event)" style="cursor: pointer;">
             </div>
           </div>
         </section>
+
+        <!-- Lightbox Modal -->
+        <div class="lightbox-overlay" v-if="lightboxOpen" @click="closeLightbox">
+          <div class="lightbox-content" @click.stop>
+            <button class="lightbox-close" @click="closeLightbox">×</button>
+            <button class="lightbox-btn lightbox-prev" @click="lightboxPrevImage">‹</button>
+            <img
+              v-if="gallery && gallery[lightboxImageIndex]"
+              :src="gallery[lightboxImageIndex]"
+              :alt="`Ảnh ${lightboxImageIndex + 1}`"
+              class="lightbox-image"
+              @load="onLightboxImageLoad"
+              @error="handleImageError"
+              :key="'img-' + lightboxImageIndex">
+            <div v-else class="lightbox-loading">Đang tải ảnh...</div>
+            <button class="lightbox-btn lightbox-next" @click="lightboxNextImage">›</button>
+            <div class="lightbox-counter">{{ lightboxImageIndex + 1 }} / {{ gallery.length }}</div>
+          </div>
+        </div>
       </div>
 
       <div class="characters">
-        <img src="images/miguel-miriam.png" alt="{{ $t('start.names')"/>
+        <img src="images/miguel-miriam.png" alt="Tuấn Anh  Thu Phương"/>
       </div>
 
       <footer>
@@ -329,7 +429,6 @@
 
     <!-- Vue (CDN, Vue 2) -->
     <script src="https://unpkg.com/vue@2.6.14/dist/vue.min.js"></script>
-    <script src="https://unpkg.com/vue-i18n@8.28.2/dist/vue-i18n.min.js"></script>
 
     <!-- build:js scripts/plugins.js -->
     <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/affix.js"></script>
@@ -348,7 +447,6 @@
 
     <!-- build:js scripts/main.js -->
     <script src="scripts/sparkle.js"></script>
-    <script src="scripts/locales.js"></script>
     <script src="scripts/images-list.js"></script>
     <script src="scripts/main.js"></script>
     <!-- endbuild -->

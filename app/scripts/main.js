@@ -1,12 +1,10 @@
-/* global Vue, VueI18n, $, Sparkle, APP_I18N */
+/* global Vue, $, Sparkle */
 
 let app = new Vue({
   el: '.js-app',
-  i18n: (window.APP_I18N || undefined),
   data: {
     years: (new Date()).getFullYear() - 2005,
     gallery: (window.APP_IMAGES || []),
-    currentLocale: 'vi', // Luôn sử dụng tiếng Việt
     // Thay đổi ngày này thành ngày cưới thực tế của bạn
     // Hiện tại: 29/01/2026 lúc 10:00 (theo giờ trình duyệt)
     weddingDate: new Date('2026-01-29T10:00:00'),
@@ -20,11 +18,25 @@ let app = new Vue({
     rsvpName: '',
     rsvpAttending: 'yes',
     rsvpMessage: '',
-    rsvpSubmitted: false,
+    // Toast message
+    toastMessage: {
+      show: false,
+      text: '',
+      type: 'success' // 'success' or 'error'
+    },
     // Nhạc nền chill
     isMusicPlaying: false,
     musicAudio: null,
-    musicLoadFailed: false
+    musicLoadFailed: false,
+    // QR Code images - load from folder qr
+    groomQRCode: 'images/qr/IMG_9575.jpg',
+    brideQRCode: 'images/qr/IMG_9576.jpg',
+    // Lightbox
+    lightboxOpen: false,
+    lightboxImageIndex: 0,
+    // Wedding messages
+    weddingMessages: [],
+    messageCount: 0
   },
   methods: {
     ensureActiveSlide: function () {
@@ -109,10 +121,21 @@ let app = new Vue({
         seconds: seconds
       };
     },
+    showToast: function(text, type) {
+      // Sử dụng Vue.set để đảm bảo reactivity
+      this.$set(this.toastMessage, 'show', true);
+      this.$set(this.toastMessage, 'text', text);
+      this.$set(this.toastMessage, 'type', type || 'success');
+
+      // Tự động ẩn sau 4 giây
+      setTimeout(() => {
+        this.$set(this.toastMessage, 'show', false);
+      }, 4000);
+    },
     submitRSVP: function () {
       if (!this.rsvpName) {
-        // Nhắc nhập tên đơn giản, không gây khó chịu
-        alert(this.$t ? this.$t('rsvp.nameRequired') : 'Vui lòng nhập tên');
+        // Hiển thị toast thay vì alert
+        this.showToast('Vui lòng nhập tên của bạn.', 'error');
         return;
       }
 
@@ -138,28 +161,18 @@ let app = new Vue({
         return response.json();
       })
       .then(data => {
-        // Thành công
-        this.rsvpSubmitted = true;
+        // Thành công - hiển thị toast
+        this.showToast('Cảm ơn bạn đã gửi lời nhắn! Bọn mình rất háo hức được chia sẻ ngày này cùng bạn.', 'success');
         // Reset form sau khi submit thành công
         this.rsvpName = '';
         this.rsvpAttending = 'yes';
         this.rsvpMessage = '';
       })
       .catch(error => {
-        // Xử lý lỗi
+        // Xử lý lỗi - hiển thị toast
         console.error('Error submitting RSVP:', error);
-        alert(this.$t ? this.$t('rsvp.error') || 'Có lỗi xảy ra. Vui lòng thử lại sau.' : 'Có lỗi xảy ra. Vui lòng thử lại sau.');
+        this.showToast('Có lỗi xảy ra. Vui lòng thử lại sau.', 'error');
       });
-    },
-    changeLocale: function (locale) {
-      if (!this.$i18n) return;
-      this.$i18n.locale = locale;
-      this.currentLocale = locale;
-
-      // Cập nhật lại title trang cho phù hợp ngôn ngữ mới
-      const names = this.$t('start.names');
-      const slogan = this.$t('start.slogan');
-      document.title = `${names}. ${slogan}`;
     },
     openMap: function () {
       // Thay link này thành link Google Maps đến địa điểm cưới của bạn
@@ -376,6 +389,136 @@ let app = new Vue({
         }
       }
     },
+    triggerQRUpload: function(type) {
+      // Trigger file input click
+      const inputRef = type === 'groom' ? 'groomQRInput' : 'brideQRInput';
+      const input = this.$refs[inputRef];
+      if (input) {
+        // Handle both single element and array cases
+        const element = Array.isArray(input) ? input[0] : input;
+        if (element) {
+          element.click();
+        }
+      }
+    },
+    handleQRUpload: function(event, type) {
+      const file = event.target.files[0];
+      if (file && file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          if (type === 'groom') {
+            this.groomQRCode = e.target.result;
+          } else {
+            this.brideQRCode = e.target.result;
+          }
+        };
+        reader.readAsDataURL(file);
+      }
+    },
+    openLightbox: function(index, event) {
+      // Đảm bảo index hợp lệ
+      if (index < 0 || index >= this.gallery.length) {
+        console.error('Invalid image index:', index, 'Gallery length:', this.gallery.length);
+        return;
+      }
+
+      // Đặt index và mở lightbox ngay lập tức
+      this.$set(this, 'lightboxImageIndex', index);
+      this.$set(this, 'lightboxOpen', true);
+
+      // Ngăn scroll body khi lightbox mở
+      document.body.style.overflow = 'hidden';
+
+      // Debug
+      console.log('Opening lightbox with index:', index, 'Image:', this.gallery[index]);
+    },
+    closeLightbox: function() {
+      this.lightboxOpen = false;
+      // Cho phép scroll body lại
+      document.body.style.overflow = '';
+    },
+      onLightboxImageLoad: function(event) {
+        // Đảm bảo ảnh hiển thị với inline style và scale đúng kích thước
+        const img = event.target;
+
+        // Force hiển thị ảnh với các style quan trọng
+        img.style.display = 'block';
+        img.style.visibility = 'visible';
+        img.style.opacity = '1';
+        img.style.position = 'relative';
+        img.style.zIndex = '10001';
+        img.style.maxWidth = '85vw';
+        img.style.maxHeight = '85vh';
+        img.style.width = 'auto';
+        img.style.height = 'auto';
+        img.style.objectFit = 'contain';
+        img.style.margin = 'auto';
+        img.style.background = 'rgba(255, 255, 255, 0.1)';
+        img.style.border = '2px solid rgba(255, 255, 255, 0.2)';
+
+        console.log('Image forced to display. Computed styles:', {
+          display: window.getComputedStyle(img).display,
+          visibility: window.getComputedStyle(img).visibility,
+          opacity: window.getComputedStyle(img).opacity,
+          width: window.getComputedStyle(img).width,
+          height: window.getComputedStyle(img).height
+        });
+      },
+    handleImageError: function(event) {
+      console.error('Lightbox image failed to load:', event.target.src);
+      // Thử load lại với đường dẫn đầy đủ nếu cần
+      const currentSrc = event.target.src;
+      if (currentSrc && !currentSrc.startsWith('http') && !currentSrc.startsWith('/') && !currentSrc.startsWith(window.location.origin)) {
+        event.target.src = '/' + currentSrc.replace(/^\//, '');
+      }
+    },
+    fetchWeddingMessages: function() {
+      fetch('https://learning4.uk/api/wedding-rsvps')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(data => {
+          console.log('Fetched wedding messages data:', data);
+          if (data.success && data.data) {
+            // Filter messages có is_show = true và có message
+            const visibleMessages = data.data.filter(item => {
+              const isValid = item.is_show === true && item.message && item.message.trim() !== '';
+              console.log('Message item:', item, 'isValid:', isValid);
+              return isValid;
+            });
+            console.log('Visible messages:', visibleMessages);
+            // Duplicate messages để ticker chạy liên tục
+            const duplicatedMessages = visibleMessages.length > 0
+              ? [...visibleMessages, ...visibleMessages, ...visibleMessages]
+              : [];
+            // Sử dụng $set để đảm bảo Vue reactivity
+            this.$set(this, 'weddingMessages', duplicatedMessages);
+            this.$set(this, 'messageCount', data.data.length);
+            console.log('Final weddingMessages:', this.weddingMessages);
+            console.log('Message count:', this.messageCount);
+          }
+        })
+        .catch(error => {
+          console.error('Error fetching wedding messages:', error);
+        });
+    },
+    lightboxNextImage: function() {
+      if (this.lightboxImageIndex < this.gallery.length - 1) {
+        this.lightboxImageIndex++;
+      } else {
+        this.lightboxImageIndex = 0;
+      }
+    },
+    lightboxPrevImage: function() {
+      if (this.lightboxImageIndex > 0) {
+        this.lightboxImageIndex--;
+      } else {
+        this.lightboxImageIndex = this.gallery.length - 1;
+      }
+    },
     initLazyLoading: function() {
       // Sử dụng Intersection Observer để lazy load ảnh với tối ưu tối đa GPU/CPU
       if ('IntersectionObserver' in window) {
@@ -512,11 +655,7 @@ let app = new Vue({
   },
   mounted: function()  {
     // Update page title with names and slogan
-    if (this.$t) {
-      const names = this.$t('start.names');
-      const slogan = this.$t('start.slogan');
-      document.title = `${names}. ${slogan}`;
-    }
+    document.title = 'Tuấn Anh  Thu Phương. ';
 
     $('[data-toggle="tooltip"]').tooltip();
 
@@ -640,6 +779,27 @@ let app = new Vue({
 
     // Khởi tạo lazy loading cho ảnh
     this.initLazyLoading();
+
+    // Fetch wedding messages
+    this.fetchWeddingMessages();
+    // Refresh messages mỗi 30 giây
+    setInterval(() => {
+      this.fetchWeddingMessages();
+    }, 30000);
+
+    // Keyboard navigation cho lightbox
+    const self = this;
+    document.addEventListener('keydown', function(e) {
+      if (self.lightboxOpen) {
+        if (e.key === 'Escape') {
+          self.closeLightbox();
+        } else if (e.key === 'ArrowLeft') {
+          self.lightboxPrevImage();
+        } else if (e.key === 'ArrowRight') {
+          self.lightboxNextImage();
+        }
+      }
+    });
   },
   beforeDestroy: function () {
     if (this._countdownInterval) {
