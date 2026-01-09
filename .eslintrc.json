@@ -1,0 +1,31 @@
+{
+  "env": {
+    "es6": true,
+    "node": true,
+    "browser": true
+  },
+  "extends": "eslint:recommended",
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "module"
+  },
+  "globals": {
+    "Vue": "readonly",
+    "$": "readonly",
+    "Sparkle": "readonly",
+    "Countdown": "readonly",
+    "MusicPlayer": "readonly",
+    "Lightbox": "readonly",
+    "RSVP": "readonly",
+    "Messages": "readonly",
+    "LazyLoading": "readonly",
+    "Navigation": "readonly",
+    "Utils": "readonly"
+  },
+  "rules": {
+    "quotes": [2, "single"],
+    "no-console": ["warn", { "allow": ["warn", "error"] }],
+    "no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
+    "semi": [2, "always"]
+  }
+}

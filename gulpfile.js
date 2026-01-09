@@ -74,7 +74,9 @@ const fonts = () => gulp.src(require('main-bower-files')('**/*.{eot,svg,ttf,woff
 
 const extras = () => gulp.src([
   'app/*.*',
-  '!app/*.html'
+  '!app/*.html',
+  'app/manifest.json',
+  'app/sw.js'
 ], {dot: true})
   .pipe(gulp.dest('dist'));
 

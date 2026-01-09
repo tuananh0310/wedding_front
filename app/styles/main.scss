@@ -304,10 +304,20 @@ body {
         text-align: center;
         font-size: 75px;
         line-height: 1.2;
+        white-space: nowrap;
 
         @media screen and (max-width: $screen-xs-max) {
-          font-size: 32px;
-          line-height: 1.3;
+          font-size: 24px;
+          line-height: 1.4;
+          white-space: normal;
+          word-spacing: 0.1em;
+          padding: 0 15px;
+          box-sizing: border-box;
+        }
+
+        @media screen and (max-width: 360px) {
+          font-size: 20px;
+          line-height: 1.5;
         }
 
         @media screen and (min-width: $screen-md-min) {
@@ -374,7 +384,12 @@ body {
       z-index: 1;
 
       @media screen and (max-width: $screen-xs-max) {
+        flex-direction: column;
         flex-wrap: nowrap;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 20px;
+        padding: 10px;
       }
 
       .memory {
@@ -399,19 +414,31 @@ body {
           border-radius: 10px;
 
           @media screen and (max-width: $screen-xs-max) {
-            max-width: 150px;
-            max-height: 150px;
+            max-width: 95vw !important;
+            max-height: none !important;
+            width: 95vw !important;
+            min-width: 95vw !important;
+            aspect-ratio: auto;
+            object-fit: contain;
+            display: block;
+            margin: 0 auto;
           }
 
           @media screen and (min-width: $screen-sm-min) and (max-width: $screen-md-max) {
-            max-width: 250px;
-            max-height: 250px;
+            max-width: 300px;
+            max-height: 300px;
           }
         }
 
         @media screen and (max-width: $screen-xs-max) {
           opacity: 1;
-          margin-left: 0;
+          margin-left: 0 !important;
+          transform: none !important;
+          margin-bottom: 20px;
+          width: 100% !important;
+          max-width: 100% !important;
+          flex: 0 0 auto;
+          box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.15);
         }
       }
 
@@ -423,7 +450,8 @@ body {
             transition: 2s;
 
             @media screen and (max-width: $screen-xs-max) {
-              transform: scale(0.4) rotate(4deg);
+              transform: none !important;
+              margin-left: 0 !important;
             }
           }
 
@@ -432,7 +460,8 @@ body {
             transition: 3s;
 
             @media screen and (max-width: $screen-xs-max) {
-              transform: scale(0.4) rotate(-5deg);
+              transform: none !important;
+              margin-left: 0 !important;
             }
           }
         }
@@ -446,7 +475,8 @@ body {
             transition: 5s;
 
             @media screen and (max-width: $screen-xs-max) {
-              transform: scale(0.4) rotate(-6deg);
+              transform: none !important;
+              margin-left: 0 !important;
             }
           }
 
@@ -455,7 +485,8 @@ body {
             transition: 4s;
 
             @media screen and (max-width: $screen-xs-max) {
-              transform: scale(0.4) rotate(4deg);
+              transform: none !important;
+              margin-left: 0 !important;
             }
           }
         }
@@ -877,7 +908,7 @@ footer {
     justify-content: center;
     gap: 20px;
     margin-top: 20px;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
   }
 
   .photo-wrapper {
@@ -945,6 +976,18 @@ footer {
 
     .couple-photos {
       gap: 15px;
+      flex-wrap: nowrap;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .photo-wrapper {
+      flex-shrink: 0;
+    }
+
+    .heart-icon {
+      flex-shrink: 0;
+      align-self: center;
     }
   }
 }
@@ -1376,6 +1419,31 @@ footer {
     transform: none;
   }
 
+  .slides .slide#gallery {
+    padding: 10px 5px;
+  }
+
+  .slides .slide#gallery .memories {
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+
+  .slides .slide#gallery .memories .memory {
+    transform: none !important;
+    margin-left: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .slides .slide#gallery .memories .memory img {
+    width: 95vw !important;
+    max-width: 95vw !important;
+    height: auto !important;
+    transform: none !important;
+  }
+
   .slides .slide .content {
     padding: 15px;
     // Ngăn auto-scroll khi focus vào form
@@ -1564,8 +1632,9 @@ footer {
 
 @media screen and (max-width: $screen-xs-max) {
   .lightbox-image {
-    max-width: 95vw;
-    max-height: 95vh;
+    max-width: 98vw !important;
+    max-height: 95vh !important;
+    min-width: 90vw !important;
   }
 
   .lightbox-close {

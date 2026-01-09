@@ -4,7 +4,8 @@
     "node": ">=18"
   },
   "scripts": {
-    "build": "npx gulp build"
+    "build": "npx gulp build",
+    "test": "echo \"Tests are basic - add Jest/Mocha for full testing\" && exit 0"
   },
   "devDependencies": {
     "@babel/core": "^7.22.0",

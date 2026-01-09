@@ -1,0 +1,25 @@
+{
+  "name": "Đám cưới Tuấn Anh & Thu Phương",
+  "short_name": "Wedding 2026",
+  "description": "Website đám cưới Tuấn Anh & Thu Phương - Ngày 29 tháng 1 năm 2026",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#7ec0ee",
+  "theme_color": "#7ec0ee",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "favicon.ico",
+      "sizes": "48x48",
+      "type": "image/x-icon"
+    }
+  ],
+  "categories": ["lifestyle", "events"],
+  "lang": "vi"
+}

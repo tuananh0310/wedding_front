@@ -1,15 +1,37 @@
 <!doctype html>
-<html class="no-js" lang="">
+<html class="no-js" lang="vi">
   <head>
     <meta charset="utf-8">
-    <meta name="description" content="">
+    <meta name="description" content="Đám cưới Tuấn Anh & Thu Phương - Ngày 29 tháng 1 năm 2026. Chúng mình rất hạnh phúc được mời bạn đến dự ngày vui trọng đại này cùng hai đứa.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="đám cưới, wedding, Tuấn Anh, Thu Phương, 2026">
+    <meta name="author" content="Tuấn Anh & Thu Phương">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Đám cưới Tuấn Anh & Thu Phương">
+    <meta property="og:description" content="Ngày 29 tháng 1 năm 2026 - Chúng mình rất hạnh phúc được mời bạn đến dự ngày vui trọng đại này cùng hai đứa.">
+    <meta property="og:image" content="images/_SUN5034-min.jpg">
+    <meta property="og:url" content="">
+    <meta property="og:locale" content="vi_VN">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Đám cưới Tuấn Anh & Thu Phương">
+    <meta name="twitter:description" content="Ngày 29 tháng 1 năm 2026 - Chúng mình rất hạnh phúc được mời bạn đến dự ngày vui trọng đại này cùng hai đứa.">
+    <meta name="twitter:image" content="images/_SUN5034-min.jpg">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="">
 
     <!-- Resource hints để tối ưu load ảnh -->
     <link rel="preconnect" href="/images">
     <link rel="dns-prefetch" href="/images">
+    <link rel="preconnect" href="https://learning4.uk">
 
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#7ec0ee">
     <!-- Place favicon.ico in the root directory -->
 
     <!-- build:css styles/vendor.css -->
@@ -24,6 +46,33 @@
     <!-- build:js scripts/vendor/modernizr.js -->
     <script src="/bower_components/modernizr/modernizr.js"></script>
     <!-- endbuild -->
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Event",
+      "name": "Đám cưới Tuấn Anh & Thu Phương",
+      "description": "Chúng mình rất hạnh phúc được mời bạn đến dự ngày vui trọng đại này cùng hai đứa.",
+      "startDate": "2026-01-29T11:00:00+07:00",
+      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+      "eventStatus": "https://schema.org/EventScheduled",
+      "location": {
+        "@type": "Place",
+        "name": "NHÀ VĂN HOÁ XÓM 8",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "WCQH+5VR, Unnamed, Road, Yên Thành",
+          "addressLocality": "Nghệ An",
+          "addressCountry": "VN"
+        }
+      },
+      "organizer": {
+        "@type": "Person",
+        "name": "Tuấn Anh & Thu Phương"
+      }
+    }
+    </script>
   </head>
   <body>
 
@@ -71,19 +120,25 @@
       <button
         type="button"
         class="music-toggle"
-        v-on:click="toggleMusic">
-        <span class="music-icon">♪</span>
+        v-on:click="toggleMusic"
+        :aria-label="isMusicPlaying ? 'Tạm dừng nhạc' : 'Bật nhạc chill'"
+        aria-pressed="false">
+        <span class="music-icon" aria-hidden="true">♪</span>
         <span class="music-label">
           {{ isMusicPlaying ? 'Tạm dừng nhạc' : 'Bật nhạc chill' }}
         </span>
       </button>
 
-      <nav class="navbar">
-        <ul class="nav">
-          <li>
+      <a href="#start" class="skip-to-content" style="position: absolute; left: -9999px; z-index: 9999;">Bỏ qua đến nội dung chính</a>
+
+      <nav class="navbar" role="navigation" aria-label="Điều hướng chính">
+        <ul class="nav" role="menubar">
+          <li role="none">
             <a href="#start" v-on:click="scroll" title="Bắt đầu" data-toggle="tooltip"
                data-placement="left"
-               data-container="body">
+               data-container="body"
+               role="menuitem"
+               aria-label="Bắt đầu">
               </a>
           </li>
           <li>
@@ -260,7 +315,8 @@
 
             <button type="button"
                     class="btn-rsvp btn-map"
-                    v-on:click="openMap">
+                    v-on:click="openMap"
+                    aria-label="Xem bản đồ và đường đi đến địa điểm đám cưới">
               Xem bản đồ & đường đi
             </button>
           </div>
@@ -269,19 +325,20 @@
         <section id="rsvp" class="slide">
           <div class="content">
             <h2 class="subtitle">
-              Xác nhận tham dự (RSVP)
+              Xác nhận tham dự
             </h2>
             <p>Hãy cho chúng mình biết bạn có thể đến chung vui hay không nhé. Mỗi lời hồi âm sẽ giúp bọn mình chuẩn bị chu đáo hơn cho ngày cưới.</p>
 
-            <form class="rsvp-form" v-on:submit.prevent="submitRSVP" novalidate>
+            <form class="rsvp-form" v-on:submit.prevent="submitRSVP" novalidate role="form" aria-label="Form xác nhận tham dự đám cưới">
               <div class="form-group">
                 <label for="rsvp-name">Tên của bạn</label>
-                <input id="rsvp-name" type="text" v-model="rsvpName" required autocomplete="name">
+                <input id="rsvp-name" type="text" v-model="rsvpName" required autocomplete="name" aria-required="true" aria-describedby="rsvp-name-desc">
+                <span id="rsvp-name-desc" class="sr-only">Vui lòng nhập tên của bạn</span>
               </div>
 
               <div class="form-group">
                 <label for="rsvp-attending">Bạn có đến tham dự không?</label>
-                <select id="rsvp-attending" v-model="rsvpAttending" autocomplete="off">
+                <select id="rsvp-attending" v-model="rsvpAttending" autocomplete="off" aria-required="true">
                   <option value="yes">Mình sẽ đến</option>
                   <option value="no">Rất tiếc mình không đến được</option>
                 </select>
@@ -289,11 +346,11 @@
 
               <div class="form-group">
                 <label for="rsvp-message">Lời nhắn (không bắt buộc)</label>
-                <textarea id="rsvp-message" rows="3" v-model="rsvpMessage" autocomplete="off"></textarea>
+                <textarea id="rsvp-message" rows="3" v-model="rsvpMessage" autocomplete="off" aria-label="Lời nhắn không bắt buộc"></textarea>
               </div>
 
               <div class="rsvp-submit-wrapper">
-                <button type="submit" class="btn-rsvp">
+                <button type="submit" class="btn-rsvp" aria-label="Gửi form xác nhận tham dự">
                   Gửi lời nhắn
                 </button>
                 <div class="message-count-inline" v-if="messageCount > 0">
@@ -383,30 +440,30 @@
           </div>
         </section>
 
-        <section id="gallery" class="slide">
-          <div class="memories">
-            <div class="memory" v-for="(img, index) in gallery" :key="img">
-              <img :data-src="img" :alt="img" class="lazy-image" loading="lazy" @click="openLightbox(index, $event)" style="cursor: pointer;">
+        <section id="gallery" class="slide" aria-label="Gallery ảnh đám cưới">
+          <div class="memories" role="grid" aria-label="Bộ sưu tập ảnh">
+            <div class="memory" v-for="(img, index) in gallery" :key="img" role="gridcell">
+              <img :data-src="img" :alt="`Ảnh ${index + 1} trong gallery đám cưới`" class="lazy-image" loading="lazy" @click="openLightbox(index, $event)" style="cursor: pointer;" role="button" tabindex="0" :aria-label="`Xem ảnh ${index + 1}`" @keydown.enter="openLightbox(index, $event)" @keydown.space.prevent="openLightbox(index, $event)">
             </div>
           </div>
         </section>
 
         <!-- Lightbox Modal -->
-        <div class="lightbox-overlay" v-if="lightboxOpen" @click="closeLightbox">
+        <div class="lightbox-overlay" v-if="lightboxOpen" @click="closeLightbox" role="dialog" aria-modal="true" aria-label="Xem ảnh gallery">
           <div class="lightbox-content" @click.stop>
-            <button class="lightbox-close" @click="closeLightbox">×</button>
-            <button class="lightbox-btn lightbox-prev" @click="lightboxPrevImage">‹</button>
+            <button class="lightbox-close" @click="closeLightbox" aria-label="Đóng lightbox">×</button>
+            <button class="lightbox-btn lightbox-prev" @click="lightboxPrevImage" aria-label="Ảnh trước">‹</button>
             <img
               v-if="gallery && gallery[lightboxImageIndex]"
               :src="gallery[lightboxImageIndex]"
-              :alt="`Ảnh ${lightboxImageIndex + 1}`"
+              :alt="`Ảnh ${lightboxImageIndex + 1} trong ${gallery.length} ảnh`"
               class="lightbox-image"
               @load="onLightboxImageLoad"
               @error="handleImageError"
               :key="'img-' + lightboxImageIndex">
-            <div v-else class="lightbox-loading">Đang tải ảnh...</div>
-            <button class="lightbox-btn lightbox-next" @click="lightboxNextImage">›</button>
-            <div class="lightbox-counter">{{ lightboxImageIndex + 1 }} / {{ gallery.length }}</div>
+            <div v-else class="lightbox-loading" role="status" aria-live="polite">Đang tải ảnh...</div>
+            <button class="lightbox-btn lightbox-next" @click="lightboxNextImage" aria-label="Ảnh tiếp theo">›</button>
+            <div class="lightbox-counter" aria-live="polite">{{ lightboxImageIndex + 1 }} / {{ gallery.length }}</div>
           </div>
         </div>
       </div>
@@ -447,6 +504,16 @@
     <!-- endbuild -->
 
     <!-- build:js scripts/main.js -->
+    <script src="scripts/sw-register.js"></script>
+    <script src="scripts/config.js"></script>
+    <script src="scripts/utils.js"></script>
+    <script src="scripts/countdown.js"></script>
+    <script src="scripts/music.js"></script>
+    <script src="scripts/lightbox.js"></script>
+    <script src="scripts/rsvp.js"></script>
+    <script src="scripts/messages.js"></script>
+    <script src="scripts/lazy-loading.js"></script>
+    <script src="scripts/navigation.js"></script>
     <script src="scripts/sparkle.js"></script>
     <script src="scripts/images-list.js"></script>
     <script src="scripts/main.js"></script>
