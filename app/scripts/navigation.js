@@ -2,22 +2,22 @@
 const Navigation = {
   ensureActiveSlide: function(vueInstance) {
     if ($('.slide.active').length) return;
-    
+
     const hash = window.location.hash;
     if (hash && $(hash).length) {
       this.activateSlideById(vueInstance, hash);
       return;
     }
-    
+
     const $first = $('.slide').first();
     if ($first.length) {
       this.activateSlideById(vueInstance, `#${$first.attr('id')}`);
     }
   },
-  
+
   activateSlideById: function(vueInstance, hash) {
     if (!hash) return;
-    
+
     const $slide = $(hash);
     if ($slide.length) {
       this.onSlideOut();
@@ -26,23 +26,23 @@ const Navigation = {
       $(`.navbar .nav a[href="${hash}"]`).parent().addClass('active');
     }
   },
-  
+
   onSlideOut: function() {
     $('.slide.active').removeClass('active');
   },
-  
+
   onSlideIn: function($slide) {
     $slide.addClass('active');
   },
-  
-  scroll: function(_vueInstance, event) {
+
+  scroll: function(vueInstance, event) {
     event.preventDefault();
     $(':focus').blur();
-    
+
     const hash = $(event.currentTarget).attr('href');
     const $target = $(hash);
     const isMobile = window.innerWidth <= 768;
-    
+
     if (isMobile) {
       $target[0].scrollIntoView({ behavior: 'smooth', block: 'start' });
       setTimeout(() => {
@@ -56,13 +56,13 @@ const Navigation = {
       });
     }
   },
-  
+
   initScrollSpy: function(vueInstance) {
     const isMobile = window.innerWidth <= 768;
     if (!isMobile) {
-      $('body').scrollspy({ 
-        target: '.navbar', 
-        offset: $(window).height() / 2 
+      $('body').scrollspy({
+        target: '.navbar',
+        offset: $(window).height() / 2
       });
       $('.navbar').on('activate.bs.scrollspy', () => {
         this.onSlideOut();
@@ -70,10 +70,10 @@ const Navigation = {
       });
     }
   },
-  
+
   initIntersectionObserver: function(vueInstance) {
     const isMobile = window.innerWidth <= 768;
-    
+
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -97,13 +97,13 @@ const Navigation = {
       threshold: 0.1,
       rootMargin: '0px 0px -20% 0px'
     });
-    
+
     $('.slide').each((_, el) => observer.observe(el));
   },
-  
+
   initHashNavigation: function(vueInstance) {
     const isMobile = window.innerWidth <= 768;
-    
+
     window.addEventListener('hashchange', () => {
       const hash = window.location.hash || '#start';
       if (isMobile) {
@@ -114,17 +114,17 @@ const Navigation = {
       }
     });
   },
-  
+
   initScrollActivation: function(vueInstance) {
     const isMobile = window.innerWidth <= 768;
     let scrollTimeout;
-    
+
     const activateClosest = () => {
       const scrollPos = $(window).scrollTop();
       const mid = scrollPos + ($(window).height() * 0.5);
       let closestId = null;
       let closestDist = Infinity;
-      
+
       $('.slide').each((_, el) => {
         const $el = $(el);
         const top = $el.offset().top;
@@ -134,12 +134,12 @@ const Navigation = {
           closestId = $el.attr('id');
         }
       });
-      
+
       if (closestId) {
         this.activateSlideById(vueInstance, `#${closestId}`);
       }
     };
-    
+
     const scrollThrottle = isMobile ? 150 : 0;
     $(window).on('scroll', () => {
       if (scrollThrottle > 0) {
