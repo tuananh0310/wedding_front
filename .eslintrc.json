@@ -25,7 +25,8 @@
   "rules": {
     "quotes": [2, "single"],
     "no-console": ["warn", { "allow": ["warn", "error"] }],
-    "no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
-    "semi": [2, "always"]
+    "no-unused-vars": ["warn", { "argsIgnorePattern": "^_", "varsIgnorePattern": "^[A-Z]" }],
+    "semi": [2, "always"],
+    "no-redeclare": "off"
   }
 }

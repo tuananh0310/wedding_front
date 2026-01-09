@@ -1,5 +1,3 @@
-/* global Vue, $, Sparkle */
-
 // Load config first
 const config = window.APP_CONFIG || {};
 

@@ -27,7 +27,7 @@ const RSVP = {
       }
       return response.json();
     })
-    .then(data => {
+    .then(_data => {
       utils.showToast(vueInstance, 
         'Cảm ơn bạn đã gửi lời nhắn! Bọn mình rất háo hức được chia sẻ ngày này cùng bạn.', 
         'success');

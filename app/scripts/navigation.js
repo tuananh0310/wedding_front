@@ -35,7 +35,7 @@ const Navigation = {
     $slide.addClass('active');
   },
   
-  scroll: function(vueInstance, event) {
+  scroll: function(_vueInstance, event) {
     event.preventDefault();
     $(':focus').blur();
     

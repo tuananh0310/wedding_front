@@ -92,16 +92,13 @@ const LazyLoading = {
   
   setupScrollPrefetch: function(vueInstance) {
     let scrollTimeout;
-    let lastScrollTop = 0;
     
     $(window).on('scroll', () => {
       clearTimeout(scrollTimeout);
       scrollTimeout = setTimeout(() => {
         this.observeImages(vueInstance);
         
-        const scrollTop = $(window).scrollTop();
         const windowHeight = $(window).height();
-        lastScrollTop = scrollTop;
         
         document.querySelectorAll('.lazy-image:not(.prefetched)').forEach(img => {
           const rect = img.getBoundingClientRect();
@@ -123,7 +120,7 @@ const LazyLoading = {
     });
   },
   
-  fallback: function(vueInstance) {
+  fallback: function(_vueInstance) {
     document.querySelectorAll('.lazy-image').forEach(img => {
       const dataSrc = img.getAttribute('data-src');
       if (dataSrc) {

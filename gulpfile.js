@@ -63,7 +63,7 @@ function lint() {
     .pipe(browserSync.stream({once: true}))
     .pipe($.eslint({fix: true}))
     .pipe($.eslint.format())
-    .pipe($.if(!browserSync.active, $.eslint.failAfterError()))
+    .pipe($.eslint.failOnError())
     .pipe(gulp.dest('app/scripts'));
 }
 
