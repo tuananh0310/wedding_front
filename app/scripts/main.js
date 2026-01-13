@@ -91,6 +91,13 @@ let app = new Vue({
       LazyLoading.init(this, config);
     }
   },
+  created: function() {
+    // Fetch messages ngay lập tức khi Vue instance được tạo
+    // Để ticker hiển thị sớm hơn, đặc biệt trên mobile
+    if (config.api && config.api.baseUrl && config.api.endpoints) {
+      Messages.fetch(this, config);
+    }
+  },
   mounted: function() {
     document.title = 'Tuấn Anh  Thu Phương. ';
     

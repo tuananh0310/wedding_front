@@ -1,0 +1,85 @@
+# Cursor Rules for Wedding Website Project
+
+## Project Context
+- This is a wedding website built with Vue.js 2
+- Uses Gulp for build process
+- Uses Bower for some dependencies (legacy)
+- Code should be modular and files should be under 150 lines
+
+## Code Style
+- Use single quotes for strings
+- Always use semicolons
+- Keep functions small and focused
+- Each module file should be under 150 lines
+- Use ES6+ features where possible
+
+## File Structure
+- Scripts are modularized in `app/scripts/`:
+  - `config.js` - Configuration
+  - `utils.js` - Utility functions
+  - `countdown.js` - Countdown timer
+  - `music.js` - Music player
+  - `lightbox.js` - Gallery lightbox
+  - `rsvp.js` - RSVP form
+  - `messages.js` - Wedding messages
+  - `lazy-loading.js` - Image lazy loading
+  - `navigation.js` - Navigation & slides
+  - `main.js` - Main Vue app
+
+## Important Rules
+1. **Always check ESLint errors before committing**
+2. **Keep source code files under 150 lines** - if a file is too big, split it into smaller modules
+3. **Do not refactor code unless necessary** - only refactor if explicitly requested
+4. **When making changes:**
+   - Read existing code first
+   - Maintain consistency with existing patterns
+   - Test that build still works (`npm run build`)
+
+## Vue.js Specific
+- Use Vue 2 syntax (Options API)
+- Access global modules (Countdown, MusicPlayer, etc.) directly
+- Use `this.$set()` for reactivity when needed
+
+## CSS/SCSS
+- Use SCSS variables from `$primary-bg`, `$text-dark`, etc.
+- Mobile-first responsive design
+- Use Bootstrap 3 breakpoints: `$screen-xs-max`, `$screen-sm-min`, etc.
+
+## Build Process
+- Gulp handles: SCSS compilation, JS transpilation, image optimization
+- Always run `npm run build` to test before committing
+- ESLint must pass (warnings are OK, errors are not)
+
+## API Configuration
+- API endpoints are in `app/scripts/config.js`
+- Never hardcode API URLs in code
+- Use `window.APP_CONFIG` for configuration
+
+## Accessibility
+- Always add ARIA labels to interactive elements
+- Ensure keyboard navigation works
+- Use semantic HTML
+
+## Performance
+- Use lazy loading for images
+- Optimize images in gulpfile
+- Use Service Worker for caching
+
+## When User Starts New Conversation
+1. Read `long_term` file if exists (or check project structure)
+2. Generate workflow name (under 10 words, snake_case)
+3. Create file `memory_bank/wf_{workflow_name}.md` with sections:
+   - Current tasks from user prompt
+   - Plan (simple): your plan & thoughts
+   - Steps: break plan into small steps
+   - Things done
+   - Things not done yet
+
+## During Conversation Cycle
+1. Read current `memory_bank/wf_{workflow_name}.md` file
+2. Update plan and steps if needed
+3. After finishing a task, update "Things done" and "Things not done yet"
+
+## Language
+- Save documentation in English
+- Always respond in Vietnamese (Tiếng Việt) in chat

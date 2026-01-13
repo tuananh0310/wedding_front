@@ -4,7 +4,7 @@ $icon-font-path: '../fonts/';
 @import "bower_components/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
 // endbower
 
-@import url(https://fonts.googleapis.com/css?family=Gloria+Hallelujah);
+@import url(https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Roboto:wght@300;400;500;700&display=swap);
 @import "animations";
 
 // Color Palette - Đồng bộ màu sắc
@@ -18,7 +18,7 @@ $accent-pink-light: #ffb3c6; // Màu accent nhạt
 
 body {
   background-color: $primary-bg;
-  font-family: 'Gloria Hallelujah';
+  font-family: 'Gloria Hallelujah', 'Roboto', Arial, sans-serif;
   font-size: 30px;
   line-height: 36px;
   color: $text-dark;
@@ -730,7 +730,7 @@ footer {
   position: fixed;
   top: 15px;
   left: 10px;
-  z-index: 10;
+  z-index: 10000; // Cao hơn message-ticker (9999) để không bị che
   border-radius: 999px;
   border: none;
   padding: 6px 14px;
@@ -812,7 +812,7 @@ footer {
     color: $accent-pink;
     line-height: 1.2;
     margin-bottom: 4px;
-    font-family: 'Gloria Hallelujah', cursive;
+    font-family: 'Gloria Hallelujah', 'Roboto', Arial, sans-serif;
   }
 
   .countdown-label {
@@ -879,7 +879,7 @@ footer {
   .greeting-title {
     font-size: 48px;
     color: $accent-pink;
-    font-family: 'Gloria Hallelujah', cursive;
+    font-family: 'Gloria Hallelujah', 'Roboto', Arial, sans-serif;
     font-weight: normal;
     margin: 0 0 15px 0;
     text-shadow: none;
@@ -942,7 +942,7 @@ footer {
     color: $accent-pink;
     font-weight: 500;
     text-shadow: none;
-    font-family: 'Gloria Hallelujah', cursive;
+    font-family: 'Gloria Hallelujah', 'Roboto', Arial, sans-serif;
   }
 
   @media screen and (max-width: $screen-xs-max) {
@@ -1020,7 +1020,7 @@ footer {
     line-height: 1.5;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    font-family: 'Gloria Hallelujah', cursive;
+    font-family: 'Gloria Hallelujah', 'Roboto', Arial, sans-serif;
     // Ngăn auto-zoom trên iOS khi focus
     font-size: 16px;
 
@@ -1694,9 +1694,13 @@ footer {
     white-space: nowrap;
     animation: ticker-scroll 60s linear infinite;
     will-change: transform;
+    min-width: 100%;
+    // Đảm bảo animation chạy ngay khi có content
+    animation-play-state: running;
 
     &.ticker-content-reverse {
       animation: ticker-scroll-reverse 60s linear infinite;
+      animation-play-state: running;
     }
 
     .ticker-item {
@@ -1778,8 +1782,21 @@ footer {
 @media screen and (max-width: 768px) {
   .message-ticker {
     height: 40px;
+    // Đảm bảo ticker hiển thị ngay trên mobile
+    opacity: 1;
+    visibility: visible;
 
     .ticker-content {
+      // Tối ưu animation trên mobile
+      animation-duration: 50s;
+      will-change: transform;
+      transform: translateZ(0);
+      -webkit-transform: translateZ(0);
+      
+      &.ticker-content-reverse {
+        animation-duration: 50s;
+      }
+
       .ticker-item {
         font-size: 14px;
         margin-right: 40px;
