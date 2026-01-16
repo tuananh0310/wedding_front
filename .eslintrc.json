@@ -20,13 +20,34 @@
     "Messages": "readonly",
     "LazyLoading": "readonly",
     "Navigation": "readonly",
-    "Utils": "readonly"
+    "Utils": "readonly",
+    "AOS": "readonly"
   },
   "rules": {
-    "quotes": [2, "single"],
-    "no-console": ["warn", { "allow": ["warn", "error"] }],
-    "no-unused-vars": ["warn", { "argsIgnorePattern": "^_", "varsIgnorePattern": "^[A-Z]" }],
-    "semi": [2, "always"],
+    "quotes": [
+      2,
+      "single"
+    ],
+    "no-console": [
+      "warn",
+      {
+        "allow": [
+          "warn",
+          "error"
+        ]
+      }
+    ],
+    "no-unused-vars": [
+      "warn",
+      {
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^[A-Z]"
+      }
+    ],
+    "semi": [
+      2,
+      "always"
+    ],
     "no-redeclare": "off"
   }
 }
