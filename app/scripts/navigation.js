@@ -1,6 +1,6 @@
 // Navigation and slide management module
 const Navigation = {
-  ensureActiveSlide: function(vueInstance) {
+  ensureActiveSlide: function (vueInstance) {
     if ($('.slide.active').length) return;
 
     const hash = window.location.hash;
@@ -15,8 +15,12 @@ const Navigation = {
     }
   },
 
-  activateSlideById: function(vueInstance, hash) {
+  activateSlideById: function (vueInstance, hash) {
     if (!hash) return;
+
+    // Sanitize hash: remove invalid characters like / from URL
+    // e.g., "#/start" becomes "#start"
+    hash = hash.replace(/^#\/?/, '#');
 
     const $slide = $(hash);
     if ($slide.length) {
@@ -27,15 +31,15 @@ const Navigation = {
     }
   },
 
-  onSlideOut: function() {
+  onSlideOut: function () {
     $('.slide.active').removeClass('active');
   },
 
-  onSlideIn: function($slide) {
+  onSlideIn: function ($slide) {
     $slide.addClass('active');
   },
 
-  scroll: function(vueInstance, event) {
+  scroll: function (vueInstance, event) {
     event.preventDefault();
     $(':focus').blur();
 
@@ -57,7 +61,7 @@ const Navigation = {
     }
   },
 
-  initScrollSpy: function(vueInstance) {
+  initScrollSpy: function (vueInstance) {
     const isMobile = window.innerWidth <= 768;
     if (!isMobile) {
       $('body').scrollspy({
@@ -71,7 +75,7 @@ const Navigation = {
     }
   },
 
-  initIntersectionObserver: function(vueInstance) {
+  initIntersectionObserver: function (vueInstance) {
     const isMobile = window.innerWidth <= 768;
 
     const observer = new IntersectionObserver((entries) => {
@@ -101,7 +105,7 @@ const Navigation = {
     $('.slide').each((_, el) => observer.observe(el));
   },
 
-  initHashNavigation: function(vueInstance) {
+  initHashNavigation: function (vueInstance) {
     const isMobile = window.innerWidth <= 768;
 
     window.addEventListener('hashchange', () => {
@@ -115,7 +119,7 @@ const Navigation = {
     });
   },
 
-  initScrollActivation: function(vueInstance) {
+  initScrollActivation: function (vueInstance) {
     const isMobile = window.innerWidth <= 768;
     let scrollTimeout;
 

@@ -5,11 +5,9 @@ $icon-font-path: '../fonts/';
 // endbower
 
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500;600&family=Gloria+Hallelujah&display=swap');
-@import "animations";
-@import "messages-ticker";
-@import "lightbox";
 
 // Color Palette - Modern & Elegant Wedding Theme
+// MUST be defined BEFORE imports that use these variables
 $primary-bg: #f9f7f2; // Cream/Off-white background (thay cho blue)
 $text-dark: #2c3e50; // Charcoal Blue
 $text-light: #ffffff;
@@ -28,6 +26,11 @@ $accent-green: #8da399; // Sage Green
   border: 1px solid rgba(255, 255, 255, 0.5);
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
 }
+
+// Import other stylesheets AFTER variables are defined
+@import "animations";
+@import "messages-ticker";
+@import "lightbox";
 
 body {
   background: linear-gradient(135deg, $primary-bg 0%, darken($primary-bg, 5%) 100%); // Subtle gradient
