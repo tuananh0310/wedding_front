@@ -1,54 +1,62 @@
 <!doctype html>
 <html class="no-js" lang="vi">
-  <head>
-    <meta charset="utf-8">
-    <meta name="description" content="Đám cưới Tuấn Anh & Thu Phương - Ngày 29 tháng 1 năm 2026. Chúng mình rất hạnh phúc được mời bạn đến dự ngày vui trọng đại này cùng hai đứa.">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="keywords" content="đám cưới, wedding, Tuấn Anh, Thu Phương, 2026">
-    <meta name="author" content="Tuấn Anh & Thu Phương">
 
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Đám cưới Tuấn Anh & Thu Phương">
-    <meta property="og:description" content="Ngày 29 tháng 1 năm 2026 - Chúng mình rất hạnh phúc được mời bạn đến dự ngày vui trọng đại này cùng hai đứa.">
-    <meta property="og:image" content="images/_SUN5034-min.jpg">
-    <meta property="og:url" content="">
-    <meta property="og:locale" content="vi_VN">
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+    content="Đám cưới Tuấn Anh & Thu Phương - Ngày 29 tháng 1 năm 2026. Chúng mình rất hạnh phúc được mời bạn đến dự ngày vui trọng đại này cùng hai đứa.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="đám cưới, wedding, Tuấn Anh, Thu Phương, 2026">
+  <meta name="author" content="Tuấn Anh & Thu Phương">
 
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Đám cưới Tuấn Anh & Thu Phương">
-    <meta name="twitter:description" content="Ngày 29 tháng 1 năm 2026 - Chúng mình rất hạnh phúc được mời bạn đến dự ngày vui trọng đại này cùng hai đứa.">
-    <meta name="twitter:image" content="images/_SUN5034-min.jpg">
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Đám cưới Tuấn Anh & Thu Phương">
+  <meta property="og:description"
+    content="Ngày 29 tháng 1 năm 2026 - Chúng mình rất hạnh phúc được mời bạn đến dự ngày vui trọng đại này cùng hai đứa.">
+  <meta property="og:image" content="images/_SUN5034-min.jpg">
+  <meta property="og:url" content="">
+  <meta property="og:locale" content="vi_VN">
 
-    <!-- Canonical URL -->
-    <link rel="canonical" href="">
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Đám cưới Tuấn Anh & Thu Phương">
+  <meta name="twitter:description"
+    content="Ngày 29 tháng 1 năm 2026 - Chúng mình rất hạnh phúc được mời bạn đến dự ngày vui trọng đại này cùng hai đứa.">
+  <meta name="twitter:image" content="images/_SUN5034-min.jpg">
 
-    <!-- Resource hints để tối ưu load ảnh -->
-    <link rel="preconnect" href="/images">
-    <link rel="dns-prefetch" href="/images">
-    <link rel="preconnect" href="https://learning4.uk">
+  <!-- Canonical URL -->
+  <link rel="canonical" href="">
 
-    <link rel="apple-touch-icon" href="apple-touch-icon.png">
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#7ec0ee">
-    <!-- Place favicon.ico in the root directory -->
+  <!-- Resource hints để tối ưu load ảnh -->
+  <link rel="preconnect" href="/images">
+  <link rel="dns-prefetch" href="/images">
+  <link rel="preconnect" href="https://learning4.uk">
 
-    <!-- build:css styles/vendor.css -->
-    <!-- bower:css -->
-    <!-- endbower -->
-    <!-- endbuild -->
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#f9f7f2">
+  <!-- Place favicon.ico in the root directory -->
 
-    <!-- build:css styles/main.css -->
-    <link rel="stylesheet" href="styles/main.css">
-    <!-- endbuild -->
+  <!-- build:css styles/vendor.css -->
+  <!-- bower:css -->
+  <!-- endbower -->
+  <!-- endbuild -->
 
-    <!-- build:js scripts/vendor/modernizr.js -->
-    <script src="/bower_components/modernizr/modernizr.js"></script>
-    <!-- endbuild -->
+  <!-- build:css styles/main.css -->
+  <link rel="stylesheet" href="styles/main.css">
+  <!-- endbuild -->
 
-    <!-- Structured Data (JSON-LD) -->
-    <script type="application/ld+json">
+  <!-- AOS Animation Library -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+  <!-- build:js scripts/vendor/modernizr.js -->
+  <script src="/bower_components/modernizr/modernizr.js"></script>
+  <!-- endbuild -->
+
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "Event",
@@ -73,450 +81,442 @@
       }
     }
     </script>
-  </head>
-  <body>
+</head>
 
-    <div class="js-app">
-      <!-- Wedding Messages Ticker - Top -->
-      <div class="message-ticker message-ticker-top" v-show="weddingMessages && weddingMessages.length > 0">
-        <div class="ticker-content">
-          <template v-for="(msg, index) in weddingMessages">
-            <div class="ticker-item" :key="'top-' + index">
-              <span class="ticker-name">{{ msg.name }}:</span>
-              <span class="ticker-message">{{ msg.message }}</span>
-            </div>
-          </template>
-        </div>
+<body>
+
+  <div class="js-app">
+    <!-- Wedding Messages Ticker - Top -->
+    <div class="message-ticker message-ticker-top" v-show="weddingMessages && weddingMessages.length > 0">
+      <div class="ticker-content">
+        <template v-for="(msg, index) in weddingMessages">
+          <div class="ticker-item" :key="'top-' + index">
+            <span class="ticker-name">{{ msg.name }}:</span>
+            <span class="ticker-message">{{ msg.message }}</span>
+          </div>
+        </template>
       </div>
-
-      <!-- Wedding Messages Ticker - Bottom -->
-      <div class="message-ticker message-ticker-bottom" v-show="weddingMessages && weddingMessages.length > 0">
-        <div class="ticker-content ticker-content-reverse">
-          <template v-for="(msg, index) in weddingMessages">
-            <div class="ticker-item" :key="'bottom-' + index">
-              <span class="ticker-name">{{ msg.name }}:</span>
-              <span class="ticker-message">{{ msg.message }}</span>
-            </div>
-          </template>
-        </div>
-      </div>
-
-      <div class="clouds">
-        <div class="clouds-row" v-for="n in 20">
-          <img src="images/cloud.png" class="cloud cloud-large cloud-middle-top cloud-animation-1"/>
-          <img src="images/cloud.png" class="cloud cloud-large cloud-middle-bottom cloud-animation-2"/>
-          <img src="images/cloud.png" class="cloud cloud-medium cloud-top cloud-animation-3"/>
-          <img src="images/cloud.png" class="cloud cloud-medium cloud-middle cloud-animation-4"/>
-          <img src="images/cloud.png" class="cloud cloud-medium cloud-bottom cloud-animation-5"/>
-          <img src="images/cloud.png" class="cloud cloud-small cloud-top cloud-animation-6"/>
-          <img src="images/cloud.png" class="cloud cloud-small cloud-middle-top cloud-animation-7"/>
-          <img src="images/cloud.png" class="cloud cloud-small cloud-middle cloud-animation-8"/>
-          <img src="images/cloud.png" class="cloud cloud-small cloud-middle-bottom cloud-animation-9"/>
-          <img src="images/cloud.png" class="cloud cloud-small cloud-bottom cloud-animation-10"/>
-        </div>
-      </div>
-
-
-      <button
-        type="button"
-        class="music-toggle"
-        v-on:click="toggleMusic"
-        :aria-label="isMusicPlaying ? 'Tạm dừng nhạc' : 'Bật nhạc chill'"
-        aria-pressed="false">
-        <span class="music-icon" aria-hidden="true">♪</span>
-        <span class="music-label">
-          {{ isMusicPlaying ? 'Tạm dừng nhạc' : 'Bật nhạc chill' }}
-        </span>
-      </button>
-
-      <a href="#start" class="skip-to-content" style="position: absolute; left: -9999px; z-index: 9999;">Bỏ qua đến nội dung chính</a>
-
-      <nav class="navbar" role="navigation" aria-label="Điều hướng chính">
-        <ul class="nav" role="menubar">
-          <li role="none">
-            <a href="#start" v-on:click="scroll" title="Bắt đầu" data-toggle="tooltip"
-               data-placement="left"
-               data-container="body"
-               role="menuitem"
-               aria-label="Bắt đầu">
-              </a>
-          </li>
-          <li>
-            <a href="#beginning" v-on:click="scroll" title="Khởi đầu"
-               data-toggle="tooltip"
-               data-placement="left" data-container="body">
-              </a>
-          </li>
-          <li>
-            <a href="#first-moments" v-on:click="scroll" title="Những khoảnh khắc đầu tiên"
-               data-toggle="tooltip"
-               data-placement="left" data-container="body">
-              </a>
-          </li>
-          <li>
-            <a href="#madrid" v-on:click="scroll" title="Madrid" data-toggle="tooltip"
-               data-placement="left" data-container="body">
-              </a>
-          </li>
-          <li>
-            <a href="#new-york" v-on:click="scroll" title="New York"
-               data-toggle="tooltip"
-               data-placement="left" data-container="body">
-              </a>
-          </li>
-          <li>
-            <a href="#paris" v-on:click="scroll" title="Paris" data-toggle="tooltip"
-               data-placement="left" data-container="body">
-              </a>
-          </li>
-          <li>
-            <a href="#london" v-on:click="scroll" title="London"
-               data-toggle="tooltip"
-               data-placement="left" data-container="body">
-              </a>
-          </li>
-          <li>
-            <a href="#italy" v-on:click="scroll" title="Ý" data-toggle="tooltip"
-               data-placement="left" data-container="body">
-              </a>
-          </li>
-          <li>
-            <a href="#edinburgh" v-on:click="scroll" title="Edinburgh"
-               data-toggle="tooltip"
-               data-placement="left" data-container="body">
-              </a>
-          </li>
-          <li>
-            <a href="#japan" v-on:click="scroll" title="Nhật Bản" data-toggle="tooltip"
-               data-placement="left" data-container="body">
-              </a>
-          </li>
-          <li>
-            <a href="#celebrate" v-on:click="scroll" title="Hãy cùng ăn mừng!"
-               data-toggle="tooltip"
-               data-placement="left" data-container="body">
-              </a>
-          </li>
-          <li>
-            <a href="#schedule" v-on:click="scroll" title="Lịch trình ngày cưới"
-               data-toggle="tooltip"
-               data-placement="left" data-container="body">
-              </a>
-          </li>
-          <li>
-            <a href="#rsvp" v-on:click="scroll" title="Xác nhận tham dự (RSVP)"
-               data-toggle="tooltip"
-               data-placement="left" data-container="body">
-              </a>
-          </li>
-          <li>
-            <a href="#gift-box" v-on:click="scroll" title="Hộp mừng cưới"
-               data-toggle="tooltip"
-               data-placement="left" data-container="body">
-              </a>
-          </li>
-          <li>
-            <a href="#gallery" v-on:click="scroll" title="Gallery"
-               data-toggle="tooltip"
-               data-placement="left" data-container="body">
-              </a>
-          </li>
-        </ul>
-      </nav>
-
-      <div class="slides">
-
-        <section id="start" class="slide">
-          <div class="content">
-            <h1 class="title">
-              Tuấn Anh  Thu Phương
-            </h1>
-
-            <h2 class="subtitle">
-
-            </h2>
-
-            <div class="countdown" v-if="countdown && countdown.totalMs > 0">
-              <div class="countdown-title">
-                Đếm ngược đến ngày cưới
-              </div>
-              <div class="countdown-items">
-                <div class="countdown-item">
-                  <span class="countdown-number">{{ countdown.days }}</span>
-                  <span class="countdown-label">ngày</span>
-                </div>
-                <div class="countdown-item">
-                  <span class="countdown-number">{{ countdown.hours }}</span>
-                  <span class="countdown-label">giờ</span>
-                </div>
-                <div class="countdown-item">
-                  <span class="countdown-number">{{ countdown.minutes }}</span>
-                  <span class="countdown-label">phút</span>
-                </div>
-                <div class="countdown-item">
-                  <span class="countdown-number">{{ countdown.seconds }}</span>
-                  <span class="countdown-label">giây</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="countdown countdown-passed" v-else>
-              <div class="countdown-title">
-                Chúng mình đã cùng nhau đi qua ngày đặc biệt này rồi!
-              </div>
-            </div>
-
-            <!-- Greeting Card -->
-            <div class="greeting-card">
-              <h2 class="greeting-title">Xin chào!</h2>
-              <p class="wedding-date">Ngày 29 tháng 1 năm 2026</p>
-              <p class="invitation-text">Chúng mình rất hạnh phúc được mời bạn đến dự ngày vui trọng đại này cùng hai đứa.</p>
-
-              <div class="couple-photos">
-                <div class="photo-wrapper groom-photo">
-                  <img src="images/_SUN4677-min.jpg" alt="Tuấn Anh" class="couple-photo">
-                  <span class="couple-name groom-name">Tuấn Anh</span>
-                </div>
-                <div class="heart-icon">❤️</div>
-                <div class="photo-wrapper bride-photo">
-                  <img src="images/_SUN5034-min.jpg" alt="Thu Phương" class="couple-photo">
-                  <span class="couple-name bride-name">Thu Phương</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-
-
-        <section id="schedule" class="slide">
-          <div class="content">
-            <h2 class="subtitle">
-              Lịch trình ngày cưới
-            </h2>
-            <div class="schedule-list">
-              <div class="schedule-item">
-                <div class="schedule-time">
-                  28-01-2026
-                </div>
-                <div class="schedule-text">
-                  Lễ đính hôn
-                </div>
-              </div>
-              <div class="schedule-item">
-                <div class="schedule-time">
-                  29-01-2026
-                </div>
-                <div class="schedule-text">
-                  Lễ cưới lúc 11:00
-                </div>
-              </div>
-            </div>
-
-            <button type="button"
-                    class="btn-rsvp btn-map"
-                    v-on:click="openMap"
-                    aria-label="Xem bản đồ và đường đi đến địa điểm đám cưới">
-              Xem bản đồ & đường đi
-            </button>
-          </div>
-        </section>
-
-        <section id="rsvp" class="slide">
-          <div class="content">
-            <h2 class="subtitle">
-              Xác nhận tham dự
-            </h2>
-            <p>Hãy cho chúng mình biết bạn có thể đến chung vui hay không nhé. Mỗi lời hồi âm sẽ giúp bọn mình chuẩn bị chu đáo hơn cho ngày cưới.</p>
-
-            <form class="rsvp-form" v-on:submit.prevent="submitRSVP" novalidate role="form" aria-label="Form xác nhận tham dự đám cưới">
-              <div class="form-group">
-                <label for="rsvp-name">Tên của bạn</label>
-                <input id="rsvp-name" type="text" v-model="rsvpName" required autocomplete="name" aria-required="true" aria-describedby="rsvp-name-desc">
-                <span id="rsvp-name-desc" class="sr-only">Vui lòng nhập tên của bạn</span>
-              </div>
-
-              <div class="form-group">
-                <label for="rsvp-attending">Bạn có đến tham dự không?</label>
-                <select id="rsvp-attending" v-model="rsvpAttending" autocomplete="off" aria-required="true">
-                  <option value="yes">Mình sẽ đến</option>
-                  <option value="no">Rất tiếc mình không đến được</option>
-                </select>
-              </div>
-
-              <div class="form-group">
-                <label for="rsvp-message">Lời nhắn (không bắt buộc)</label>
-                <textarea id="rsvp-message" rows="3" v-model="rsvpMessage" autocomplete="off" aria-label="Lời nhắn không bắt buộc"></textarea>
-              </div>
-
-              <div class="rsvp-submit-wrapper">
-                <button type="submit" class="btn-rsvp" aria-label="Gửi form xác nhận tham dự">
-                  Gửi lời nhắn
-                </button>
-                <div class="message-count-inline" v-if="messageCount > 0">
-                  <span class="count-icon">💝</span>
-                  <span class="count-text">Đã có {{ messageCount }} lời chúc từ bạn bè!</span>
-                </div>
-              </div>
-            </form>
-
-            <!-- Toast Message -->
-            <div class="toast-message" v-if="toastMessage.show" :class="{ 'toast-success': toastMessage.type === 'success', 'toast-error': toastMessage.type === 'error' }">
-              <div class="toast-content">
-                <span class="toast-icon">{{ toastMessage.type === 'success' ? '✓' : '✕' }}</span>
-                <span class="toast-text">{{ toastMessage.text }}</span>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section id="gift-box" class="slide">
-          <div class="content">
-            <h2 class="subtitle gift-box-title">
-              Hộp mừng cưới
-            </h2>
-            <div class="gift-box-decoration">
-              <div class="decoration-line"></div>
-              <div class="decoration-diamonds">
-                <span class="decoration-diamond"></span>
-                <span class="decoration-diamond"></span>
-                <span class="decoration-diamond"></span>
-              </div>
-              <div class="decoration-line"></div>
-            </div>
-            <p class="gift-box-intro">
-              Nếu có thể, bạn hãy tới tham dự Đám cưới, chung vui và Mừng cưới trực tiếp cho chúng mình nha ^^. Cảm ơn bạn rất nhiều!
-            </p>
-            <div class="gift-boxes">
-              <div class="gift-box-item groom-box">
-                <h3 class="gift-box-item-title">Mừng cưới đến chú rể</h3>
-                <div class="qr-display-area">
-                  <img :data-src="groomQRCode" alt="QR Code" class="qr-image lazy-image" loading="lazy">
-                </div>
-                <div class="bank-info">
-                  <div class="bank-item">
-                    <span class="bank-label">Ngân hàng:</span>
-                    <span class="bank-value">TP Bank</span>
-                  </div>
-                  <div class="bank-item">
-                    <span class="bank-label">Tên:</span>
-                    <span class="bank-value">Tuấn Anh</span>
-                  </div>
-                  <div class="bank-item">
-                    <span class="bank-label">STK:</span>
-                    <span class="bank-value">10000557418</span>
-                  </div>
-                </div>
-              </div>
-              <div class="gift-box-item bride-box">
-                <h3 class="gift-box-item-title">Mừng cưới đến cô dâu</h3>
-                <div class="qr-display-area">
-                  <img :data-src="brideQRCode" alt="QR Code" class="qr-image lazy-image" loading="lazy">
-                </div>
-                <div class="bank-info">
-                  <div class="bank-item">
-                    <span class="bank-label">Ngân hàng:</span>
-                    <span class="bank-value">Vietinbank</span>
-                  </div>
-                  <div class="bank-item">
-                    <span class="bank-label">Tên:</span>
-                    <span class="bank-value">Thu Phương</span>
-                  </div>
-                  <div class="bank-item">
-                    <span class="bank-label">STK:</span>
-                    <span class="bank-value">104870697606</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section id="celebrate" class="slide">
-          <div class="content">
-            <div class="highlight">
-              <div class="highlight-text">Những khoảnh khắc đẹp đẽ được lưu giữ qua từng bức ảnh.<br></div>
-            </div>
-          </div>
-        </section>
-
-        <section id="gallery" class="slide" aria-label="Gallery ảnh đám cưới">
-          <div class="memories" role="grid" aria-label="Bộ sưu tập ảnh">
-            <div class="memory" v-for="(img, index) in gallery" :key="img" role="gridcell">
-              <img :data-src="img" :alt="`Ảnh ${index + 1} trong gallery đám cưới`" class="lazy-image" loading="lazy" @click="openLightbox(index, $event)" style="cursor: pointer;" role="button" tabindex="0" :aria-label="`Xem ảnh ${index + 1}`" @keydown.enter="openLightbox(index, $event)" @keydown.space.prevent="openLightbox(index, $event)">
-            </div>
-          </div>
-        </section>
-
-        <!-- Lightbox Modal -->
-        <div class="lightbox-overlay" v-if="lightboxOpen" @click="closeLightbox" role="dialog" aria-modal="true" aria-label="Xem ảnh gallery">
-          <div class="lightbox-content" @click.stop>
-            <button class="lightbox-close" @click="closeLightbox" aria-label="Đóng lightbox">×</button>
-            <button class="lightbox-btn lightbox-prev" @click="lightboxPrevImage" aria-label="Ảnh trước">‹</button>
-            <img
-              v-if="gallery && gallery[lightboxImageIndex]"
-              :src="gallery[lightboxImageIndex]"
-              :alt="`Ảnh ${lightboxImageIndex + 1} trong ${gallery.length} ảnh`"
-              class="lightbox-image"
-              @load="onLightboxImageLoad"
-              @error="handleImageError"
-              :key="'img-' + lightboxImageIndex">
-            <div v-else class="lightbox-loading" role="status" aria-live="polite">Đang tải ảnh...</div>
-            <button class="lightbox-btn lightbox-next" @click="lightboxNextImage" aria-label="Ảnh tiếp theo">›</button>
-            <div class="lightbox-counter" aria-live="polite">{{ lightboxImageIndex + 1 }} / {{ gallery.length }}</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="characters">
-        <img src="images/miguel-miriam.png" alt="Tuấn Anh  Thu Phương"/>
-      </div>
-
-      <footer>
-        <img src="images/footer.png"/>
-      </footer>
-
     </div>
 
-    <!-- build:js scripts/vendor.js -->
-    <!-- bower:js -->
-    <script src="/bower_components/jquery/dist/jquery.js"></script>
-    <script src="/bower_components/modernizr/modernizr.js"></script>
-    <!-- endbower -->
-    <!-- endbuild -->
+    <!-- Wedding Messages Ticker - Bottom -->
+    <div class="message-ticker message-ticker-bottom" v-show="weddingMessages && weddingMessages.length > 0">
+      <div class="ticker-content ticker-content-reverse">
+        <template v-for="(msg, index) in weddingMessages">
+          <div class="ticker-item" :key="'bottom-' + index">
+            <span class="ticker-name">{{ msg.name }}:</span>
+            <span class="ticker-message">{{ msg.message }}</span>
+          </div>
+        </template>
+      </div>
+    </div>
 
-    <!-- Vue (CDN, Vue 2) -->
-    <script src="https://unpkg.com/vue@2.6.14/dist/vue.min.js"></script>
+    <div class="clouds">
+      <div class="clouds-row" v-for="n in 20">
+        <img src="images/cloud.png" class="cloud cloud-large cloud-middle-top cloud-animation-1" />
+        <img src="images/cloud.png" class="cloud cloud-large cloud-middle-bottom cloud-animation-2" />
+        <img src="images/cloud.png" class="cloud cloud-medium cloud-top cloud-animation-3" />
+        <img src="images/cloud.png" class="cloud cloud-medium cloud-middle cloud-animation-4" />
+        <img src="images/cloud.png" class="cloud cloud-medium cloud-bottom cloud-animation-5" />
+        <img src="images/cloud.png" class="cloud cloud-small cloud-top cloud-animation-6" />
+        <img src="images/cloud.png" class="cloud cloud-small cloud-middle-top cloud-animation-7" />
+        <img src="images/cloud.png" class="cloud cloud-small cloud-middle cloud-animation-8" />
+        <img src="images/cloud.png" class="cloud cloud-small cloud-middle-bottom cloud-animation-9" />
+        <img src="images/cloud.png" class="cloud cloud-small cloud-bottom cloud-animation-10" />
+      </div>
+    </div>
 
-    <!-- build:js scripts/plugins.js -->
-    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/affix.js"></script>
-    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/alert.js"></script>
-    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/dropdown.js"></script>
-    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/tooltip.js"></script>
-    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/modal.js"></script>
-    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/transition.js"></script>
-    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/button.js"></script>
-    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/popover.js"></script>
-    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/carousel.js"></script>
-    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/scrollspy.js"></script>
-    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/collapse.js"></script>
-    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/tab.js"></script>
-    <!-- endbuild -->
 
-    <!-- build:js scripts/main.js -->
-    <script src="scripts/sw-register.js"></script>
-    <script src="scripts/config.js"></script>
-    <script src="scripts/utils.js"></script>
-    <script src="scripts/countdown.js"></script>
-    <script src="scripts/music.js"></script>
-    <script src="scripts/lightbox.js"></script>
-    <script src="scripts/rsvp.js"></script>
-    <script src="scripts/messages.js"></script>
-    <script src="scripts/lazy-loading.js"></script>
-    <script src="scripts/navigation.js"></script>
-    <script src="scripts/sparkle.js"></script>
-    <script src="scripts/images-list.js"></script>
-    <script src="scripts/main.js"></script>
-    <!-- endbuild -->
-  </body>
+    <button type="button" class="music-toggle" v-on:click="toggleMusic"
+      :aria-label="isMusicPlaying ? 'Tạm dừng nhạc' : 'Bật nhạc chill'" aria-pressed="false">
+      <span class="music-icon" aria-hidden="true">♪</span>
+      <span class="music-label">
+        {{ isMusicPlaying ? 'Tạm dừng nhạc' : 'Bật nhạc chill' }}
+      </span>
+    </button>
+
+    <a href="#start" class="skip-to-content" style="position: absolute; left: -9999px; z-index: 9999;">Bỏ qua đến nội
+      dung chính</a>
+
+    <nav class="navbar" role="navigation" aria-label="Điều hướng chính">
+      <ul class="nav" role="menubar">
+        <li role="none">
+          <a href="#start" v-on:click="scroll" title="Bắt đầu" data-toggle="tooltip" data-placement="left"
+            data-container="body" role="menuitem" aria-label="Bắt đầu">
+          </a>
+        </li>
+        <li>
+          <a href="#beginning" v-on:click="scroll" title="Khởi đầu" data-toggle="tooltip" data-placement="left"
+            data-container="body">
+          </a>
+        </li>
+        <li>
+          <a href="#first-moments" v-on:click="scroll" title="Những khoảnh khắc đầu tiên" data-toggle="tooltip"
+            data-placement="left" data-container="body">
+          </a>
+        </li>
+        <li>
+          <a href="#madrid" v-on:click="scroll" title="Madrid" data-toggle="tooltip" data-placement="left"
+            data-container="body">
+          </a>
+        </li>
+        <li>
+          <a href="#new-york" v-on:click="scroll" title="New York" data-toggle="tooltip" data-placement="left"
+            data-container="body">
+          </a>
+        </li>
+        <li>
+          <a href="#paris" v-on:click="scroll" title="Paris" data-toggle="tooltip" data-placement="left"
+            data-container="body">
+          </a>
+        </li>
+        <li>
+          <a href="#london" v-on:click="scroll" title="London" data-toggle="tooltip" data-placement="left"
+            data-container="body">
+          </a>
+        </li>
+        <li>
+          <a href="#italy" v-on:click="scroll" title="Ý" data-toggle="tooltip" data-placement="left"
+            data-container="body">
+          </a>
+        </li>
+        <li>
+          <a href="#edinburgh" v-on:click="scroll" title="Edinburgh" data-toggle="tooltip" data-placement="left"
+            data-container="body">
+          </a>
+        </li>
+        <li>
+          <a href="#japan" v-on:click="scroll" title="Nhật Bản" data-toggle="tooltip" data-placement="left"
+            data-container="body">
+          </a>
+        </li>
+        <li>
+          <a href="#celebrate" v-on:click="scroll" title="Hãy cùng ăn mừng!" data-toggle="tooltip" data-placement="left"
+            data-container="body">
+          </a>
+        </li>
+        <li>
+          <a href="#schedule" v-on:click="scroll" title="Lịch trình ngày cưới" data-toggle="tooltip"
+            data-placement="left" data-container="body">
+          </a>
+        </li>
+        <li>
+          <a href="#rsvp" v-on:click="scroll" title="Xác nhận tham dự (RSVP)" data-toggle="tooltip"
+            data-placement="left" data-container="body">
+          </a>
+        </li>
+        <li>
+          <a href="#gift-box" v-on:click="scroll" title="Hộp mừng cưới" data-toggle="tooltip" data-placement="left"
+            data-container="body">
+          </a>
+        </li>
+        <li>
+          <a href="#gallery" v-on:click="scroll" title="Gallery" data-toggle="tooltip" data-placement="left"
+            data-container="body">
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="slides">
+
+      <section id="start" class="slide">
+        <div class="content">
+          <h1 class="title">
+            Tuấn Anh Thu Phương
+          </h1>
+
+          <h2 class="subtitle">
+
+          </h2>
+
+          <div class="countdown" v-if="countdown && countdown.totalMs > 0">
+            <div class="countdown-title">
+              Đếm ngược đến ngày cưới
+            </div>
+            <div class="countdown-items">
+              <div class="countdown-item">
+                <span class="countdown-number">{{ countdown.days }}</span>
+                <span class="countdown-label">ngày</span>
+              </div>
+              <div class="countdown-item">
+                <span class="countdown-number">{{ countdown.hours }}</span>
+                <span class="countdown-label">giờ</span>
+              </div>
+              <div class="countdown-item">
+                <span class="countdown-number">{{ countdown.minutes }}</span>
+                <span class="countdown-label">phút</span>
+              </div>
+              <div class="countdown-item">
+                <span class="countdown-number">{{ countdown.seconds }}</span>
+                <span class="countdown-label">giây</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="countdown countdown-passed" v-else>
+            <div class="countdown-title">
+              Chúng mình đã cùng nhau đi qua ngày đặc biệt này rồi!
+            </div>
+          </div>
+
+          <!-- Greeting Card -->
+          <div class="greeting-card" data-aos="zoom-in-up" data-aos-duration="1200">
+            <h2 class="greeting-title">Xin chào!</h2>
+            <p class="wedding-date">Ngày 29 tháng 1 năm 2026</p>
+            <p class="invitation-text">Chúng mình rất hạnh phúc được mời bạn đến dự ngày vui trọng đại này cùng hai đứa.
+            </p>
+
+            <div class="couple-photos">
+              <div class="photo-wrapper groom-photo">
+                <img src="images/_SUN4677-min.jpg" alt="Tuấn Anh" class="couple-photo">
+                <span class="couple-name groom-name">Tuấn Anh</span>
+              </div>
+              <div class="heart-icon">❤️</div>
+              <div class="photo-wrapper bride-photo">
+                <img src="images/_SUN5034-min.jpg" alt="Thu Phương" class="couple-photo">
+                <span class="couple-name bride-name">Thu Phương</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+
+      <section id="schedule" class="slide">
+        <div class="content">
+          <h2 class="subtitle">
+            Lịch trình ngày cưới
+          </h2>
+          <div class="schedule-list">
+            <div class="schedule-item" data-aos="fade-up" data-aos-delay="100">
+              <div class="schedule-time">
+                28-01-2026
+              </div>
+              <div class="schedule-text">
+                Lễ đính hôn
+              </div>
+            </div>
+            <div class="schedule-item" data-aos="fade-up" data-aos-delay="200">
+              <div class="schedule-time">
+                29-01-2026
+              </div>
+              <div class="schedule-text">
+                Lễ cưới lúc 11:00
+              </div>
+            </div>
+          </div>
+
+          <button type="button" class="btn-rsvp btn-map" v-on:click="openMap"
+            aria-label="Xem bản đồ và đường đi đến địa điểm đám cưới">
+            Xem bản đồ & đường đi
+          </button>
+        </div>
+      </section>
+
+      <section id="rsvp" class="slide">
+        <div class="content">
+          <h2 class="subtitle" data-aos="fade-down">
+            Xác nhận tham dự
+          </h2>
+          <p data-aos="fade-in" data-aos-delay="200">Hãy cho chúng mình biết bạn có thể đến chung vui hay không nhé. Mỗi
+            lời hồi âm sẽ giúp bọn mình chuẩn bị
+            chu đáo hơn cho ngày cưới.</p>
+
+          <form class="rsvp-form" v-on:submit.prevent="submitRSVP" novalidate role="form"
+            aria-label="Form xác nhận tham dự đám cưới">
+            <div class="form-group">
+              <label for="rsvp-name">Tên của bạn</label>
+              <input id="rsvp-name" type="text" v-model="rsvpName" required autocomplete="name" aria-required="true"
+                aria-describedby="rsvp-name-desc">
+              <span id="rsvp-name-desc" class="sr-only">Vui lòng nhập tên của bạn</span>
+            </div>
+
+            <div class="form-group">
+              <label for="rsvp-attending">Bạn có đến tham dự không?</label>
+              <select id="rsvp-attending" v-model="rsvpAttending" autocomplete="off" aria-required="true">
+                <option value="yes">Mình sẽ đến</option>
+                <option value="no">Rất tiếc mình không đến được</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="rsvp-message">Lời nhắn (không bắt buộc)</label>
+              <textarea id="rsvp-message" rows="3" v-model="rsvpMessage" autocomplete="off"
+                aria-label="Lời nhắn không bắt buộc"></textarea>
+            </div>
+
+            <div class="rsvp-submit-wrapper">
+              <button type="submit" class="btn-rsvp" aria-label="Gửi form xác nhận tham dự">
+                Gửi lời nhắn
+              </button>
+              <div class="message-count-inline" v-if="messageCount > 0">
+                <span class="count-icon">💝</span>
+                <span class="count-text">Đã có {{ messageCount }} lời chúc từ bạn bè!</span>
+              </div>
+            </div>
+          </form>
+
+          <!-- Toast Message -->
+          <div class="toast-message" v-if="toastMessage.show"
+            :class="{ 'toast-success': toastMessage.type === 'success', 'toast-error': toastMessage.type === 'error' }">
+            <div class="toast-content">
+              <span class="toast-icon">{{ toastMessage.type === 'success' ? '✓' : '✕' }}</span>
+              <span class="toast-text">{{ toastMessage.text }}</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="gift-box" class="slide">
+        <div class="content">
+          <h2 class="subtitle gift-box-title">
+            Hộp mừng cưới
+          </h2>
+          <div class="gift-box-decoration">
+            <div class="decoration-line"></div>
+            <div class="decoration-diamonds">
+              <span class="decoration-diamond"></span>
+              <span class="decoration-diamond"></span>
+              <span class="decoration-diamond"></span>
+            </div>
+            <div class="decoration-line"></div>
+          </div>
+          <p class="gift-box-intro">
+            Nếu có thể, bạn hãy tới tham dự Đám cưới, chung vui và Mừng cưới trực tiếp cho chúng mình nha ^^. Cảm ơn bạn
+            rất nhiều!
+          </p>
+          <div class="gift-boxes">
+            <div class="gift-box-item groom-box" data-aos="flip-left" data-aos-duration="1000">
+              <h3 class="gift-box-item-title">Mừng cưới đến chú rể</h3>
+              <div class="qr-display-area">
+                <img :data-src="groomQRCode" alt="QR Code" class="qr-image lazy-image" loading="lazy">
+              </div>
+              <div class="bank-info">
+                <div class="bank-item">
+                  <span class="bank-label">Ngân hàng:</span>
+                  <span class="bank-value">TP Bank</span>
+                </div>
+                <div class="bank-item">
+                  <span class="bank-label">Tên:</span>
+                  <span class="bank-value">Tuấn Anh</span>
+                </div>
+                <div class="bank-item">
+                  <span class="bank-label">STK:</span>
+                  <span class="bank-value">10000557418</span>
+                </div>
+              </div>
+            </div>
+            <div class="gift-box-item bride-box" data-aos="flip-right" data-aos-duration="1000" data-aos-delay="200">
+              <h3 class="gift-box-item-title">Mừng cưới đến cô dâu</h3>
+              <div class="qr-display-area">
+                <img :data-src="brideQRCode" alt="QR Code" class="qr-image lazy-image" loading="lazy">
+              </div>
+              <div class="bank-info">
+                <div class="bank-item">
+                  <span class="bank-label">Ngân hàng:</span>
+                  <span class="bank-value">Vietinbank</span>
+                </div>
+                <div class="bank-item">
+                  <span class="bank-label">Tên:</span>
+                  <span class="bank-value">Thu Phương</span>
+                </div>
+                <div class="bank-item">
+                  <span class="bank-label">STK:</span>
+                  <span class="bank-value">104870697606</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="celebrate" class="slide">
+        <div class="content">
+          <div class="highlight">
+            <div class="highlight-text">Những khoảnh khắc đẹp đẽ được lưu giữ qua từng bức ảnh.<br></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="gallery" class="slide" aria-label="Gallery ảnh đám cưới">
+        <div class="memories" role="grid" aria-label="Bộ sưu tập ảnh">
+          <div class="memory" v-for="(img, index) in gallery" :key="img" role="gridcell" data-aos="fade-up"
+            :data-aos-delay="(index % 6) * 100">
+            <img :data-src="img" :alt="`Ảnh ${index + 1} trong gallery đám cưới`" class="lazy-image" loading="lazy"
+              @click="openLightbox(index, $event)" style="cursor: pointer;" role="button" tabindex="0"
+              :aria-label="`Xem ảnh ${index + 1}`" @keydown.enter="openLightbox(index, $event)"
+              @keydown.space.prevent="openLightbox(index, $event)">
+          </div>
+        </div>
+      </section>
+
+      <!-- Lightbox Modal -->
+      <div class="lightbox-overlay" v-if="lightboxOpen" @click="closeLightbox" role="dialog" aria-modal="true"
+        aria-label="Xem ảnh gallery">
+        <div class="lightbox-content" @click.stop>
+          <button class="lightbox-close" @click="closeLightbox" aria-label="Đóng lightbox">×</button>
+          <button class="lightbox-btn lightbox-prev" @click="lightboxPrevImage" aria-label="Ảnh trước">‹</button>
+          <img v-if="gallery && gallery[lightboxImageIndex]" :src="gallery[lightboxImageIndex]"
+            :alt="`Ảnh ${lightboxImageIndex + 1} trong ${gallery.length} ảnh`" class="lightbox-image"
+            @load="onLightboxImageLoad" @error="handleImageError" :key="'img-' + lightboxImageIndex">
+          <div v-else class="lightbox-loading" role="status" aria-live="polite">Đang tải ảnh...</div>
+          <button class="lightbox-btn lightbox-next" @click="lightboxNextImage" aria-label="Ảnh tiếp theo">›</button>
+          <div class="lightbox-counter" aria-live="polite">{{ lightboxImageIndex + 1 }} / {{ gallery.length }}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="characters">
+      <img src="images/miguel-miriam.png" alt="Tuấn Anh  Thu Phương" />
+    </div>
+
+    <footer>
+      <img src="images/footer.png" />
+    </footer>
+
+  </div>
+
+  <!-- build:js scripts/vendor.js -->
+  <!-- bower:js -->
+  <script src="/bower_components/jquery/dist/jquery.js"></script>
+  <script src="/bower_components/modernizr/modernizr.js"></script>
+  <!-- endbower -->
+  <!-- endbuild -->
+
+  <!-- Vue (CDN, Vue 2) -->
+  <script src="https://unpkg.com/vue@2.6.14/dist/vue.min.js"></script>
+
+  <!-- build:js scripts/plugins.js -->
+  <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/affix.js"></script>
+  <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/alert.js"></script>
+  <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/dropdown.js"></script>
+  <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/tooltip.js"></script>
+  <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/modal.js"></script>
+  <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/transition.js"></script>
+  <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/button.js"></script>
+  <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/popover.js"></script>
+  <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/carousel.js"></script>
+  <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/scrollspy.js"></script>
+  <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/collapse.js"></script>
+  <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/tab.js"></script>
+  <!-- endbuild -->
+
+  <!-- build:js scripts/main.js -->
+  <script src="scripts/sw-register.js"></script>
+  <script src="scripts/config.js"></script>
+  <script src="scripts/utils.js"></script>
+  <script src="scripts/countdown.js"></script>
+  <script src="scripts/music.js"></script>
+  <script src="scripts/lightbox.js"></script>
+  <script src="scripts/rsvp.js"></script>
+  <script src="scripts/messages.js"></script>
+  <script src="scripts/lazy-loading.js"></script>
+  <script src="scripts/navigation.js"></script>
+  <script src="scripts/sparkle.js"></script>
+  <script src="scripts/images-list.js"></script>
+  <script src="scripts/main.js"></script>
+  <!-- endbuild -->
+</body>
+
 </html>

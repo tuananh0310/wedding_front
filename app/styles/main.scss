@@ -4,23 +4,37 @@ $icon-font-path: '../fonts/';
 @import "bower_components/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
 // endbower
 
-@import url(https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Roboto:wght@300;400;500;700&display=swap);
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500;600&family=Gloria+Hallelujah&display=swap');
 @import "animations";
+@import "messages-ticker";
+@import "lightbox";
 
-// Color Palette - Đồng bộ màu sắc
-$primary-bg: #7ec0ee; // Background chính
-$text-dark: #2c2c2c; // Text trên nền sáng (đậm, dễ đọc)
-$text-light: #ffffff; // Text trên nền tối
-$text-secondary: #444444; // Text phụ
-$card-bg: rgba(255, 255, 255, 0.95); // Background card
-$accent-pink: #ff6f91; // Màu accent chính
-$accent-pink-light: #ffb3c6; // Màu accent nhạt
+// Color Palette - Modern & Elegant Wedding Theme
+$primary-bg: #f9f7f2; // Cream/Off-white background (thay cho blue)
+$text-dark: #2c3e50; // Charcoal Blue
+$text-light: #ffffff;
+$text-secondary: #636e72;
+$card-bg: rgba(255, 255, 255, 0.7); // Glassmorphism base
+$accent-pink: #e09f9f; // Dusty Pink
+$accent-pink-light: #f7dcd6;
+$accent-gold: #c5a059; // Gold accent
+$accent-green: #8da399; // Sage Green
+
+// Mixins
+@mixin glass-effect {
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+}
 
 body {
-  background-color: $primary-bg;
-  font-family: 'Gloria Hallelujah', 'Roboto', Arial, sans-serif;
-  font-size: 30px;
-  line-height: 36px;
+  background: linear-gradient(135deg, $primary-bg 0%, darken($primary-bg, 5%) 100%); // Subtle gradient
+  background-attachment: fixed; // Keep gradient fixed
+  font-family: 'Montserrat', 'Roboto', sans-serif;
+  font-size: 16px; // Standard web font size
+  line-height: 1.6;
   color: $text-dark;
   width: 100vw;
   overflow-x: hidden;
@@ -41,7 +55,7 @@ body {
     scroll-behavior: smooth;
   }
 
-  > div {
+  >div {
     position: relative;
     // Tạo composite layer để tận dụng GPU
     transform: translateZ(0);
@@ -81,52 +95,52 @@ body {
       }
 
       &.cloud-animation-1 {
-        animation-duration: 120s;
-        animation-delay: 10s;
+        animation-duration: 4s;
+        animation-delay: 3s;
       }
 
       &.cloud-animation-2 {
-        animation-duration: 80s;
+        animation-duration: 8s;
       }
 
       &.cloud-animation-3 {
-        animation-duration: 70s;
+        animation-duration: 7s;
         animation-delay: 2s;
       }
 
       &.cloud-animation-4 {
-        animation-duration: 60s;
-        animation-delay: 25s;
+        animation-duration: 6s;
+        animation-delay: 2s;
       }
 
       &.cloud-animation-5 {
-        animation-duration: 50s;
-        animation-delay: 30s;
+        animation-duration: 5s;
+        animation-delay: 2s;
       }
 
       &.cloud-animation-6 {
-        animation-duration: 56s;
-        animation-delay: 7s;
+        animation-duration: 6s;
+        animation-delay: 2s;
       }
 
       &.cloud-animation-7 {
-        animation-duration: 52s;
-        animation-delay: 8s;
+        animation-duration: 6s;
+        animation-delay: 2s;
       }
 
       &.cloud-animation-8 {
-        animation-duration: 48s;
+        animation-duration: 6s;
         animation-delay: 1s;
       }
 
       &.cloud-animation-9 {
-        animation-duration: 44s;
-        animation-delay: 9s;
+        animation-duration: 6s;
+        animation-delay: 2s;
       }
 
       &.cloud-animation-10 {
-        animation-duration: 40s;
-        animation-delay: 1s;
+        animation-duration: 6s;
+        animation-delay: 2s;
       }
 
       &.cloud-top {
@@ -199,7 +213,7 @@ body {
     opacity: 0;
     animation: fade-in 1s 1 ease-out;
     animation-fill-mode: forwards;
-    animation-delay: 8s;
+    animation-delay: 0.5s; // Reduced from 8s to 0.5s for better UX
   }
 
   .nav {
@@ -218,11 +232,11 @@ body {
         line-height: 12px;
 
         .dot {
-          width: 15px;
-          height: 15px;
+          width: 12px;
+          height: 12px;
           background-color: transparent;
-          border: 1px solid white;
-          border-radius: 10px;
+          border: 1px solid $accent-pink; // Visible color
+          border-radius: 50%;
           display: inline-block;
           transition: 0.25s linear;
         }
@@ -232,8 +246,10 @@ body {
       &:hover {
         a {
           background-color: transparent;
+
           .dot {
-            background-color: rgba(255, 255, 255, 0.5);
+            background-color: rgba($accent-pink, 0.5);
+            transform: scale(1.2);
             transition: 0.25s linear;
           }
         }
@@ -242,8 +258,10 @@ body {
       &.active {
         a {
           .dot {
-            background-color: white;
+            background-color: $accent-pink;
+            transform: scale(1.2);
             transition: 0.25s linear;
+            box-shadow: 0 0 10px rgba($accent-pink, 0.4);
           }
         }
       }
@@ -299,10 +317,13 @@ body {
       padding: 20px;
 
       .title {
-        color: $text-light;
-        text-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+        color: $text-dark; // Changed from light to dark for contrast on cream bg
+        text-shadow: none; // Remove heavy shadow
+        font-family: 'Playfair Display', serif;
+        font-weight: 700;
         text-align: center;
-        font-size: 75px;
+        font-size: 64px;
+        letter-spacing: -1px;
         line-height: 1.2;
         white-space: nowrap;
 
@@ -373,134 +394,59 @@ body {
 
     }
 
+    // Modern Gallery Grid
     .memories {
-      flex: 1;
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      justify-content: space-around;
-
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 24px;
       width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
       z-index: 1;
 
       @media screen and (max-width: $screen-xs-max) {
-        flex-direction: column;
-        flex-wrap: nowrap;
-        align-items: center;
-        justify-content: flex-start;
-        gap: 20px;
+        grid-template-columns: repeat(2, 1fr); // 2 columns on mobile
+        gap: 12px;
         padding: 10px;
       }
 
       .memory {
-        opacity: 0;
-        border-radius: 10px;
-        box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
-        margin-left: -1000px;
-        position: relative;
-        transform: scale(0.75);
+        border-radius: 12px;
         overflow: hidden;
-        // Tối ưu scroll và animation performance
-        will-change: transform, opacity;
-        transform: translateZ(0); // Force GPU acceleration
+        position: relative;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        background-color: white;
+
+        // Remove old hacks
+        opacity: 1;
+        margin: 0;
+        transform: none;
+
+        &:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+          z-index: 2;
+        }
 
         img {
           width: 100%;
-          height: auto;
-          max-width: 400px;
-          max-height: 400px;
+          height: 100%;
           object-fit: cover;
           display: block;
-          border-radius: 10px;
+          transition: transform 0.5s ease;
+          aspect-ratio: 1 / 1; // Square aspect ratio for uniformity
 
-          @media screen and (max-width: $screen-xs-max) {
-            max-width: 95vw !important;
-            max-height: none !important;
-            width: 95vw !important;
-            min-width: 95vw !important;
-            aspect-ratio: auto;
-            object-fit: contain;
-            display: block;
-            margin: 0 auto;
-          }
-
-          @media screen and (min-width: $screen-sm-min) and (max-width: $screen-md-max) {
-            max-width: 300px;
-            max-height: 300px;
-          }
-        }
-
-        @media screen and (max-width: $screen-xs-max) {
-          opacity: 1;
-          margin-left: 0 !important;
-          transform: none !important;
-          margin-bottom: 20px;
-          width: 100% !important;
-          max-width: 100% !important;
-          flex: 0 0 auto;
-          box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.15);
-        }
-      }
-
-      &:nth-child(1) {
-        align-items: flex-end;
-        .memory {
-          &:nth-child(1) {
-            transform: scale(0.75) rotate(7deg);
-            transition: 2s;
-
-            @media screen and (max-width: $screen-xs-max) {
-              transform: none !important;
-              margin-left: 0 !important;
-            }
-          }
-
-          &:nth-child(2) {
-            transform: scale(0.75) rotate(-5deg);
-            transition: 3s;
-
-            @media screen and (max-width: $screen-xs-max) {
-              transform: none !important;
-              margin-left: 0 !important;
-            }
-          }
-        }
-      }
-
-      &:nth-child(3) {
-        align-items: flex-start;
-        .memory {
-          &:nth-child(1) {
-            transform: scale(0.75) rotate(-6deg);
-            transition: 5s;
-
-            @media screen and (max-width: $screen-xs-max) {
-              transform: none !important;
-              margin-left: 0 !important;
-            }
-          }
-
-          &:nth-child(2) {
-            transform: scale(0.75) rotate(4deg);
-            transition: 4s;
-
-            @media screen and (max-width: $screen-xs-max) {
-              transform: none !important;
-              margin-left: 0 !important;
-            }
+          &:hover {
+            transform: scale(1.05);
           }
         }
       }
     }
 
-    &.active {
-      .memories {
-        .memory {
-          opacity: 1;
-          margin-left: 0;
-        }
-      }
-    }
+
+
 
     // Gallery section - Slideshow
     &#gallery {
@@ -788,11 +734,11 @@ footer {
   }
 
   .countdown-item {
-    background-color: $card-bg;
-    border-radius: 12px;
-    padding: 16px 20px;
-    min-width: 80px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    @include glass-effect; // Use the new glass mixin
+    border-radius: 16px;
+    padding: 20px 24px;
+    min-width: 90px;
+    // Removed old background-color and box-shadow lines as they are in mixin
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -867,10 +813,10 @@ footer {
 .greeting-card {
   margin-top: 40px;
   text-align: center;
-  background-color: $card-bg;
+  @include glass-effect; // Glassmorphism
   border-radius: 20px;
   padding: 40px 50px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  // box-shadow handled by mixin
   max-width: 650px;
   margin-left: auto;
   margin-right: auto;
@@ -1142,6 +1088,7 @@ footer {
     transform: translateX(100%);
     opacity: 0;
   }
+
   to {
     transform: translateX(0);
     opacity: 1;
@@ -1170,11 +1117,12 @@ footer {
   display: flex;
   align-items: flex-start;
   gap: 16px;
-  padding: 18px 20px;
+  padding: 18px 24px;
   margin-bottom: 16px;
-  border-radius: 14px;
-  background-color: rgba(255, 255, 255, 0.9);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  border-radius: 16px;
+  @include glass-effect;
+  // background-color: rgba(255, 255, 255, 0.9); // Handled by mixin
+  // box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12); // Handled by mixin
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 
   &:hover {
@@ -1270,9 +1218,10 @@ footer {
 }
 
 .gift-box-item {
-  background-color: $accent-pink-light;
-  border: 2px solid white;
-  border-style: double;
+  @include glass-effect;
+  background: rgba(255, 255, 255, 0.4); // More transparent
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  // border-style: double; // Removed old style
   padding: 30px;
   border-radius: 12px;
   flex: 1;
@@ -1282,7 +1231,9 @@ footer {
 }
 
 .gift-box-item-title {
-  color: white;
+  color: $accent-pink; // Changed from white to pink for visibility on glass
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
   font-size: 20px;
   font-weight: normal;
   margin: 0 0 20px 0;
@@ -1344,7 +1295,7 @@ footer {
 
 .bank-info {
   text-align: left;
-  color: white;
+  color: $text-dark; // Changed from white to dark
 }
 
 .bank-item {
@@ -1470,353 +1421,5 @@ footer {
 
   .schedule-text {
     font-size: 16px;
-  }
-}
-
-// Lightbox styles
-.lightbox-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.95);
-  z-index: 10000;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  animation: fadeIn 0.3s ease;
-  overflow: auto;
-}
-
-.lightbox-content {
-  position: relative;
-  max-width: 100vw;
-  max-height: 100vh;
-  width: 100%;
-  height: 100%;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  min-width: 300px;
-  min-height: 200px;
-  flex-direction: row;
-  padding: 20px;
-  box-sizing: border-box;
-}
-
-.lightbox-image {
-  max-width: 85vw !important;
-  max-height: 85vh !important;
-  width: auto !important;
-  height: auto !important;
-  min-width: 200px !important;
-  min-height: 200px !important;
-  object-fit: contain !important;
-  border-radius: 10px;
-  box-shadow: 0 8px 32px rgba(255, 255, 255, 0.5) !important;
-  animation: zoomIn 0.3s ease;
-  display: block !important;
-  background-color: rgba(255, 255, 255, 0.1) !important;
-  opacity: 1 !important;
-  visibility: visible !important;
-  position: relative !important;
-  z-index: 10001 !important;
-  margin: auto !important;
-  flex-shrink: 0;
-  pointer-events: auto !important;
-  image-rendering: auto !important;
-  border: 2px solid rgba(255, 255, 255, 0.2) !important;
-}
-
-.lightbox-loading {
-  color: white;
-  font-size: 18px;
-  padding: 40px;
-  text-align: center;
-  z-index: 10001;
-}
-
-.lightbox-close {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background-color: rgba(255, 255, 255, 0.9);
-  border: none;
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  font-size: 36px;
-  color: $text-dark;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-  z-index: 10001;
-  line-height: 1;
-
-  &:hover {
-    background-color: $accent-pink-light;
-    color: white;
-    transform: scale(1.1);
-  }
-}
-
-.lightbox-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: rgba(255, 255, 255, 0.9);
-  border: 2px solid #ffb3c6;
-  border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  font-size: 40px;
-  color: $accent-pink-light;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-  z-index: 10001;
-  user-select: none;
-
-  &:hover {
-    background-color: $accent-pink-light;
-    color: white;
-    transform: translateY(-50%) scale(1.1);
-  }
-
-  &.lightbox-prev {
-    left: 20px;
-  }
-
-  &.lightbox-next {
-    right: 20px;
-  }
-}
-
-.lightbox-counter {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: rgba(0, 0, 0, 0.7);
-  color: white;
-  padding: 10px 20px;
-  border-radius: 20px;
-  font-size: 18px;
-  font-weight: bold;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes zoomIn {
-  from {
-    transform: scale(0.8);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-@media screen and (max-width: $screen-xs-max) {
-  .lightbox-image {
-    max-width: 98vw !important;
-    max-height: 95vh !important;
-    min-width: 90vw !important;
-  }
-
-  .lightbox-close {
-    width: 40px;
-    height: 40px;
-    font-size: 28px;
-    top: 10px;
-    right: 10px;
-  }
-
-  .lightbox-btn {
-    width: 45px;
-    height: 45px;
-    font-size: 30px;
-
-    &.lightbox-prev {
-      left: 10px;
-    }
-
-    &.lightbox-next {
-      right: 10px;
-    }
-  }
-
-  .lightbox-counter {
-    font-size: 16px;
-    padding: 8px 16px;
-    bottom: 10px;
-  }
-}
-
-// Wedding Messages Ticker Styles
-.message-ticker {
-  position: fixed;
-  left: 0;
-  right: 0;
-  height: 50px;
-  background: linear-gradient(90deg, rgba(255, 182, 193, 0.95) 0%, rgba(255, 192, 203, 0.95) 100%);
-  backdrop-filter: blur(10px);
-  z-index: 9999;
-  overflow: hidden;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  display: flex !important;
-  align-items: center;
-
-  &.message-ticker-top {
-    top: 0;
-  }
-
-  &.message-ticker-bottom {
-    bottom: 0;
-  }
-
-  .ticker-content {
-    display: flex;
-    align-items: center;
-    white-space: nowrap;
-    animation: ticker-scroll 60s linear infinite;
-    will-change: transform;
-    min-width: 100%;
-    // Đảm bảo animation chạy ngay khi có content
-    animation-play-state: running;
-
-    &.ticker-content-reverse {
-      animation: ticker-scroll-reverse 60s linear infinite;
-      animation-play-state: running;
-    }
-
-    .ticker-item {
-      display: inline-flex;
-      align-items: center;
-      margin-right: 60px;
-      padding: 0 20px;
-      font-size: 16px;
-      color: $text-dark;
-      white-space: nowrap;
-
-      .ticker-name {
-        font-weight: bold;
-        color: $accent-pink;
-        margin-right: 8px;
-      }
-
-      .ticker-message {
-        color: $text-dark;
-      }
-    }
-  }
-}
-
-@keyframes ticker-scroll {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-@keyframes ticker-scroll-reverse {
-  from {
-    transform: translateX(-50%);
-  }
-  to {
-    transform: translateX(0);
-  }
-}
-
-// Message Count Badge
-.message-count-badge {
-  position: fixed;
-  top: 60px;
-  right: 20px;
-  z-index: 9998;
-  background: linear-gradient(135deg, #ff6f91 0%, #ffb3c6 100%);
-  color: white;
-  padding: 10px 20px;
-  border-radius: 25px;
-  box-shadow: 0 4px 15px rgba(255, 111, 145, 0.4);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 16px;
-  font-weight: bold;
-  animation: pulse 2s ease-in-out infinite;
-
-  .count-icon {
-    font-size: 20px;
-  }
-
-  .count-text {
-    white-space: nowrap;
-  }
-}
-
-@keyframes pulse {
-  0%, 100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.05);
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .message-ticker {
-    height: 40px;
-    // Đảm bảo ticker hiển thị ngay trên mobile
-    opacity: 1;
-    visibility: visible;
-
-    .ticker-content {
-      // Tối ưu animation trên mobile
-      animation-duration: 50s;
-      will-change: transform;
-      transform: translateZ(0);
-      -webkit-transform: translateZ(0);
-      
-      &.ticker-content-reverse {
-        animation-duration: 50s;
-      }
-
-      .ticker-item {
-        font-size: 14px;
-        margin-right: 40px;
-        padding: 0 15px;
-
-        .ticker-name {
-          font-size: 13px;
-        }
-      }
-    }
-  }
-
-  .message-count-badge {
-    top: 50px;
-    right: 10px;
-    padding: 8px 16px;
-    font-size: 14px;
-
-    .count-icon {
-      font-size: 18px;
-    }
   }
 }

@@ -99,38 +99,47 @@ let app = new Vue({
     }
   },
   mounted: function() {
-    document.title = 'Tuấn Anh  Thu Phương. ';
-    
+    document.title = 'Tuấn Anh  & Thu Phương';
+
     $('[data-toggle="tooltip"]').tooltip();
-    
+
     Navigation.initScrollSpy(this);
-    
+
     const sparkle = new Sparkle();
     sparkle.init('.highlight');
-    
+
     const initialHash = window.location.hash || '#start';
     Navigation.activateSlideById(this, initialHash);
     Navigation.ensureActiveSlide(this);
-    
+
     Navigation.initIntersectionObserver(this);
     Navigation.initHashNavigation(this);
     Navigation.initScrollActivation(this);
-    
+
     setTimeout(() => Navigation.ensureActiveSlide(this), 50);
-    
+
     Countdown.start(this);
-    
+
     MusicPlayer.init(this, config);
     setTimeout(() => {
       MusicPlayer.play(this, config);
     }, config.music?.autoplayDelay || 1000);
-    
+
     Utils.preloadImages(this.gallery, config);
     LazyLoading.init(this, config);
-    
+
     Messages.startAutoRefresh(this, config);
-    
+
     Lightbox.initKeyboard(this);
+
+    // Initialize AOS Animation
+    AOS.init({
+      duration: 1000,
+      once: true,
+      mirror: false,
+      offset: 50,
+      easing: 'ease-out-cubic'
+    });
   },
   beforeDestroy: function() {
     Countdown.stop(this);
