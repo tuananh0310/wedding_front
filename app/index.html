@@ -89,8 +89,16 @@
     <!-- Wedding Messages Ticker - Top -->
     <div class="message-ticker message-ticker-top" v-show="weddingMessages && weddingMessages.length > 0">
       <div class="ticker-content">
+        <!-- First copy of messages -->
         <template v-for="(msg, index) in weddingMessages">
-          <div class="ticker-item" :key="'top-' + index">
+          <div class="ticker-item" :key="'top-1-' + index">
+            <span class="ticker-name">{{ msg.name }}:</span>
+            <span class="ticker-message">{{ msg.message }}</span>
+          </div>
+        </template>
+        <!-- Second copy for seamless infinite scroll -->
+        <template v-for="(msg, index) in weddingMessages">
+          <div class="ticker-item" :key="'top-2-' + index">
             <span class="ticker-name">{{ msg.name }}:</span>
             <span class="ticker-message">{{ msg.message }}</span>
           </div>
@@ -101,8 +109,16 @@
     <!-- Wedding Messages Ticker - Bottom -->
     <div class="message-ticker message-ticker-bottom" v-show="weddingMessages && weddingMessages.length > 0">
       <div class="ticker-content ticker-content-reverse">
+        <!-- First copy of messages -->
         <template v-for="(msg, index) in weddingMessages">
-          <div class="ticker-item" :key="'bottom-' + index">
+          <div class="ticker-item" :key="'bottom-1-' + index">
+            <span class="ticker-name">{{ msg.name }}:</span>
+            <span class="ticker-message">{{ msg.message }}</span>
+          </div>
+        </template>
+        <!-- Second copy for seamless infinite scroll -->
+        <template v-for="(msg, index) in weddingMessages">
+          <div class="ticker-item" :key="'bottom-2-' + index">
             <span class="ticker-name">{{ msg.name }}:</span>
             <span class="ticker-message">{{ msg.message }}</span>
           </div>
